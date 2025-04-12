@@ -6,14 +6,6 @@ export const is = {
 	unavailable: (x: any): x is (undefined | null) =>
 		x === undefined || x === null,
 
-	/** @deprecated use `unavailable` instead */
-	void: (x: any): x is (undefined | null) =>
-		x === undefined || x === null,
-
-	/** @deprecated use `available` instead */
-	defined: <X>(x: X): x is NonNullable<X> =>
-		x !== undefined && x !== null,
-
 	boolean: (x: any): x is boolean =>
 		typeof x === "boolean",
 

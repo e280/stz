@@ -9,6 +9,3 @@ export const Txt = {
 	},
 }
 
-/** @deprecated renamed to `Txt` */
-export const Text = Txt
-

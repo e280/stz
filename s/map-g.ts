@@ -48,6 +48,3 @@ export class Pool<V extends Identifiable> extends MapG<V["id"], V> {
 	}
 }
 
-/** @deprecated renamed to `MapG`, to avoid confusion with vectors like Vec2 */
-export const Map2 = MapG
-
