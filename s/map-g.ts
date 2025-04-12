@@ -1,4 +1,5 @@
 
+/** js map, but with handy methods like `require` and `guarantee` */
 export class MapG<K, V> extends Map<K, V> {
 	static require<K, V>(map: Map<K, V>, key: K) {
 		const value = map.get(key)
@@ -33,7 +34,8 @@ export class MapG<K, V> extends Map<K, V> {
 
 export type Identifiable<Id = any> = {id: Id}
 
-export class Pool<V extends Identifiable> extends MapG<V["id"], V> {
+/** js map but for things that have an `id` field */
+export class PoolG<V extends Identifiable> extends MapG<V["id"], V> {
 	got(value: V) {
 		return this.has(value.id)
 	}
