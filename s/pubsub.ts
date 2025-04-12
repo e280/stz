@@ -3,21 +3,22 @@ import {deferPromise} from "./defer-promise.js"
 
 export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
 
-export interface Sub<A extends any[] = []> {
-	(fn: Listener<A>): () => void
+export interface Xub<A extends any[] = []> {
 	pub(...a: A): Promise<void>
-	once(): Promise<A>
-	clear(): void
-}
-
-export interface Pub<A extends any[] = []> {
-	(...a: A): Promise<void>
 	sub(fn: Listener<A>): () => void
 	once(): Promise<A>
 	clear(): void
 }
 
-function setup<A extends any[] = []>() {
+export interface Sub<A extends any[] = []> extends Xub<A> {
+	(fn: Listener<A>): () => void
+}
+
+export interface Pub<A extends any[] = []> {
+	(...a: A): Promise<void>
+}
+
+export function xub<A extends any[] = []>() {
 	const set = new Set<Listener<A>>()
 
 	function sub(fn: Listener<A>) {
@@ -29,10 +30,6 @@ function setup<A extends any[] = []>() {
 		await Promise.all([...set].map(fn => fn(...a)))
 	}
 
-	function clear() {
-		set.clear()
-	}
-
 	async function once() {
 		const {promise, resolve} = deferPromise<A>()
 		const unsubscribe = sub((...a) => {
@@ -42,24 +39,30 @@ function setup<A extends any[] = []>() {
 		return promise
 	}
 
-	sub.pub = pub
-	sub.clear = clear
-	sub.once = once
+	function clear() {
+		set.clear()
+	}
 
+	sub.pub = pub
+	sub.sub = sub
+	sub.once = once
+	sub.clear = clear
+
+	pub.pub = pub
 	pub.sub = sub
-	pub.clear = clear
 	pub.once = once
+	pub.clear = clear
 
 	return [pub, sub] as [Pub<A>, Sub<A>]
 }
 
 /** create a subscriber fn that can be published to */
 export function sub<A extends any[] = []>(): Sub<A> {
-	return setup<A>()[1]
+	return xub<A>()[1]
 }
 
 /** create a publisher fn that can be subscribed to */
 export function pub<A extends any[] = []>(): Pub<A> {
-	return setup<A>()[0]
+	return xub<A>()[0]
 }
 
