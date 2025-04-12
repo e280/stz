@@ -19,6 +19,5 @@ export * from "./nap.js"
 export * from "./ob.js"
 export * from "./pipe.js"
 export * from "./pubsub.js"
-export * from "./request-animation-frame-loop.js"
 export * from "./trash.js"
 
