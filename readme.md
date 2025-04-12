@@ -1,14 +1,13 @@
 
 # `@e280/stz`
-standard library of environment-agnostic typescript functions we use basically everywhere.
+standard library of environment-agnostic typescript functions we use basically everywhere
 
 <br/>
 
 ## the tools
 stz has many more tools than documented below, see their [sourcecode here in s/](./s/)
 
-### MapG
-- it's an extension of js Map, with two really handy new methods
+### MapG — an extension of js Map with handy methods
 - `map.require`
   ```ts
   import {MapG} from "@e280/stz"
@@ -27,7 +26,7 @@ stz has many more tools than documented below, see their [sourcecode here in s/]
   const value = map.guarantee(3, () => "rofl")
   ```
 
-### `pub` and `sub`
+### pub and sub — minimal ergonomic event system
 - make a publisher fn
   ```ts
   import {pub} from "@e280/stz"
