@@ -14,7 +14,7 @@ export interface Sub<A extends any[] = []> extends Xub<A> {
 	(fn: Listener<A>): () => void
 }
 
-export interface Pub<A extends any[] = []> {
+export interface Pub<A extends any[] = []> extends Xub<A> {
 	(...a: A): Promise<void>
 }
 
