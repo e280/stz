@@ -57,12 +57,18 @@ export function xub<A extends any[] = []>() {
 }
 
 /** create a subscriber fn that can be published to */
-export function sub<A extends any[] = []>(): Sub<A> {
-	return xub<A>()[1]
+export function sub<A extends any[] = []>(listener?: Listener<A>): Sub<A> {
+	const fn = xub<A>()[1]
+	if (listener)
+		fn.sub(listener)
+	return fn
 }
 
 /** create a publisher fn that can be subscribed to */
-export function pub<A extends any[] = []>(): Pub<A> {
-	return xub<A>()[0]
+export function pub<A extends any[] = []>(listener?: Listener<A>): Pub<A> {
+	const fn = xub<A>()[0]
+	if (listener)
+		fn.sub(listener)
+	return fn
 }
 
