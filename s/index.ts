@@ -7,6 +7,11 @@ export * from "./data/bytes.js"
 export * from "./data/hex.js"
 export * from "./data/txt.js"
 
+export * from "./debounce/debounce.js"
+export * from "./debounce/types.js"
+
+export * from "./deep/deep.js"
+
 export * from "./coalesce.js"
 export * from "./concurrent.js"
 export * from "./deadline.js"
