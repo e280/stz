@@ -1,4 +1,5 @@
 
+import {Hex} from "../hex.js"
 import {Base58} from "../base58.js"
 import {Bytename} from "./bytename.js"
 
@@ -67,6 +68,14 @@ export const Badge = {
 
 	bytes(badge: string) {
 		return Badge.parse(badge).bytes
+	},
+
+	hex(badge: string) {
+		return Hex.string(Badge.bytes(badge))
+	},
+
+	fromHex(hex: string) {
+		return Badge.string(Hex.bytes(hex))
 	},
 }
 
