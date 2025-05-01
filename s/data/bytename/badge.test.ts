@@ -4,7 +4,7 @@ import {Badge} from "./badge.js"
 import {Bytes} from "../bytes.js"
 import {Science, test, expect} from "@e280/science"
 
-const sampleBadge = "nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
+const sampleBadge = "nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
 const sampleHex = "88e8c3fad1028fcf6ce5ac491578850f4d833336feca03b608265501c3019d59"
 const sampleBytes = Hex.bytes(sampleHex)
 
@@ -32,16 +32,16 @@ export default Science.suite({
 	}),
 
 	"partially": Science.suite({
-		"normal": test(async() => expect(Badge.bytes("nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
+		"normal": test(async() => expect(Badge.bytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
 		"nothing": test(async() => expect(Badge.bytes("").length).is(0)),
 		"no-rest": test(async() => expect(Badge.bytes("nodlyn.fasrep").length).ok()),
 		"one-byte": test(async() => expect(Badge.bytes("nod").length).is(1)),
 		"three-byte": test(async() => expect(Badge.bytes("nodlynfas").length).is(3)),
-		"one-byte-lead": test(async() => expect(Badge.bytes("nod:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
+		"one-byte-lead": test(async() => expect(Badge.bytes("nod::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
 	}),
 
 	"tolerance": Science.suite({
-		"normal": test(async() => good(Badge.bytes("nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"normal": test(async() => good(Badge.bytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
 		"coolio": test(async() => good(Badge.bytes("nodlyn.fasrep..39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
 		"spaces": test(async() => good(Badge.bytes("nodlyn fasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
 		"dots": test(async() => good(Badge.bytes("nodlyn.fasrep.39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),

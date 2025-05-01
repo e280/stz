@@ -12,7 +12,7 @@
 	],
 	"scripts": {
 		"build": "run-s _clean _links _tsc",
-		"test": "node x/tests.test.js --verbose",
+		"test": "node x/tests.test.js",
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +",
 		"start": "run-p _tscw _testw",
 		"_clean": "rm -rf x && mkdir x",
