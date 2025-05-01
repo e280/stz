@@ -12,7 +12,7 @@ function good(bytes: Uint8Array) {
 	expect(Bytes.eq(bytes, sampleBytes)).ok()
 }
 
-export const badgeSuite = Science.suite({
+export default Science.suite({
 	"bytes->string->bytes": test(async() => {
 		const text = Badge.string(sampleBytes)
 		expect(text).is(sampleBadge)

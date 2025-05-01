@@ -9,7 +9,7 @@ function good(bytes: Uint8Array) {
 	expect(Bytes.eq(bytes, deadbeef)).ok()
 }
 
-export const bytenameSuite = Science.suite({
+export default Science.suite({
 	"bytes->string->bytes": test(async() => {
 		const text = Bytename.string(deadbeef)
 		expect(text).is("ribmug.hilmun")
