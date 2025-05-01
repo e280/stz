@@ -42,6 +42,7 @@ export default Science.suite({
 
 	"tolerance": Science.suite({
 		"normal": test(async() => good(Badge.bytes("nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"coolio": test(async() => good(Badge.bytes("nodlyn.fasrep..39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
 		"spaces": test(async() => good(Badge.bytes("nodlyn fasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
 		"dots": test(async() => good(Badge.bytes("nodlyn.fasrep.39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
 		"one-space": test(async() => good(Badge.bytes("nodlynfasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
