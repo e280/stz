@@ -74,8 +74,8 @@ export const Badge = {
 		return Hex.string(Badge.bytes(badge))
 	},
 
-	fromHex(hex: string) {
-		return Badge.string(Hex.bytes(hex))
+	fromHex(hex: string, options?: Partial<BadgeOptions>) {
+		return Badge.string(Hex.bytes(hex), options)
 	},
 }
 

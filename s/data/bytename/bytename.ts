@@ -1,4 +1,5 @@
 
+import {Hex} from "../hex.js"
 import {Bytes} from "../bytes.js"
 import {prefixes} from "./utils/prefixes.js"
 import {suffixes} from "./utils/suffixes.js"
@@ -16,7 +17,7 @@ export const Bytename = {
 		groupSeparator: " ",
 	}),
 
-	random(byteCount: number, options: Partial<BytenameOptions> = {}) {
+	random(byteCount: number, options?: Partial<BytenameOptions>) {
 		return this.string(Bytes.random(byteCount), options)
 	},
 
@@ -49,8 +50,8 @@ export const Bytename = {
 		return grouped.join(groupSeparator)
 	},
 
-	bytes(string: string) {
-		const letters = string
+	bytes(bytename: string) {
+		const letters = bytename
 			.toLowerCase()
 			.replace(/[^a-z]/g, "") // strip everything except letters
 
@@ -69,6 +70,14 @@ export const Bytename = {
 				throw new Error(`unknown triplet ${triplet}`)
 			return number
 		}))
+	},
+
+	hex(bytename: string) {
+		return Hex.string(Bytename.bytes(bytename))
+	},
+
+	fromHex(hex: string, options?: Partial<BytenameOptions>) {
+		return Bytename.string(Hex.bytes(hex), options)
 	},
 }
 
