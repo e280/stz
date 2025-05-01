@@ -17,18 +17,17 @@ export type ParsedBadge = {
 
 /**
  * Badge is a human-friendly presentation format for arbitrary binary data.
- *  - looks like "nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
+ *  - looks like "nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
  *  - the first lead bytes are shown in bytename format
  *  - the rest of the data is in base58
  *  - designed to be a nice way to present 256-bit passport thumbprints
  *  - can actually represent any number of bytes
- *  - "nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
  */
 export const Badge = {
 	defaults: (<BadgeOptions>{
 		leadBytes: 4,
 		leadSeparator: ".",
-		restSeparator: ":",
+		restSeparator: "::",
 	}),
 
 	string(bytes: Uint8Array, options: Partial<BadgeOptions> = {}) {

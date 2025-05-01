@@ -10,6 +10,14 @@ export type BytenameOptions = {
 	groupSeparator: string
 }
 
+/**
+ * Bytename is a human-friendly presentation format for arbitrary binary data.
+ *  - looks like "midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"
+ *  - each byte maps to a three-letter triplet
+ *  - six-letter words are separated by a delimiter
+ *  - four-word groups are separated by a delimiter
+ *  - all delimiters are just sugar, parser doesn't care
+ */
 export const Bytename = {
 	defaults: (<BytenameOptions>{
 		groupSize: 4,
