@@ -12,7 +12,7 @@ function good(bytes: Uint8Array) {
 export const bytenameSuite = Science.suite({
 	"bytes->string->bytes": test(async() => {
 		const text = Bytename.string(deadbeef)
-		expect(text).is("ribmug_hilmun")
+		expect(text).is("ribmug.hilmun")
 		good(Bytename.bytes(text))
 	}),
 

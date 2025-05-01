@@ -12,7 +12,7 @@ export type BytenameOptions = {
 export const Bytename = {
 	defaults: (<BytenameOptions>{
 		groupSize: 4,
-		wordSeparator: "_",
+		wordSeparator: ".",
 		groupSeparator: " ",
 	}),
 
