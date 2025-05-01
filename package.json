@@ -19,7 +19,7 @@
 		"_links": "ln -s \"$(realpath node_modules)\" x/node_modules",
 		"_tsc": "tsc",
 		"_tscw": "tsc -w",
-		"_testw": "node --watch x/tests.test.js --verbose"
+		"_testw": "node --watch x/tests.test.js"
 	},
 	"devDependencies": {
 		"@e280/science": "^0.0.4",
