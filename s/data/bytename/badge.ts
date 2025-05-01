@@ -1,6 +1,6 @@
 
 import {Base58} from "../base58.js"
-import {Barname} from "./barname.js"
+import {Bytename} from "./bytename.js"
 
 export type BadgeOptions = {
 	leadBytes: number
@@ -17,7 +17,7 @@ export type ParsedBadge = {
 /**
  * Badge is a human-friendly presentation format for arbitrary binary data.
  *  - looks like "nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
- *  - the first lead bytes are shown in barname format
+ *  - the first lead bytes are shown in bytename format
  *  - the rest of the data is in base58
  *  - designed to be a nice way to present 256-bit passport thumbprints
  *  - can actually represent any number of bytes
@@ -34,7 +34,7 @@ export const Badge = {
 		const {leadBytes, leadSeparator, restSeparator}
 			= {...Badge.defaults, ...options}
 
-		const appetizer = Barname.string(bytes.slice(0, leadBytes), {
+		const appetizer = Bytename.string(bytes.slice(0, leadBytes), {
 			wordSeparator: leadSeparator,
 			groupSeparator: leadSeparator,
 		})
@@ -52,14 +52,14 @@ export const Badge = {
 
 		if (parts.length < 2) {
 			const lead = parts.join(".")
-			const bytes = Barname.bytes(lead)
+			const bytes = Bytename.bytes(lead)
 			return {lead, rest: "", bytes}
 		}
 
 		const rest = parts.pop()!
 		const lead = parts.join(".")
 		const bytes = new Uint8Array([
-			...Barname.bytes(lead),
+			...Bytename.bytes(lead),
 			...Base58.bytes(rest),
 		])
 		return {lead, rest, bytes}
