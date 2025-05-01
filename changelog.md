@@ -9,6 +9,9 @@
 
 ## v0.0
 
+### v0.0.0-6
+- 🟥 totally rework Badge and Barname
+
 ### v0.0.0-0
 - 🍏 first release
 

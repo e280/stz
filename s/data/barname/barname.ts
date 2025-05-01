@@ -3,17 +3,29 @@ import {Bytes} from "../bytes.js"
 import {prefixes} from "./utils/prefixes.js"
 import {suffixes} from "./utils/suffixes.js"
 
-const wordSeparator = "_"
-const groupSeparator = " "
-const defaultWordsPerGroup = 4
+export type BarnameOptions = {
+	groupSize: number
+	wordSeparator: string
+	groupSeparator: string
+}
 
 export const Barname = {
-	random(byteCount: number) {
-		return this.string(Bytes.random(byteCount))
+	defaults: (<BarnameOptions>{
+		groupSize: 4,
+		wordSeparator: "_",
+		groupSeparator: " ",
+	}),
+
+	random(byteCount: number, options: Partial<BarnameOptions> = {}) {
+		return this.string(Bytes.random(byteCount), options)
 	},
 
-	string(bytes: Uint8Array, options?: {wordsPerGroup?: number}) {
-		const groupSize = options?.wordsPerGroup ?? defaultWordsPerGroup
+	string(bytes: Uint8Array, options: Partial<BarnameOptions> = {}) {
+		const {
+			groupSize = Barname.defaults.groupSize,
+			wordSeparator = Barname.defaults.wordSeparator,
+			groupSeparator = Barname.defaults.groupSeparator,
+		} = options
 
 		const words: string[] = []
 		let currentWord: string[] = []

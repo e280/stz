@@ -1,78 +1,72 @@
 
-import {Hex} from "../hex.js"
 import {Base58} from "../base58.js"
 import {Barname} from "./barname.js"
 
+export type BadgeOptions = {
+	leadBytes: number
+	leadSeparator: string
+	restSeparator: string
+}
+
+export type ParsedBadge = {
+	lead: string
+	rest: string
+	bytes: Uint8Array
+}
+
 /**
  * Badge is a human-friendly presentation format for arbitrary binary data.
- *  - looks like "nomluc_rigpem.tg2bjNkjMh1H6M2b2EhD5V4x6XAqx9wyWddsBt"
- *  - the first bytes are shown in barname format
+ *  - looks like "nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
+ *  - the first lead bytes are shown in barname format
  *  - the rest of the data is in base58
  *  - designed to be a nice way to present 256-bit passport thumbprints
- *  - can be used for data of different lengths
- *  - preview size can be customized as 'leadCount', which defaults to 4
+ *  - can actually represent any number of bytes
+ *  - "nodlyn.fasrep:39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
  */
-export class Badge {
-	static readonly separator = "."
-	static readonly defaultLeadCount = 4
+export const Badge = {
+	defaults: (<BadgeOptions>{
+		leadBytes: 4,
+		leadSeparator: ".",
+		restSeparator: ":",
+	}),
 
-	readonly hex: string
-	readonly string: string
-	readonly preview: string
+	string(bytes: Uint8Array, options: Partial<BadgeOptions> = {}) {
+		const {leadBytes, leadSeparator, restSeparator}
+			= {...Badge.defaults, ...options}
 
-	constructor(
-			public readonly bytes: Uint8Array,
-			public readonly leadCount = Badge.defaultLeadCount,
-		) {
+		const appetizer = Barname.string(bytes.slice(0, leadBytes), {
+			wordSeparator: leadSeparator,
+			groupSeparator: leadSeparator,
+		})
 
-		if (leadCount < 1)
-			throw new Error(`badge leadCount must be greater than 0 (was ${leadCount})`)
+		return (bytes.length > leadBytes)
+			? `${appetizer}${restSeparator}${Base58.string(bytes.slice(leadBytes))}`
+			: appetizer
+	},
 
-		this.hex = Hex.string(this.bytes)
-		this.preview = Barname.string(this.bytes.slice(0, leadCount))
+	parse(badge: string): ParsedBadge {
+		badge = badge.trim()
+		const parts = badge.split(/[^a-zA-Z0-9]+/m)
+			.filter(Boolean)
+			.map(s => s.trim())
 
-		this.string = (bytes.length > leadCount)
-			? `${this.preview}.${Base58.string(this.bytes.slice(leadCount))}`
-			: this.preview
-	}
-
-	static parse(badge: string) {
-		const [barname, b58] = badge.split(Badge.separator)
-
-		// badge has a base58 component
-		if (b58) {
-			const appetizer = Barname.bytes(barname)
-			const entree = Base58.bytes(b58)
-			const bytes = new Uint8Array([...appetizer, ...entree])
-			return new this(bytes, appetizer.length)
+		if (parts.length < 2) {
+			const lead = parts.join(".")
+			const bytes = Barname.bytes(lead)
+			return {lead, rest: "", bytes}
 		}
 
-		// badge is just a barname (no base58 part)
-		else {
-			const bytes = Barname.bytes(barname)
-			return new this(bytes, bytes.length)
-		}
-	}
+		const rest = parts.pop()!
+		const lead = parts.join(".")
+		const bytes = new Uint8Array([
+			...Barname.bytes(lead),
+			...Base58.bytes(rest),
+		])
+		return {lead, rest, bytes}
+	},
 
-	static fromHex(hex: string, leadCount = this.defaultLeadCount) {
-		const bytes = Hex.bytes(hex)
-		return new this(bytes, leadCount)
-	}
-
-	static string(bytes: Uint8Array, leadCount = this.defaultLeadCount) {
-		return new this(bytes, leadCount).string
-	}
-
-	static bytes(badge: string) {
-		return this.parse(badge)
-	}
-
-	static hex(badge: string) {
-		return this.parse(badge).hex
-	}
-
-	toString() {
-		return this.string
-	}
+	bytes(badge: string) {
+		return Badge.parse(badge).bytes
+	},
 }
 
