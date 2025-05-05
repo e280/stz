@@ -6,6 +6,7 @@ export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
 export interface Xub<A extends any[] = []> {
 	pub(...a: A): Promise<void>
 	sub(fn: Listener<A>): () => void
+	on(fn: Listener<A>): () => void
 	once(): Promise<A>
 	clear(): void
 }
@@ -45,11 +46,13 @@ export function xub<A extends any[] = []>() {
 
 	sub.pub = pub
 	sub.sub = sub
+	sub.on = sub
 	sub.once = once
 	sub.clear = clear
 
 	pub.pub = pub
 	pub.sub = sub
+	pub.on = sub
 	pub.once = once
 	pub.clear = clear
 
