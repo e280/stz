@@ -2,6 +2,8 @@
 # `@e280/stz`
 standard library of environment-agnostic typescript functions we use basically everywhere
 
+- zero dependencies
+
 <br/>
 
 ## the tools
