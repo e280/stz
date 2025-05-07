@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-12
+- 🟥 rename `Badge` to `Thumbprint`, rename the options
+
 ### v0.0.0-6
 - 🟥 totally rework Bytename and Badge
   - bytename now defaults to wordSeparator "."

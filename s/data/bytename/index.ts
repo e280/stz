@@ -1,4 +1,4 @@
 
 export * from "./bytename.js"
-export * from "./badge.js"
+export * from "./thumbprint.js"
 
