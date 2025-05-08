@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-13
+- 🟥 rework `Thumbprint` fn names, expose more functionality
+
 ### v0.0.0-12
 - 🟥 rename `Badge` to `Thumbprint`, rename the options
 

@@ -14,40 +14,40 @@ function good(bytes: Uint8Array) {
 
 export default Science.suite({
 	"bytes->string->bytes": test(async() => {
-		const text = Thumbprint.string(sampleBytes)
+		const text = Thumbprint.fromBytes(sampleBytes)
 		expect(text).is(sampleThumbprint)
-		good(Thumbprint.bytes(text))
+		good(Thumbprint.toBytes(text))
 	}),
 
 	"zero bytes": test(async() => {
-		const text = Thumbprint.string(new Uint8Array([]))
+		const text = Thumbprint.fromBytes(new Uint8Array([]))
 		expect(text).is("")
-		expect(Bytes.eq(Thumbprint.bytes(text), new Uint8Array([]))).ok()
+		expect(Bytes.eq(Thumbprint.toBytes(text), new Uint8Array([]))).ok()
 	}),
 
 	"one byte": test(async() => {
-		const text = Thumbprint.string(new Uint8Array([0x00]))
+		const text = Thumbprint.fromBytes(new Uint8Array([0x00]))
 		expect(text).is("doz")
-		expect(Bytes.eq(Thumbprint.bytes(text), new Uint8Array([0x00]))).ok()
+		expect(Bytes.eq(Thumbprint.toBytes(text), new Uint8Array([0x00]))).ok()
 	}),
 
 	"partially": Science.suite({
-		"normal": test(async() => expect(Thumbprint.bytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
-		"nothing": test(async() => expect(Thumbprint.bytes("").length).is(0)),
-		"no-bulk": test(async() => expect(Thumbprint.bytes("nodlyn.fasrep").length).ok()),
-		"one-byte": test(async() => expect(Thumbprint.bytes("nod").length).is(1)),
-		"three-byte": test(async() => expect(Thumbprint.bytes("nodlynfas").length).is(3)),
-		"one-byte-sigil": test(async() => expect(Thumbprint.bytes("nod::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
+		"normal": test(async() => expect(Thumbprint.toBytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
+		"nothing": test(async() => expect(Thumbprint.toBytes("").length).is(0)),
+		"no-bulk": test(async() => expect(Thumbprint.toBytes("nodlyn.fasrep").length).ok()),
+		"one-byte": test(async() => expect(Thumbprint.toBytes("nod").length).is(1)),
+		"three-byte": test(async() => expect(Thumbprint.toBytes("nodlynfas").length).is(3)),
+		"one-byte-sigil": test(async() => expect(Thumbprint.toBytes("nod::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
 	}),
 
 	"tolerance": Science.suite({
-		"normal": test(async() => good(Thumbprint.bytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
-		"coolio": test(async() => good(Thumbprint.bytes("nodlyn.fasrep..39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
-		"spaces": test(async() => good(Thumbprint.bytes("nodlyn fasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
-		"dots": test(async() => good(Thumbprint.bytes("nodlyn.fasrep.39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
-		"one-space": test(async() => good(Thumbprint.bytes("nodlynfasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
-		"one-newline": test(async() => good(Thumbprint.bytes("nodlynfasrep\n39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
-		"whitespace": test(async() => good(Thumbprint.bytes("\t\n nodlyn\n fasrep \n\n\t\n 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k\n\t"))),
+		"normal": test(async() => good(Thumbprint.toBytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"coolio": test(async() => good(Thumbprint.toBytes("nodlyn.fasrep..39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"spaces": test(async() => good(Thumbprint.toBytes("nodlyn fasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"dots": test(async() => good(Thumbprint.toBytes("nodlyn.fasrep.39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"one-space": test(async() => good(Thumbprint.toBytes("nodlynfasrep 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"one-newline": test(async() => good(Thumbprint.toBytes("nodlynfasrep\n39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"))),
+		"whitespace": test(async() => good(Thumbprint.toBytes("\t\n nodlyn\n fasrep \n\n\t\n 39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k\n\t"))),
 	}),
 })
 
