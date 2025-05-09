@@ -4,7 +4,7 @@ import {Hex} from "../hex.js"
 import {Bytes} from "../bytes.js"
 import {Thumbprint} from "./thumbprint.js"
 
-const sampleThumbprint = "nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
+const sampleThumbprint = "nodlyn.fasrep.habbud.ralwel::Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
 const sampleHex = "88e8c3fad1028fcf6ce5ac491578850f4d833336feca03b608265501c3019d59"
 const sampleBytes = Hex.bytes(sampleHex)
 
@@ -32,7 +32,7 @@ export default Science.suite({
 	}),
 
 	"partially": Science.suite({
-		"normal": test(async() => expect(Thumbprint.toBytes("nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k").length).ok()),
+		"normal": test(async() => expect(Thumbprint.toBytes(sampleThumbprint).length).ok()),
 		"nothing": test(async() => expect(Thumbprint.toBytes("").length).is(0)),
 		"no-bulk": test(async() => expect(Thumbprint.toBytes("nodlyn.fasrep").length).ok()),
 		"one-byte": test(async() => expect(Thumbprint.toBytes("nod").length).is(1)),

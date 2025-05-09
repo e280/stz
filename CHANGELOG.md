@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-16
+- 🟥 adjust `Thumbprint` to use 8-byte sigils by default
+
 ### v0.0.0-15
 - 🔶 Bytename deprecations
   - `.string` renamed to `.fromBytes`

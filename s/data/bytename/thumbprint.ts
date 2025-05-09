@@ -18,7 +18,7 @@ export type ThumbprintData = {
 
 /**
  * Thumbprint is a friendly presentation format for arbitrary binary data.
- *  - looks like "nodlyn.fasrep::39gfeGFAAnBzH5pkT7EdoETMUMAekG9h1iymk6k"
+ *  - looks like "nodlyn.fasrep.habbud.ralwel::Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
  *  - the "sigil" is the first bytes that are shown in bytename format
  *  - the "bulk" is the rest of the data in base58
  *  - originally designed to be a nice way to present 256-bit ids
@@ -28,7 +28,7 @@ export const Thumbprint = {
 	defaults: (<ThumbprintOptions>{
 		delimiter: "::",
 		sigilDelimiter: ".",
-		sigilByteCount: 4,
+		sigilByteCount: 8,
 	}),
 
 	parse(thumbprint: string): ThumbprintData {
