@@ -39,14 +39,14 @@ export const Thumbprint = {
 
 		if (parts.length < 2) {
 			const sigil = parts.join(".")
-			const bytes = Bytename.bytes(sigil)
+			const bytes = Bytename.toBytes(sigil)
 			return {bytes, sigil, bulk: "", thumbprint}
 		}
 
 		const bulk = parts.pop()!
 		const sigil = parts.join(".")
 		const bytes = new Uint8Array([
-			...Bytename.bytes(sigil),
+			...Bytename.toBytes(sigil),
 			...Base58.bytes(bulk),
 		])
 
@@ -59,7 +59,7 @@ export const Thumbprint = {
 				= {...Thumbprint.defaults, ...options}
 
 			const sigil = (bytes.length > 0)
-				? Bytename.string(bytes.slice(0, sigilByteCount), {
+				? Bytename.fromBytes(bytes.slice(0, sigilByteCount), {
 					wordSeparator: sigilDelimiter,
 					groupSeparator: sigilDelimiter,
 				})
