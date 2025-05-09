@@ -99,8 +99,13 @@ export const Thumbprint = {
 		return Thumbprint.fromBytes(Hex.bytes(hex), options)
 	},
 
-	hexsigil(hex: string, options?: Partial<ThumbprintOptions>) {
-		return Thumbprint.build.fromHex(hex, options).sigil
+	sigil: {
+		fromHex(hex: string, options?: Partial<ThumbprintOptions>) {
+			return Thumbprint.build.fromHex(hex, options).sigil
+		},
+		fromBytes(bytes: Uint8Array, options?: Partial<ThumbprintOptions>) {
+			return Thumbprint.build.fromBytes(bytes, options).sigil
+		},
 	},
 }
 

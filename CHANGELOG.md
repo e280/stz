@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-14
+- 🟥 replace `Thumbprint.hexsigil` with `Thumbprint.sigil.fromHex`
+
 ### v0.0.0-13
 - 🟥 rework `Thumbprint` fn names, expose more functionality
 
