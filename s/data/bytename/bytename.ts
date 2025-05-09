@@ -11,11 +11,9 @@ export type BytenameOptions = {
 }
 
 /**
- * Bytename is a human-friendly presentation format for arbitrary binary data.
+ * Bytename is a friendly presentation format for arbitrary binary data.
  *  - looks like "midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"
  *  - each byte maps to a three-letter triplet
- *  - six-letter words are separated by a delimiter
- *  - four-word groups are separated by a delimiter
  *  - all delimiters are just sugar, parser doesn't care
  */
 export const Bytename = {
@@ -26,10 +24,11 @@ export const Bytename = {
 	}),
 
 	random(byteCount: number, options?: Partial<BytenameOptions>) {
-		return this.string(Bytes.random(byteCount), options)
+		const bytes = Bytes.random(byteCount)
+		return this.fromBytes(bytes, options)
 	},
 
-	string(bytes: Uint8Array, options: Partial<BytenameOptions> = {}) {
+	fromBytes(bytes: Uint8Array, options: Partial<BytenameOptions> = {}) {
 		const {
 			groupSize = Bytename.defaults.groupSize,
 			wordSeparator = Bytename.defaults.wordSeparator,
@@ -58,7 +57,7 @@ export const Bytename = {
 		return grouped.join(groupSeparator)
 	},
 
-	bytes(bytename: string) {
+	toBytes(bytename: string) {
 		const letters = bytename
 			.toLowerCase()
 			.replace(/[^a-z]/g, "") // strip everything except letters
@@ -80,12 +79,21 @@ export const Bytename = {
 		}))
 	},
 
-	hex(bytename: string) {
-		return Hex.string(Bytename.bytes(bytename))
+	toHex(bytename: string) {
+		return Hex.string(Bytename.toBytes(bytename))
 	},
 
 	fromHex(hex: string, options?: Partial<BytenameOptions>) {
-		return Bytename.string(Hex.bytes(hex), options)
+		return Bytename.fromBytes(Hex.bytes(hex), options)
 	},
+
+	/** @deprecated renamed to `fromBytes` */
+	string(bytes: Uint8Array, options: Partial<BytenameOptions> = {}) { return Bytename.fromBytes(bytes, options) },
+
+	/** @deprecated renamed to `toBytes` */
+	bytes(bytename: string) { return Bytename.toBytes(bytename) },
+
+	/** @deprecated renamed to `toHex` */
+	hex(bytename: string) { return Bytename.toHex(bytename) },
 }
 

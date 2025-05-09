@@ -11,24 +11,24 @@ function good(bytes: Uint8Array) {
 
 export default Science.suite({
 	"bytes->string->bytes": test(async() => {
-		const text = Bytename.string(deadbeef)
+		const text = Bytename.fromBytes(deadbeef)
 		expect(text).is("ribmug.hilmun")
-		good(Bytename.bytes(text))
+		good(Bytename.toBytes(text))
 	}),
 
 	"zero bytes": test(async() => {
-		const text = Bytename.string(new Uint8Array([]))
+		const text = Bytename.fromBytes(new Uint8Array([]))
 		expect(text).is("")
 	}),
 
 	"one byte": test(async() => {
-		const text = Bytename.string(new Uint8Array([0x00]))
+		const text = Bytename.fromBytes(new Uint8Array([0x00]))
 		expect(text).is("doz")
 	}),
 
 	"groupings": test(async() => {
 		const bytes = new Uint8Array([...deadbeef, ...deadbeef])
-		const text = Bytename.string(bytes, {
+		const text = Bytename.fromBytes(bytes, {
 			groupSize: 2,
 			groupSeparator: " ",
 			wordSeparator: ".",
@@ -37,13 +37,13 @@ export default Science.suite({
 	}),
 
 	"wordsep": Science.suite({
-		"underscore": test(async() => good(Bytename.bytes("ribmug_hilmun"))),
-		"uppercase": test(async() => good(Bytename.bytes("RIBMUG_HILMUN"))),
-		"dots": test(async() => good(Bytename.bytes("ribmug.hilmun"))),
-		"crushed": test(async() => good(Bytename.bytes("ribmughilmun"))),
-		"space": test(async() => good(Bytename.bytes("ribmug hilmun"))),
-		"spaces": test(async() => good(Bytename.bytes("ribmug  hilmun"))),
-		"whitespace": test(async() => good(Bytename.bytes("\n ribmug \n \t \n hilmun \n"))),
+		"underscore": test(async() => good(Bytename.toBytes("ribmug_hilmun"))),
+		"uppercase": test(async() => good(Bytename.toBytes("RIBMUG_HILMUN"))),
+		"dots": test(async() => good(Bytename.toBytes("ribmug.hilmun"))),
+		"crushed": test(async() => good(Bytename.toBytes("ribmughilmun"))),
+		"space": test(async() => good(Bytename.toBytes("ribmug hilmun"))),
+		"spaces": test(async() => good(Bytename.toBytes("ribmug  hilmun"))),
+		"whitespace": test(async() => good(Bytename.toBytes("\n ribmug \n \t \n hilmun \n"))),
 	}),
 })
 

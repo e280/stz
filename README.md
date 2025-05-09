@@ -1,15 +1,12 @@
 
 # `@e280/stz`
 standard library of environment-agnostic typescript functions we use basically everywhere
-
 - zero dependencies
 
 <br/>
 
-## the tools
-stz has many more tools than documented below, see their [sourcecode here in s/](./s/)
-
-### MapG — an extension of js Map with handy methods
+## MapG
+### extended js map
 - `map.require`
   ```ts
   import {MapG} from "@e280/stz"
@@ -28,7 +25,10 @@ stz has many more tools than documented below, see their [sourcecode here in s/]
   const value = map.guarantee(3, () => "rofl")
   ```
 
-### pub and sub — minimal ergonomic event system
+<br/>
+
+## pub and sub
+### ergonomic event emitters
 - make a publisher fn
   ```ts
   import {pub} from "@e280/stz"
@@ -81,7 +81,41 @@ stz has many more tools than documented below, see their [sourcecode here in s/]
 
 <br/>
 
-## 💖 made with open source love
+## Bytename
+### friendly string encoding for binary data
+
+a bytename looks like `"midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"`. that's 16 bytes. each byte maps to a three-letter triplet
+
+the bytename parser (`Bytename.toBytes`) ignores all non-alphabetic characters. thus `midsen.picmyn`, `midsenpicmyn`, and `mid@sen$pic@myn` are all equal.
+
+```ts
+import {Bytename} from "@e280/stz"
+```
+- ```ts
+  Bytename.fromBytes(new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
+    // "ribmug.hilmun"
+  ```
+- ```ts
+  Bytename.toBytes("ribmug.hilmun")
+    // Uint8Array, 4 bytes
+  ```
+- ```ts
+  const bytes = new Uint8Array([
+    0xDE, 0xAD, 0xBE, 0xEF,
+    0xDE, 0xAD, 0xBE, 0xEF,
+  ])
+
+	Bytename.fromBytes(bytes, {
+		groupSize: 2, // default is 4
+		groupSeparator: " ",
+		wordSeparator: ".",
+	})
+	  // "ribmug.hilmun ribmug.hilmun"
+  ```
+
+<br/>
+
+## 💖 stz is made with open source love
 reward us with github stars  
 build with us at https://e280.org/ but only if you're cool  
 

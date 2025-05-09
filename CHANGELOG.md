@@ -8,6 +8,12 @@
 
 ## v0.0
 
+### v0.0.0-15
+- 🔶 Bytename deprecations
+  - `.string` renamed to `.fromBytes`
+  - `.bytes` renamed to `.toBytes`
+  - `.hex` renamed to `.fromHex`
+
 ### v0.0.0-14
 - 🟥 replace `Thumbprint.hexsigil` with `Thumbprint.sigil.fromHex`
 
