@@ -5,7 +5,7 @@ export class MapG<K, V> extends Map<K, V> {
 		const value = map.get(key)
 		if (value === undefined)
 			throw new Error(`required key not found: "${key}"`)
-		return value
+		return value as V
 	}
 
 	static guarantee<K, V>(map: Map<K, V>, key: K, make: () => V) {
