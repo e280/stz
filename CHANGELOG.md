@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-17
+- 🟥 adjust `Thumbprint` to use 6-byte sigils by default, hah
+
 ### v0.0.0-16
 - 🟥 adjust `Thumbprint` to use 8-byte sigils by default
 

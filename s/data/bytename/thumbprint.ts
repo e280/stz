@@ -28,7 +28,7 @@ export const Thumbprint = {
 	defaults: (<ThumbprintOptions>{
 		delimiter: "::",
 		sigilDelimiter: ".",
-		sigilByteCount: 8,
+		sigilByteCount: 6,
 	}),
 
 	parse(thumbprint: string): ThumbprintData {
