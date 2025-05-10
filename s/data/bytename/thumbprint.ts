@@ -5,20 +5,21 @@ import {Bytename} from "./bytename.js"
 
 export type ThumbprintOptions = {
 	delimiter: string
-	sigilDelimiter: string
-	sigilByteCount: number
+	sigilBytes: number
+	previewBytes: number
 }
 
 export type ThumbprintData = {
 	bytes: Uint8Array
-	sigil: string
-	bulk: string
 	thumbprint: string
+	preview: string
+	bulk: string
+	sigil: string
 }
 
 /**
  * Thumbprint is a friendly presentation format for arbitrary binary data.
- *  - looks like "nodlyn.fasrep.habbud.ralwel::Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
+ *  - looks like "nodlyn.fasrep.habbud.ralwel.Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
  *  - the "sigil" is the first bytes that are shown in bytename format
  *  - the "bulk" is the rest of the data in base58
  *  - originally designed to be a nice way to present 256-bit ids
@@ -26,64 +27,64 @@ export type ThumbprintData = {
  */
 export const Thumbprint = {
 	defaults: (<ThumbprintOptions>{
-		delimiter: "::",
-		sigilDelimiter: ".",
-		sigilByteCount: 6,
+		delimiter: ".",
+		sigilBytes: 4,
+		previewBytes: 8,
 	}),
 
-	parse(thumbprint: string): ThumbprintData {
+	toBytes(thumbprint: string) {
 		thumbprint = thumbprint.trim()
-		const parts = thumbprint.split(/[^a-zA-Z0-9]+/m)
+		const beans = thumbprint.split(/[^a-zA-Z0-9]+/m)
 			.filter(Boolean)
 			.map(s => s.trim())
 
-		if (parts.length < 2) {
-			const sigil = parts.join(".")
-			const bytes = Bytename.toBytes(sigil)
-			return {bytes, sigil, bulk: "", thumbprint}
-		}
+		if (beans.length < 2)
+			return Bytename.toBytes(beans.join(""))
 
-		const bulk = parts.pop()!
-		const sigil = parts.join(".")
-		const bytes = new Uint8Array([
-			...Bytename.toBytes(sigil),
+		const bulk = beans.pop()!
+		const preview = beans.join("")
+
+		return new Uint8Array([
+			...Bytename.toBytes(preview),
 			...Base58.bytes(bulk),
 		])
+	},
 
-		return {bytes, sigil, bulk, thumbprint}
+	parse(thumbprint: string, options?: Partial<ThumbprintOptions>): ThumbprintData {
+		const bytes = Thumbprint.toBytes(thumbprint)
+		return Thumbprint.build.fromBytes(bytes, options)
 	},
 
 	build: {
 		fromBytes(bytes: Uint8Array, options: Partial<ThumbprintOptions> = {}): ThumbprintData {
-			const {sigilByteCount, sigilDelimiter, delimiter}
+			const {delimiter, previewBytes, sigilBytes}
 				= {...Thumbprint.defaults, ...options}
 
-			const sigil = (bytes.length > 0)
-				? Bytename.fromBytes(bytes.slice(0, sigilByteCount), {
-					wordSeparator: sigilDelimiter,
-					groupSeparator: sigilDelimiter,
+			const yoink = (b: number) => (bytes.length > 0)
+				? Bytename.fromBytes(bytes.slice(0, b), {
+					wordSeparator: delimiter,
+					groupSeparator: delimiter,
 				})
 				: ""
 
-			const bulk = (bytes.length > sigilByteCount)
-				? Base58.string(bytes.slice(sigilByteCount))
+			const sigil = yoink(sigilBytes)
+			const preview = yoink(previewBytes)
+
+			const bulk = (bytes.length > previewBytes)
+				? Base58.string(bytes.slice(previewBytes))
 				: ""
 
-			const thumbprint = [sigil, bulk]
+			const thumbprint = [preview, bulk]
 				.filter(s => s.length > 0)
 				.join(delimiter)
 
-			return {bytes, sigil, bulk, thumbprint}
+			return {bytes, thumbprint, preview, bulk, sigil}
 		},
 
 		fromHex(hex: string, options?: Partial<ThumbprintOptions>) {
 			const bytes = Hex.bytes(hex)
 			return Thumbprint.build.fromBytes(bytes, options)
 		},
-	},
-
-	toBytes(thumbprint: string) {
-		return Thumbprint.parse(thumbprint).bytes
 	},
 
 	toHex(thumbprint: string) {

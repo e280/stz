@@ -4,7 +4,7 @@ import {Hex} from "../hex.js"
 import {Bytes} from "../bytes.js"
 import {Thumbprint} from "./thumbprint.js"
 
-const sampleThumbprint = "nodlyn.fasrep.habbud::5QQkszJKjJY3mbFns7FDSJ7a43gbkj93wt88"
+const sampleThumbprint = "nodlyn.fasrep.habbud.ralwel.Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
 const sampleHex = "88e8c3fad1028fcf6ce5ac491578850f4d833336feca03b608265501c3019d59"
 const sampleBytes = Hex.bytes(sampleHex)
 
