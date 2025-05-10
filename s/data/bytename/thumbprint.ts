@@ -20,10 +20,10 @@ export type ThumbprintData = {
 /**
  * Thumbprint is a friendly presentation format for arbitrary binary data.
  *  - looks like "nodlyn.fasrep.habbud.ralwel.Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
- *  - the "sigil" is the first bytes that are shown in bytename format
- *  - the "bulk" is the rest of the data in base58
- *  - originally designed to be a nice way to present 256-bit ids
- *  - can actually represent any number of bytes
+ *  - the preview: "nodlyn.fasrep.habbud.ralwel" (bytename format)
+ *  - the bulk: "Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ" (base58 format)
+ *  - the sigil: "nodlyn.fasrep" (shorter part of the bytename)
+ *  - originally designed to be a nice way to present 256-bit ids, but can actually represent any number of bytes
  */
 export const Thumbprint = {
 	defaults: (<ThumbprintOptions>{
