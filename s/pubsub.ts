@@ -1,5 +1,5 @@
 
-import {deferPromise} from "./defer-promise.js"
+import {defer} from "./defer.js"
 
 export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
 
@@ -32,7 +32,7 @@ export function xub<A extends any[] = []>() {
 	}
 
 	async function once() {
-		const {promise, resolve} = deferPromise<A>()
+		const {promise, resolve} = defer<A>()
 		const unsubscribe = sub((...a) => {
 			resolve(a)
 			unsubscribe()
