@@ -86,14 +86,5 @@ export const Bytename = {
 	fromHex(hex: string, options?: Partial<BytenameOptions>) {
 		return Bytename.fromBytes(Hex.bytes(hex), options)
 	},
-
-	/** @deprecated renamed to `fromBytes` */
-	string(bytes: Uint8Array, options: Partial<BytenameOptions> = {}) { return Bytename.fromBytes(bytes, options) },
-
-	/** @deprecated renamed to `toBytes` */
-	bytes(bytename: string) { return Bytename.toBytes(bytename) },
-
-	/** @deprecated renamed to `toHex` */
-	hex(bytename: string) { return Bytename.toHex(bytename) },
 }
 
