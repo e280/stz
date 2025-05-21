@@ -1,5 +1,5 @@
 
-/** js map, but with handy methods like `require` and `guarantee` */
+/** extended js map with handy methods like `require` and `guarantee` */
 export class MapG<K, V> extends Map<K, V> {
 	static require<K, V>(map: Map<K, V>, key: K) {
 		const value = map.get(key)

@@ -4,17 +4,32 @@ import {defer} from "./defer.js"
 export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
 
 export interface Xub<A extends any[] = []> {
+
+	/** publish to all subscribed listeners. */
 	pub(...a: A): Promise<void>
+
+	/** subscribe a listener function. */
 	sub(fn: Listener<A>): () => void
+
+	/**
+	 * subscribe a listener function.
+	 * @alias sub
+	 */
 	on(fn: Listener<A>): () => void
+
+	/** subscribe a listener function that unsubscribes itself after being invoked. */
 	once(): Promise<A>
+
+	/** wipe all listeners attached to this. */
 	clear(): void
 }
 
+/** subscriber fn that can be published to. */
 export interface Sub<A extends any[] = []> extends Xub<A> {
 	(fn: Listener<A>): () => void
 }
 
+/** publisher fn that can be published to. */
 export interface Pub<A extends any[] = []> extends Xub<A> {
 	(...a: A): Promise<void>
 }

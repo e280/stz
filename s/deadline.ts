@@ -24,3 +24,4 @@ export function deadline<R>(milliseconds: number, message: string, fn: () => Pro
 			.finally(() => clearTimeout(id))
 	})
 }
+
