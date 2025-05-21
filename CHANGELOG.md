@@ -8,6 +8,12 @@
 
 ## v0.0
 
+### v0.0.0-19
+- 🟥 rename `deferPromise` to `defer`
+  - and thus `DeferredPromise` to `Deferred`
+- 🟥 deleted deprecated Bytename fns (string/bytes/hex)
+  - use `fromBytes` etc, you'll figure it out
+
 ### v0.0.0-18
 - 🟥 rework `Thumbprint` AGAIN (i'm going insane)
   - changed names of options that nobody will use
