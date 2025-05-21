@@ -105,12 +105,12 @@ import {Bytename} from "@e280/stz"
     0xDE, 0xAD, 0xBE, 0xEF,
   ])
 
-	Bytename.fromBytes(bytes, {
-		groupSize: 2, // default is 4
-		groupSeparator: " ",
-		wordSeparator: ".",
-	})
-	  // "ribmug.hilmun ribmug.hilmun"
+  Bytename.fromBytes(bytes, {
+    groupSize: 2, // default is 4
+    groupSeparator: " ",
+    wordSeparator: ".",
+  })
+    // "ribmug.hilmun ribmug.hilmun"
   ```
 
 <br/>
