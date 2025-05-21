@@ -13,7 +13,7 @@ export function drill<xResult>(
 
 	for (const key of path) {
 		current = current[key]
-		if (is.unavailable(current))
+		if (is.unset(current))
 			break
 	}
 

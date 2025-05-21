@@ -1,9 +1,9 @@
 
-export const is = {
-	available: <X>(x: X): x is NonNullable<X> =>
+export const is = Object.freeze({
+	set: <X>(x: X): x is NonNullable<X> =>
 		x !== undefined && x !== null,
 
-	unavailable: (x: any): x is (undefined | null) =>
+	unset: (x: any): x is (undefined | null) =>
 		x === undefined || x === null,
 
 	boolean: (x: any): x is boolean =>
@@ -23,5 +23,11 @@ export const is = {
 
 	array: (x: any | any[]): x is any[] =>
 		Array.isArray(x),
-}
+
+	fn: (x: any): x is (...a: any[]) => any =>
+		typeof x === "function",
+
+	symbol: (x: any): x is symbol =>
+		typeof x === "symbol",
+})
 

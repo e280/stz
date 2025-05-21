@@ -11,6 +11,9 @@
 ### v0.0.0-19
 - 🟥 rename `deferPromise` to `defer`
   - and thus `DeferredPromise` to `Deferred`
+- 🟥 renames for `is`
+  - `is.available` -> `is.set`
+  - `is.unavailable` -> `is.unset`
 - 🟥 deleted deprecated Bytename fns (string/bytes/hex)
   - use `fromBytes` etc, you'll figure it out
 
