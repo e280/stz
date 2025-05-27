@@ -9,6 +9,10 @@
 ## v0.0
 
 ### v0.0.0-21
+- 🍏 add `BaseX` utility with arbitrary lexicon
+  - can replace Hex, Base64, Base64, etc
+  - has many lexicons available in `BaseX.lexicons`
+  - use it like `const base62 = new BaseX(BaseX.lexicons.base62)`
 - 🟥 mass renames in data utils
   - `Hex.string` renamed to `Hex.fromBytes`
   - `Hex.bytes` renamed to `Hex.toBytes`
