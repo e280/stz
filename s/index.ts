@@ -1,5 +1,6 @@
 
 export * from "./data/bytename/index.js"
+export * from "./data/base-x.js"
 export * from "./data/base58.js"
 export * from "./data/base64.js"
 export * from "./data/base64url.js"
