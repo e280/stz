@@ -58,6 +58,11 @@ export class BaseX {
 		// Radix mode fallback
 		let num = 0n
 		const base = BigInt(this.lexicon.characters.length)
+		let negative = false
+		if (s.startsWith("-")) {
+			s = s.slice(1)
+			negative = true
+		}
 		for (const char of s) {
 			const val = this.lookup[char]
 			if (val === undefined) throw new Error(`Invalid character: ${char}`)
@@ -122,19 +127,26 @@ export class BaseX {
 	}
 
 	toInteger(s: string) {
+		if (!s) return 0
 		let n = 0n
+		let negative = false
 		const base = BigInt(this.lexicon.characters.length)
+		if (s.startsWith("-")) {
+			s = s.slice(1)
+			negative = true
+		}
 		for (const char of s) {
 			const value = this.lookup[char]
 			if (value === undefined) throw new Error(`Invalid character: ${char}`)
 			n = n * base + BigInt(value)
 		}
-		return Number(n)
+		return Number(negative ? -n : n)
 	}
 
 	fromInteger(n: number) {
 		n = Math.floor(n)
-		let num = BigInt(n)
+		const negative = n < 0
+		let num = BigInt(negative ? -n : n)
 		if (num === 0n) return this.lexicon.characters[0]
 		const base = BigInt(this.lexicon.characters.length)
 		let out = ""
@@ -142,7 +154,7 @@ export class BaseX {
 			out = this.lexicon.characters[Number(num % base)] + out
 			num = num / base
 		}
-		return out
+		return negative ? `-${out}` : out
 	}
 
 	random(count = 32) {

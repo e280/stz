@@ -30,12 +30,21 @@ function testBytes(util: ByteUtil) {
 }
 
 function testNumbers(util: NumberUtil) {
-	return async() => {
-		const original = 123456789
-		const string = util.fromInteger(original)
-		const recreated = util.toInteger(string)
-		expect(original).is(recreated)
-		expect(util.toInteger("")).is(0)
+	return {
+		positive: async() => {
+			const original = 123456789
+			const string = util.fromInteger(original)
+			const recreated = util.toInteger(string)
+			expect(original).is(recreated)
+			expect(util.toInteger("")).is(0)
+		},
+		negative: async() => {
+			const original = -123456789
+			const string = util.fromInteger(original)
+			const recreated = util.toInteger(string)
+			expect(original).is(recreated)
+			expect(util.toInteger("")).is(0)
+		},
 	}
 }
 

@@ -124,9 +124,9 @@ standard library of environment-agnostic typescript functions we use basically e
   base62.fromInteger(Date.now() / 1000)
     // "1uK3au"
   ```
-  - `1748388028664` base10 epoch milliseconds (13 chars)
+  - `1748388028` base10 epoch seconds (10 chars)
   - `1uK3au` base62 epoch seconds (6 chars)
-  - holy moly
+  - *nice*
 
 <br/>
 
