@@ -13,13 +13,14 @@
 	"scripts": {
 		"build": "run-s _clean _links _tsc",
 		"test": "node x/tests.test.js",
+		"test-watch": "node --watch x/tests.test.js",
+		"test-inspect": "node inspect x/tests.test.js",
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +",
-		"start": "run-p _tscw _testw",
+		"watch": "run-p _tscw test-watch",
 		"_clean": "rm -rf x && mkdir x",
 		"_links": "ln -s \"$(realpath node_modules)\" x/node_modules",
 		"_tsc": "tsc",
-		"_tscw": "tsc -w",
-		"_testw": "node --watch x/tests.test.js"
+		"_tscw": "tsc -w"
 	},
 	"devDependencies": {
 		"@e280/science": "^0.0.4",
