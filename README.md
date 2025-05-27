@@ -81,8 +81,57 @@ standard library of environment-agnostic typescript functions we use basically e
 
 <br/>
 
+## Data utilities
+> codecs for representing data in different ways
+
+### BaseX
+- make a BaseX instance
+  ```ts
+  import {BaseX} from "@e280/stz"
+
+  const hex = new BaseX(BaseX.lexicons.hex)
+  ```
+- convert between strings and binary
+  ```ts
+  hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
+    // Uint8Array
+
+  hex.fromBytes(bytes)
+    // string
+  ```
+- you can also convert between strings and integers
+  ```ts
+  hex.fromInteger(Date.now())
+    // "197140ac804"
+
+  hex.toInteger(hex)
+    // 1748387940356
+  ```
+- available lexicons include
+	- base2
+	- hex
+	- base36
+	- base58
+	- base62
+	- base64 (with standard padding)
+	- base64url
+- you can make insanely compact timestamps like this:
+  ```ts
+  import {BaseX} from "@e280/stz"
+
+  const base62 = new BaseX(BaseX.lexicons.base62)
+
+  base62.fromInteger(Date.now() / 1000)
+    // "1uK3au"
+  ```
+  - `1748388028664` base10 epoch milliseconds (13 chars)
+  - `1uK3au` base62 epoch seconds (6 chars)
+  - holy moly
+
+<br/>
+
 ## Bytename
-### friendly string encoding for binary data
+> friendly string encoding for binary data
 
 a bytename looks like `"midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"`. that's 16 bytes. each byte maps to a three-letter triplet
 
