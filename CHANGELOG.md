@@ -8,6 +8,12 @@
 
 ## v0.0
 
+### v0.0.0-21
+- 🟥 mass renames in data utils
+  - `Hex.string` renamed to `Hex.fromBytes`
+  - `Hex.bytes` renamed to `Hex.toBytes`
+  - equivalent renames in `Txt`, `Base58`, `Base64`, `Base64url`
+
 ### v0.0.0-19
 - 🟥 rename `deferPromise` to `defer`
   - and thus `DeferredPromise` to `Deferred`

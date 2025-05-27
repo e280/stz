@@ -46,7 +46,7 @@ export const Thumbprint = {
 
 		return new Uint8Array([
 			...Bytename.toBytes(preview),
-			...Base58.bytes(bulk),
+			...Base58.toBytes(bulk),
 		])
 	},
 
@@ -71,7 +71,7 @@ export const Thumbprint = {
 			const preview = yoink(previewBytes)
 
 			const bulk = (bytes.length > previewBytes)
-				? Base58.string(bytes.slice(previewBytes))
+				? Base58.fromBytes(bytes.slice(previewBytes))
 				: ""
 
 			const thumbprint = [preview, bulk]
@@ -82,14 +82,14 @@ export const Thumbprint = {
 		},
 
 		fromHex(hex: string, options?: Partial<ThumbprintOptions>) {
-			const bytes = Hex.bytes(hex)
+			const bytes = Hex.toBytes(hex)
 			return Thumbprint.build.fromBytes(bytes, options)
 		},
 	},
 
 	toHex(thumbprint: string) {
 		const bytes = Thumbprint.toBytes(thumbprint)
-		return Hex.string(bytes)
+		return Hex.fromBytes(bytes)
 	},
 
 	fromBytes(bytes: Uint8Array, options?: Partial<ThumbprintOptions>) {
@@ -97,7 +97,7 @@ export const Thumbprint = {
 	},
 
 	fromHex(hex: string, options?: Partial<ThumbprintOptions>) {
-		return Thumbprint.fromBytes(Hex.bytes(hex), options)
+		return Thumbprint.fromBytes(Hex.toBytes(hex), options)
 	},
 
 	sigil: {

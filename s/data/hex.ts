@@ -11,14 +11,14 @@
 
 import {Bytes} from "./bytes.js"
 
-export const Hex = {
-	string(bytes: Uint8Array) {
+export const Hex = Object.freeze({
+	fromBytes(bytes: Uint8Array) {
 		return [...bytes]
 			.map(byte => byte.toString(16).padStart(2, "0"))
 			.join("")
 	},
 
-	bytes(string: string) {
+	toBytes(string: string) {
 		if (string.length % 2 !== 0)
 			throw new Error("must have even number of hex characters")
 		const bytes = new Uint8Array(string.length / 2)
@@ -29,7 +29,17 @@ export const Hex = {
 
 	/** generate a random hex string. byteCount defaults to 32. */
 	random(byteCount = 32) {
-		return this.string(Bytes.random(byteCount))
+		return this.fromBytes(Bytes.random(byteCount))
 	},
-}
+
+	/** @deprecated renamed to `fromBytes` */
+	string(bytes: Uint8Array) {
+		return Hex.fromBytes(bytes)
+	},
+
+	/** @deprecated renamed to `toBytes` */
+	bytes(string: string) {
+		return Hex.toBytes(string)
+	},
+})
 

@@ -6,7 +6,7 @@ import {Thumbprint} from "./thumbprint.js"
 
 const sampleThumbprint = "nodlyn.fasrep.habbud.ralwel.Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ"
 const sampleHex = "88e8c3fad1028fcf6ce5ac491578850f4d833336feca03b608265501c3019d59"
-const sampleBytes = Hex.bytes(sampleHex)
+const sampleBytes = Hex.toBytes(sampleHex)
 
 function good(bytes: Uint8Array) {
 	expect(Bytes.eq(bytes, sampleBytes)).ok()

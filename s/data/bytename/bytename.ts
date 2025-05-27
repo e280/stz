@@ -80,11 +80,11 @@ export const Bytename = {
 	},
 
 	toHex(bytename: string) {
-		return Hex.string(Bytename.toBytes(bytename))
+		return Hex.fromBytes(Bytename.toBytes(bytename))
 	},
 
 	fromHex(hex: string, options?: Partial<BytenameOptions>) {
-		return Bytename.fromBytes(Hex.bytes(hex), options)
+		return Bytename.fromBytes(Hex.toBytes(hex), options)
 	},
 }
 

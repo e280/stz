@@ -16,8 +16,8 @@ const base = 58
 const characters = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 export const Base58 = Object.freeze({
-	string(bytes: Uint8Array) {
-		let intVal = BigInt("0x" + Hex.string(bytes))
+	fromBytes(bytes: Uint8Array) {
+		let intVal = BigInt("0x" + Hex.fromBytes(bytes))
 		let encoded = ""
 
 		while (intVal > 0) {
@@ -34,7 +34,7 @@ export const Base58 = Object.freeze({
 		return encoded
 	},
 
-	bytes(string: string) {
+	toBytes(string: string) {
 		let intVal = BigInt(0)
 
 		for (const char of string) {
@@ -45,7 +45,7 @@ export const Base58 = Object.freeze({
 
 		let hex = intVal.toString(16)
 		if (hex.length % 2 !== 0) hex = "0" + hex
-		const bytes = Hex.bytes(hex)
+		const bytes = Hex.toBytes(hex)
 
 		let leadingZeroes = 0
 		for (const char of string) {
@@ -59,7 +59,17 @@ export const Base58 = Object.freeze({
 	},
 
 	random(count = 32) {
-		return this.string(Bytes.random(count))
+		return this.fromBytes(Bytes.random(count))
+	},
+
+	/** @deprecated renamed to `fromBytes` */
+	string(bytes: Uint8Array) {
+		return Base58.fromBytes(bytes)
+	},
+
+	/** @deprecated renamed to `toBytes` */
+	bytes(string: string) {
+		return Base58.toBytes(string)
 	},
 })
 
