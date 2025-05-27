@@ -9,6 +9,8 @@ import {Base58} from "./base58.js"
 import {Base64} from "./base64.js"
 import {Base64url} from "./base64url.js"
 
+const sampleBytes = Hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
+
 type ByteUtil = {
 	toBytes: (string: string) => Uint8Array
 	fromBytes: (bytes: Uint8Array) => string
@@ -21,10 +23,9 @@ type NumberUtil = {
 
 function testBytes(util: ByteUtil) {
 	return async() => {
-		const original = Bytes.random(32)
-		const string = util.fromBytes(original)
+		const string = util.fromBytes(sampleBytes)
 		const recreated = util.toBytes(string)
-		expect(Bytes.eq(original, recreated)).ok()
+		expect(Bytes.eq(sampleBytes, recreated)).ok()
 	}
 }
 
@@ -45,6 +46,13 @@ function testBoth(util: ByteUtil & NumberUtil) {
 	}
 }
 
+function testCompat(alpha: ByteUtil, bravo: ByteUtil) {
+	return async() => {
+		expect(alpha.fromBytes(sampleBytes))
+			.is(bravo.fromBytes(sampleBytes))
+	}
+}
+
 export default Science.suite({
 	"Base58": testBytes(Base58),
 	"Base64": testBytes(Base64),
@@ -59,7 +67,18 @@ export default Science.suite({
 	}),
 
 	"BaseX": Science.suite({
-		...ob(BaseX.lexicons).map(lex => testBoth(new BaseX(lex))),
+		lexicons: Science.suite(
+			ob(BaseX.lexicons).map(lex => testBoth(new BaseX(lex)))
+		),
+		compat: Science.suite({
+			"Hex": testCompat(Hex, new BaseX(BaseX.lexicons.hex)),
+			"Base64": testCompat(Base64, new BaseX(BaseX.lexicons.base64)),
+			"Base64url": testCompat(Base64url, new BaseX(BaseX.lexicons.base64url)),
+		}),
+		"base64 has padding": test(async() => {
+			const s = new BaseX(BaseX.lexicons.base64).fromBytes(sampleBytes)
+			expect(s.endsWith("=")).ok()
+		}),
 	}),
 })
 
