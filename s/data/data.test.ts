@@ -88,6 +88,11 @@ export default Science.suite({
 			const s = new BaseX(BaseX.lexicons.base64).fromBytes(sampleBytes)
 			expect(s.endsWith("=")).ok()
 		}),
+		"antagonistic base64 positive integer": test(async() => {
+			const base64url = new BaseX(BaseX.lexicons.base64url)
+			expect(base64url.toInteger(base64url.fromInteger(62))).is(62)
+			expect(base64url.toInteger(base64url.fromInteger(4030))).is(4030)
+		}),
 	}),
 })
 

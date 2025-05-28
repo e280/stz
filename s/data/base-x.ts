@@ -3,6 +3,7 @@ import {Bytes} from "./bytes.js"
 
 export type Lexicon = {
 	characters: string
+	negativePrefix?: string
 	padding?: {
 		character: string
 		size: number
@@ -16,7 +17,10 @@ export class BaseX {
 		base36: {characters: "0123456789abcdefghijklmnopqrstuvwxyz"},
 		base58: {characters: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"},
 		base62: {characters: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"},
-		base64url: {characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"},
+		base64url: {
+			negativePrefix: "~",
+			characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
+		},
 		base64: {
 			characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
 			padding: {character: "=", size: 4},
@@ -24,11 +28,13 @@ export class BaseX {
 	})
 
 	private lookup: Record<string, number>
+	private negativePrefix: string
 
 	constructor(public lexicon: Lexicon) {
 		this.lookup = Object.fromEntries(
 			[...lexicon.characters].map((char, i) => [char, i])
 		)
+		this.negativePrefix = lexicon.negativePrefix ?? "-"
 	}
 
 	toBytes(s: string): Uint8Array {
@@ -59,8 +65,8 @@ export class BaseX {
 		let num = 0n
 		const base = BigInt(this.lexicon.characters.length)
 		let negative = false
-		if (s.startsWith("-")) {
-			s = s.slice(1)
+		if (s.startsWith(this.negativePrefix)) {
+			s = s.slice(this.negativePrefix.length)
 			negative = true
 		}
 		for (const char of s) {
@@ -131,8 +137,8 @@ export class BaseX {
 		let n = 0n
 		let negative = false
 		const base = BigInt(this.lexicon.characters.length)
-		if (s.startsWith("-")) {
-			s = s.slice(1)
+		if (s.startsWith(this.negativePrefix)) {
+			s = s.slice(this.negativePrefix.length)
 			negative = true
 		}
 		for (const char of s) {
@@ -154,7 +160,7 @@ export class BaseX {
 			out = this.lexicon.characters[Number(num % base)] + out
 			num = num / base
 		}
-		return negative ? `-${out}` : out
+		return negative ? `${this.negativePrefix}${out}` : out
 	}
 
 	random(count = 32) {
