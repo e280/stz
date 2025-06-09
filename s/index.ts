@@ -28,6 +28,7 @@ export * from "./map-g.js"
 export * from "./nap.js"
 export * from "./ob.js"
 export * from "./pipe.js"
+export * from "./repeatly.js"
 export * from "./pubsub.js"
 export * from "./trash.js"
 
