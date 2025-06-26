@@ -52,5 +52,5 @@ export class Tracker<Item extends object = any> {
 const key = Symbol.for("e280.tracker")
 
 /** standard global tracker for integrations */
-export const tracker = (globalThis as any)[key] ??= new Tracker()
+export const tracker: Tracker = (globalThis as any)[key] ??= new Tracker()
 
