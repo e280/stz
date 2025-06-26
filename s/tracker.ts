@@ -23,10 +23,11 @@ export class Tracker<Item extends object = any> {
 	}
 
 	/** collect which items were seen during fn */
-	seen<R>(fn: () => R): [Set<Item>, R] {
+	seen<R>(fn: () => R) {
 		this.#seeables.push(new Set())
-		const ret = fn()
-		return [this.#seeables.pop()!, ret]
+		const result = fn()
+		const seen = this.#seeables.pop()!
+		return {seen, result}
 	}
 
 	/** indicate item was changed */
