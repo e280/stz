@@ -17,8 +17,8 @@ export interface Xub<A extends any[] = []> {
 	 */
 	on(fn: Listener<A>): () => void
 
-	/** subscribe a listener function that unsubscribes itself after being invoked. */
-	once(): Promise<A>
+	/** wait for the next published value */
+	next(): Promise<A>
 
 	/** wipe all listeners attached to this. */
 	clear(): void
@@ -46,7 +46,7 @@ export function xub<A extends any[] = []>() {
 		await Promise.all([...set].map(fn => fn(...a)))
 	}
 
-	async function once() {
+	async function next() {
 		const {promise, resolve} = defer<A>()
 		const unsubscribe = sub((...a) => {
 			resolve(a)
@@ -62,13 +62,13 @@ export function xub<A extends any[] = []>() {
 	sub.pub = pub
 	sub.sub = sub
 	sub.on = sub
-	sub.once = once
+	sub.next = next
 	sub.clear = clear
 
 	pub.pub = pub
 	pub.sub = sub
 	pub.on = sub
-	pub.once = once
+	pub.next = next
 	pub.clear = clear
 
 	return [pub, sub] as [Pub<A>, Sub<A>]

@@ -74,9 +74,9 @@ standard library of environment-agnostic typescript functions we use basically e
   sendMessage.clear()
   onMessage.clear()
 
-  // you can subscribe to only one next call
-  onMessage.once(m => console.log(m))
-  sendMessage.once(m => console.log(m))
+  // instead of a 'once' fn we simply await next()
+  await onMessage.next()
+  await sendMessage.next()
   ```
 
 <br/>
