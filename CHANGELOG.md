@@ -9,8 +9,11 @@
 ## v0.0
 
 ### v0.0.0-29
+- 🟥 rename `sub().once()` to `sub().next()`
 - 🟥 replace `repeatly` with simpler `repeat` fn
   - recommended to use `nap` inside the repeat fn
+- 🍏 add `once` tool
+- 🍏 add `ev` tool
 
 ### v0.0.0-28
 - 🍏 add Time util
