@@ -1,6 +1,6 @@
 
 /** a promise which can be resolved from the outside */
-export type Deferred<R> = {
+export type Deferred<R = void> = {
 	promise: Promise<R>
 	resolve: (result: R) => void
 	reject: (reason: any) => void
@@ -10,7 +10,7 @@ export type Deferred<R> = {
 }
 
 /** returns a deferred promise with exposed resolve and reject fns */
-export function defer<R>(): Deferred<R> {
+export function defer<R = void>(): Deferred<R> {
 	let resolve!: (result: R) => void
 	let reject!: (reason: any) => void
 
