@@ -8,6 +8,15 @@
 
 ## v0.0
 
+### v0.0.0-29
+- 🟥 replace `repeatly` with simpler `repeat` fn
+  - recommended to use `nap` inside the repeat fn
+
+### v0.0.0-28
+- 🍏 add Time util
+- 🍏 add repeatly
+- 🍏 fix base64 negative integers
+
 ### v0.0.0-21
 - 🍏 add `BaseX` utility with arbitrary lexicon
   - can replace Hex, Base64, Base64, etc
