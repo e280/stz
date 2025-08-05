@@ -7,6 +7,7 @@ import debounce from "./debounce/debounce.test.js"
 import bytename from "./data/bytename/bytename.test.js"
 import deep from "./deep/deep.test.js"
 import data from "./data/data.test.js"
+import queue from "./queue/queue.test.js"
 
 await Science.run({
 	clone,
@@ -15,5 +16,6 @@ await Science.run({
 	debounce,
 	deep,
 	data,
+	queue,
 })
 

@@ -13,6 +13,8 @@ export * from "./debounce/types.js"
 
 export * from "./deep/deep.js"
 
+export * from "./queue/queue.js"
+
 export * from "./coalesce.js"
 export * from "./concurrent.js"
 export * from "./deadline.js"
