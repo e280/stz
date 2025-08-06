@@ -169,6 +169,26 @@ await fn()
   // DeadlineError: deadline exceeded (0.1 seconds)
 ```
 
+### 🍏 `debounce(100, fn)`
+> wait some time before actually executing the fn (absorbing redundant calls)
+
+we use `debounce` a lot in ui code, like on a user's keyboard input in a form field, but rendering the form input can actually be slow enough that it causes problems when they type fast — to eliminate the jank, we `debounce` with like 400 ms, so we wait for the user to finish typing for a moment before actually running the validation.
+
+```ts
+import {debounce} from "@e280/stz"
+
+const fn = debounce(100, async() => {
+  await coolSlowActionOrWhatever()
+})
+
+// each fn() call resets the timer
+fn()
+fn()
+fn()
+
+// coolSlowActionOrWhatever, the others are redundant
+```
+
 ### 🍏 `repeat(fn)`
 > execute a function over and over again, back to back
 

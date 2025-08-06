@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-33
+- 🍏 add readme bit for `debounce`
+
 ### v0.0.0-32
 - 🍏 fix readme examples and emojis
 
