@@ -1,38 +1,71 @@
 
 # `@e280/stz`
-standard library of environment-agnostic typescript functions we use basically everywhere
-- zero dependencies
+
+**stz** is e280's standard library of environment-agnostic typescript tools.
+
+it's our javascript toolkit.
+
+zero dependencies.
 
 <br/>
 
-## MapG
+## 🧰 STZ PRIMITIVES
+> cool concepts we use all over the place
+
+### 🍏 MapG
 > extended js map
-- `map.require`
+
+```ts
+import {MapG} from "@e280/stz"
+
+const map = new MapG<number, string>([
+  [1, "hello"],
+  [2, "world"],
+])
+```
+
+- `map.require(key)` — throws error if the value is undefined
   ```ts
-  import {MapG} from "@e280/stz"
-
-  const map = new MapG<number, string>([
-    [1, "hello"],
-    [2, "world"],
-  ])
-
-  // throws error if the value is undefined
   const value = map.require(1)
+    // "hello"
   ```
-- `map.guarantee`
+- `map.guarantee(key, make)` — returns the value for `key`, but if undefined, run `make` to set the value
   ```ts
-  // if the value is undefined, the new value "rofl" is set and returned
   const value = map.guarantee(3, () => "rofl")
+    // "rofl"
   ```
 
-<br/>
+### defer
+> defer the resolve/reject of a promise to the outside
 
-## pub and sub
+```ts
+import {defer} from "@e280/stz"
+
+const deferred = defer()
+```
+
+- resolve the deferred promise
+    ```ts
+    deferred.resolve()
+    ```
+- reject the deferred promise
+    ```ts
+    deferred.reject(new Error("fail"))
+    ```
+- await the promise
+    ```ts
+    await deferred.promise
+    ```
+
+### 🍏 `pub` and `sub`
 > ergonomic event emitters
+
+```ts
+import {pub, sub} from "@e280/stz"
+```
+
 - make a publisher fn
   ```ts
-  import {pub} from "@e280/stz"
-
   // create a pub fn
   const sendMessage = pub<[string]>()
 
@@ -44,8 +77,6 @@ standard library of environment-agnostic typescript functions we use basically e
   ```
 - make a subscriber fn *(see how it's just the reverse of pub?)*
   ```ts
-  import {sub} from "@e280/stz"
-
   // create a sub fn
   const onMessage = sub<[string]>()
 
@@ -81,10 +112,82 @@ standard library of environment-agnostic typescript functions we use basically e
 
 <br/>
 
-## Data utilities
-> codecs for representing data in different ways
+## 🧰 FN TOOLS
+> function-oriented tools
 
-### BaseX
+### 🍏 `queue(fn)`
+> execute calls in sequence (not concurrent)
+
+```ts
+import {queue, nap} from "@e280/stz"
+
+const fn = queue(async() => nap(100))
+
+fn()
+fn()
+await fn() // waits for the previous calls (sequentially)
+```
+
+### 🍏 `once(fn)`
+> ensure a fn is only executed one time
+
+```ts
+import {once} from "@e280/stz"
+
+let count = 0
+const fn = once(() => count++)
+console.log(count) // 0
+
+fn()
+console.log(count) // 1
+
+fn()
+console.log(count) // 1
+```
+
+### 🍏 `deadline(100, message, fn)`
+> throws an error if the async function takes too long
+
+```ts
+import {deadline} from "@e280/stz"
+
+const fn = deadline(100, "deadline exceeded", async() => {
+
+  // example deliberately takes too long
+  await nap(200)
+})
+
+await fn()
+  // DeadlineError: deadline exceeded, timed out in 0.1 seconds
+```
+
+### 🍏 `repeat(fn)`
+> execute a function over and over again, back to back
+
+```ts
+import {repeat} from "@e280/stz"
+
+let ticks = 0
+
+const stop = repeat(async() => {
+
+  // use a nap to add a delay between each execution
+  await nap(200)
+
+  ticks++
+})
+
+// stop repeating whenever you want
+stop()
+```
+
+<br/>
+
+## 🧰 DATA UTILITIES
+> transforming and representing binary data
+
+### 🍏 BaseX
+> represent data in arbitrary encodings
 - make a BaseX instance
   ```ts
   import {BaseX} from "@e280/stz"
@@ -130,7 +233,7 @@ standard library of environment-agnostic typescript functions we use basically e
 
 <br/>
 
-## Bytename
+### 🍏 Bytename
 > friendly string encoding for binary data
 
 a bytename looks like `"midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"`. that's 16 bytes. each byte maps to a three-letter triplet
@@ -163,63 +266,6 @@ import {Bytename} from "@e280/stz"
   ```
 
 <br/>
-
-## queue
-> execute async fn calls in sequence
-
-- you can use `queue` to prevent your function calls from operating concurently..  
-    if you call the result fn three times, each call will wait for the previous call to complete before executing..
-    ```ts
-    import {queue, nap} from "@e280/stz"
-
-    const fn = queue(async() => {
-      await nap(100)
-    })
-
-    fn()
-    fn()
-    fn()
-    ```
-
-<br/>
-
-## once
-> ensure a fn is only executed one time
-
-- you can use `once` to ensure an action is only really called once.  
-    the returned value is stored and provided to all redundant calls.  
-    ```ts
-    import {once} from "@e280/stz"
-
-    let count = 0
-    const fn = once(() => count++)
-    console.log(count) // 0
-
-    fn()
-    console.log(count) // 1
-
-    fn()
-    console.log(count) // 1
-    ```
-
-<br/>
-
-## deadline
-> throws an error if the async function takes too long
-
-- great for setting up timeout mechanisms  
-    ```ts
-    import {deadline} from "@e280/stz"
-
-    const fn = deadline(100, "deadline exceeded", async() => {
-
-      // example deliberately takes too long
-      await nap(200)
-    })
-
-    await fn()
-      // DeadlineError: deadline exceeded, timed out in 0.1 seconds
-    ```
 
 <br/>
 
