@@ -178,7 +178,7 @@ we use `debounce` a lot in ui code, like on a user's keyboard input in a form fi
 import {debounce} from "@e280/stz"
 
 const fn = debounce(100, async() => {
-  await coolSlowActionOrWhatever()
+  await coolAction()
 })
 
 // each fn() call resets the timer
@@ -186,7 +186,7 @@ fn()
 fn()
 fn()
 
-// coolSlowActionOrWhatever, the others are redundant
+// coolAction is only called once here, other calls are redundant
 ```
 
 ### 🍏 `repeat(fn)`
