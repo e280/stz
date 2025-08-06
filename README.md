@@ -35,6 +35,16 @@ const map = new MapG<number, string>([
     // "rofl"
   ```
 
+### nap
+> sleep for some milliseconds
+
+```ts
+import {nap} from "@e280/stz"
+
+await nap(900)
+  // wait for 900 milliseconds
+```
+
 ### defer
 > defer the resolve/reject of a promise to the outside
 
