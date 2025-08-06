@@ -10,6 +10,7 @@
 
 ### v0.0.0-33
 - 🍏 add readme bit for `debounce`
+- 🍏 add more data utils to readme, like Hex, Base64, etc
 
 ### v0.0.0-32
 - 🍏 fix readme examples and emojis

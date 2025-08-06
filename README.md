@@ -213,8 +213,42 @@ stop()
 
 ## 🧰 DATA UTILITIES
 
+### 🍏 Hex
+> convert to/from hexadecimal string format
+- `Hex.fromBytes(bytes)` — bytes to hex string
+- `Hex.toBytes(string)` — hex string to bytes
+- `Hex.random(32)` — generate random hex string (32 bytes)
+
+### 🍏 Base64
+> convert to/from base64 string format
+- `Base64.fromBytes(bytes)` — bytes to string
+- `Base64.toBytes(string)` — string to bytes
+- `Base64.random(32)` — generate random string (32 bytes)
+
+### 🍏 Base64url
+> convert to/from base64 string format
+- `Base64url.fromBytes(bytes)` — bytes to string
+- `Base64url.toBytes(string)` — string to bytes
+- `Base64url.random(32)` — generate random string (32 bytes)
+
+### 🍏 Base58
+> convert to/from base64 string format
+- `Base58.fromBytes(bytes)` — bytes to string
+- `Base58.toBytes(string)` — string to bytes
+- `Base58.random(32)` — generate random string (32 bytes)
+
+### 🍏 Txt
+> convert to/from utf8 string format
+- `Txt.fromBytes(bytes)` — bytes to string
+- `Txt.toBytes(string)` — string to bytes
+
+### 🍏 Bytes
+> utilities for dealing with Uint8Array
+- `Bytes.eq(bytesA, bytesB)` — check if two byte arrays are equal
+- `Bytes.random(32)` — generate crypto-random bytes
+
 ### 🍏 BaseX
-> represent data in arbitrary encodings
+> convert data into arbitrary data encodings
 - make a BaseX instance
   ```ts
   import {BaseX} from "@e280/stz"
