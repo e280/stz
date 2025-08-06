@@ -8,6 +8,25 @@
 
 ## v0.0
 
+### v0.0.0-31
+- 🟥 `deadline` removed `message` argument  
+  old bad:
+  ```ts
+  deadline(ms, message, fn)
+  ```
+  new good:
+  ```ts
+  deadline(ms, fn)
+  ```
+  if you really need to customize message:
+  ```ts
+  deadline(ms, fn).catch(err => {
+    if (err instanceof DeadlineError)
+      err.message = "my custom deadline error message"
+    throw err
+  })
+  ```
+
 ### v0.0.0-30
 - 🍏 add `queue` fn
 
