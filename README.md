@@ -121,7 +121,7 @@ import {pub, sub} from "@e280/stz"
 
 <br/>
 
-## 🧰 FN TOOLS
+## 🧰 STZ FN TOOLS
 
 ### 🍏 `queue(fn)`
 > execute calls in sequence (not concurrent)
@@ -211,7 +211,7 @@ stop()
 
 <br/>
 
-## 🧰 DATA UTILITIES
+## 🧰 STZ DATA UTILITIES
 
 ### 🍏 Hex
 > convert to/from hexadecimal string format
