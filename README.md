@@ -164,6 +164,25 @@ import {Bytename} from "@e280/stz"
 
 <br/>
 
+## queue
+> execute async fn calls in sequence
+
+- you can use `queue` to prevent your function calls from operating concurently..  
+    if you call the result fn three times, each call will wait for the previous call to complete before executing..
+    ```ts
+    import {queue, nap} from "@e280/stz"
+
+    const fn = queue(async() => {
+      await nap(100)
+    })
+
+    fn()
+    fn()
+    fn()
+    ```
+
+<br/>
+
 ## 💖 stz is made with open source love
 reward us with github stars  
 build with us at https://e280.org/ but only if you're cool  

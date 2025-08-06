@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-30
+- 🍏 add `queue` fn
+
 ### v0.0.0-29
 - 🟥 rename `sub().once()` to `sub().next()`
 - 🟥 replace `repeatly` with simpler `repeat` fn
