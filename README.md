@@ -183,6 +183,46 @@ import {Bytename} from "@e280/stz"
 
 <br/>
 
+## once
+> ensure a fn is only executed one time
+
+- you can use `once` to ensure an action is only really called once.  
+    the returned value is stored and provided to all redundant calls.  
+    ```ts
+    import {once} from "@e280/stz"
+
+    let count = 0
+    const fn = once(() => count++)
+    console.log(count) // 0
+
+    fn()
+    console.log(count) // 1
+
+    fn()
+    console.log(count) // 1
+    ```
+
+<br/>
+
+## deadline
+> throws an error if the async function takes too long
+
+- great for setting up timeout mechanisms  
+    ```ts
+    import {deadline} from "@e280/stz"
+
+    const fn = deadline(100, "deadline exceeded", async() => {
+
+      // example deliberately takes too long
+      await nap(200)
+    })
+
+    await fn()
+      // DeadlineError: deadline exceeded, timed out in 0.1 seconds
+    ```
+
+<br/>
+
 ## 💖 stz is made with open source love
 reward us with github stars  
 build with us at https://e280.org/ but only if you're cool  
