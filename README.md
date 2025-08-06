@@ -6,7 +6,7 @@ standard library of environment-agnostic typescript functions we use basically e
 <br/>
 
 ## MapG
-### extended js map
+> extended js map
 - `map.require`
   ```ts
   import {MapG} from "@e280/stz"
@@ -28,7 +28,7 @@ standard library of environment-agnostic typescript functions we use basically e
 <br/>
 
 ## pub and sub
-### ergonomic event emitters
+> ergonomic event emitters
 - make a publisher fn
   ```ts
   import {pub} from "@e280/stz"
