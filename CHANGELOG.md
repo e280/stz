@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-34
+- 🍏 update dependencies, and readme
+
 ### v0.0.0-33
 - 🍏 add readme bit for `debounce`
 - 🍏 add more data utils to readme, like Hex, Base64, etc
