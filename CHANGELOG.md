@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-32
+- 🍏 fix readme examples and emojis
+
 ### v0.0.0-31
 - 🟥 `deadline` removed `message` argument  
   old bad:

@@ -35,7 +35,7 @@ const map = new MapG<number, string>([
     // "rofl"
   ```
 
-### nap
+### 🍏 nap
 > sleep for some milliseconds
 
 ```ts
@@ -45,7 +45,7 @@ await nap(900)
   // wait for 900 milliseconds
 ```
 
-### defer
+### 🍏 defer
 > defer the resolve/reject of a promise to the outside
 
 ```ts
@@ -155,20 +155,20 @@ fn()
 console.log(count) // 1
 ```
 
-### 🍏 `deadline(100, message, fn)`
+### 🍏 `deadline(100, fn)`
 > throws an error if the async function takes too long
 
 ```ts
 import {deadline} from "@e280/stz"
 
-const fn = deadline(100, "deadline exceeded", async() => {
+const fn = deadline(100, async() => {
 
   // example deliberately takes too long
   await nap(200)
 })
 
 await fn()
-  // DeadlineError: deadline exceeded, timed out in 0.1 seconds
+  // DeadlineError: deadline exceeded (0.1 seconds)
 ```
 
 ### 🍏 `repeat(fn)`
