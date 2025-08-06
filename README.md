@@ -10,7 +10,6 @@ zero dependencies.
 <br/>
 
 ## 🧰 STZ PRIMITIVES
-> cool concepts we use all over the place
 
 ### 🍏 MapG
 > extended js map
@@ -123,7 +122,6 @@ import {pub, sub} from "@e280/stz"
 <br/>
 
 ## 🧰 FN TOOLS
-> function-oriented tools
 
 ### 🍏 `queue(fn)`
 > execute calls in sequence (not concurrent)
@@ -194,7 +192,6 @@ stop()
 <br/>
 
 ## 🧰 DATA UTILITIES
-> transforming and representing binary data
 
 ### 🍏 BaseX
 > represent data in arbitrary encodings
