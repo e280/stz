@@ -8,6 +8,11 @@
 
 ## v0.0
 
+### v0.0.0-35
+- 🟥 change `MapG` behavior!
+  - old and bad: `require` and `guarantee` used to consider `undefined` the same as the map not having the value
+  - new and good: now `undefined` is a valid value (we are checking `map.has` to check if the key is set, regardless of value)
+
 ### v0.0.0-34
 - 🍏 update dependencies, and readme
 

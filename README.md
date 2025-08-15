@@ -23,12 +23,12 @@ const map = new MapG<number, string>([
 ])
 ```
 
-- `map.require(key)` — throws error if the value is undefined
+- `map.require(key)` — returns the value for key — if missing, throw an error
   ```ts
   const value = map.require(1)
     // "hello"
   ```
-- `map.guarantee(key, make)` — returns the value for `key`, but if undefined, run `make` to set the value
+- `map.guarantee(key, make)` — returns the value for `key` — if missing, run `make` to set the value and return it
   ```ts
   const value = map.guarantee(3, () => "rofl")
     // "rofl"

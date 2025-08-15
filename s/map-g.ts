@@ -2,21 +2,20 @@
 /** extended js map with handy methods like `require` and `guarantee` */
 export class MapG<K, V> extends Map<K, V> {
 	static require<K, V>(map: Map<K, V>, key: K) {
-		const value = map.get(key)
-		if (value === undefined)
+		if (map.has(key))
+			return map.get(key)!
+		else
 			throw new Error(`required key not found: "${key}"`)
-		return value as V
 	}
 
 	static guarantee<K, V>(map: Map<K, V>, key: K, make: () => V) {
-		let value = map.get(key)
-
-		if (value === undefined) {
-			value = make()
+		if (map.has(key))
+			return map.get(key)!
+		else {
+			const value = make()
 			map.set(key, value)
+			return value
 		}
-
-		return value
 	}
 
 	array() {
