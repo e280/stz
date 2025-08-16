@@ -9,6 +9,7 @@
 ## v0.0
 
 ### v0.0.0-36
+- 🍏 add templating stuff `templateParts`, `TemplateParts`, `templateString`
 - 🟥 pipe changes
   - replace `Pipe.with` with just `pipe` fn
   - rename `PipeFun` to `Piper`
