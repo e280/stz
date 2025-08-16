@@ -8,6 +8,11 @@
 
 ## v0.0
 
+### v0.0.0-36
+- 🟥 pipe changes
+  - replace `Pipe.with` with just `pipe` fn
+  - rename `PipeFun` to `Piper`
+
 ### v0.0.0-35
 - 🟥 change `MapG` behavior!
   - old and bad: `require` and `guarantee` used to consider `undefined` the same as the map not having the value
