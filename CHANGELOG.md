@@ -9,6 +9,7 @@
 ## v0.0
 
 ### v0.0.0-36
+- 🍏 add `Constructor<T>` type
 - 🍏 add templating stuff `templateParts`, `TemplateParts`, `templateString`
 - 🟥 pipe changes
   - replace `Pipe.with` with just `pipe` fn

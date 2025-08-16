@@ -17,6 +17,7 @@ export * from "./queue/queue.js"
 
 export * from "./coalesce.js"
 export * from "./concurrent.js"
+export * from "./constructor.js"
 export * from "./deadline.js"
 export * from "./dedupe.js"
 export * from "./defer.js"
