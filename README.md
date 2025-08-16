@@ -1,5 +1,5 @@
 
-# `@e280/stz`
+# 🏂 `@e280/stz`
 
 **stz** is e280's standard library of environment-agnostic typescript tools.
 
