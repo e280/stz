@@ -1,5 +1,6 @@
 
 export type Scoped<Item> = [item: Item, dispose: () => void]
+export type Disposable = {dispose(): void}
 
 export function scoped<Item>(item: Item, dispose: () => void) {
 	return [item, dispose] as Scoped<Item>
@@ -25,21 +26,41 @@ export class Scope {
 		return item
 	}
 
+	/** register and return disposable item */
+	registerDisposable<Item extends Disposable>(item: Item) {
+		this.#disposers.push(() => item.dispose)
+		return item
+	}
+
 	/** augment a fn to register its returned scoped item */
-	fn<Params extends any[], X>(fn: (...params: Params) => Scoped<X>) {
+	fn<Params extends any[], Item>(fn: (...params: Params) => Scoped<Item>) {
 		return (...a: Params) => {
 			const scoped = fn(...a)
-			this.register(scoped)
-			return scoped[0]
+			return this.register(scoped)
 		}
 	}
 
 	/** augment an async fn to register its returned scoped item */
-	asyncFn<Params extends any[], X>(fn: (...params: Params) => Promise<Scoped<X>>) {
+	asyncFn<Params extends any[], Item>(fn: (...params: Params) => Promise<Scoped<Item>>) {
 		return async(...a: Params) => {
 			const scoped = await fn(...a)
-			this.register(scoped)
-			return scoped[0]
+			return this.register(scoped)
+		}
+	}
+
+	/** augment a fn to register its returned disposable item */
+	fnDisposable<Params extends any[], Item extends Disposable>(fn: (...params: Params) => Item) {
+		return (...a: Params) => {
+			const scoped = fn(...a)
+			return this.registerDisposable(scoped)
+		}
+	}
+
+	/** augment an async fn to register its returned disposable item */
+	asyncFnDisposable<Params extends any[], Item extends Disposable>(fn: (...params: Params) => Promise<Item>) {
+		return async(...a: Params) => {
+			const scoped = await fn(...a)
+			return this.registerDisposable(scoped)
 		}
 	}
 
