@@ -41,7 +41,7 @@ export class Scope {
 	}
 
 	/** augment an async fn to register its returned scoped item */
-	asyncFn<Params extends any[], Item>(fn: (...params: Params) => Promise<Scoped<Item>>) {
+	fnAsync<Params extends any[], Item>(fn: (...params: Params) => Promise<Scoped<Item>>) {
 		return async(...a: Params) => {
 			const scoped = await fn(...a)
 			return this.register(scoped)
@@ -57,7 +57,7 @@ export class Scope {
 	}
 
 	/** augment an async fn to register its returned disposable item */
-	asyncFnDisposable<Params extends any[], Item extends Disposable>(fn: (...params: Params) => Promise<Item>) {
+	fnAsyncDisposable<Params extends any[], Item extends Disposable>(fn: (...params: Params) => Promise<Item>) {
 		return async(...a: Params) => {
 			const scoped = await fn(...a)
 			return this.registerDisposable(scoped)
