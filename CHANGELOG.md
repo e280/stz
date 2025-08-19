@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-37
+- 🍏 add new `Scope` tool to maybe replace `Trash`
+
 ### v0.0.0-36
 - 🍏 add `Constructor<T>` type
 - 🍏 add templating stuff `templateParts`, `TemplateParts`, `templateString`
