@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-39
+- 🍏 fix scope keepConstructor types
+
 ### v0.0.0-38
 - 🟥 rename `Scope` methods (now use add/stow/scoped/keep)
 

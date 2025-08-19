@@ -1,11 +1,8 @@
 
-export type Scoped<Item> = [item: Item, dispose: () => void]
-export abstract class Disposable { abstract dispose(): void }
+import {Constructor} from "./constructor.js"
 
-export type DisposableClass = {
-	new(...p: any[]): any
-	dispose(): void
-}
+export type Scoped<Item> = [item: Item, dispose: () => void]
+export type Disposable = {dispose(): void}
 
 export function scoped<Item>(item: Item, dispose: () => void) {
 	return [item, dispose] as Scoped<Item>
@@ -17,7 +14,7 @@ export function scoped<Item>(item: Item, dispose: () => void) {
  *  - `keep` methods are for dealing with disposable objects (with a dispose method)
  *  - `sub` for creating nested sub-scopes
  */
-export class Scope extends Disposable {
+export class Scope implements Disposable {
 	#disposers: (() => void)[] = []
 
 	/** add disposer fn */
@@ -85,14 +82,14 @@ export class Scope extends Disposable {
 	}
 
 	/** wrap a constructor, auto-add returned disposables */
-	keepConstructor<C extends DisposableClass>(Ctor: C) {
+	keepConstructor<C extends Constructor<Disposable>>(Ctor: C) {
 		const scope = this
 		return class extends Ctor {
 			constructor(...p: any[]) {
 				super(...p)
-				scope.keep(this as any)
+				scope.keep(this)
 			}
-		}
+		} as C
 	}
 
 	/** create a subscope, child gets disposed when parent does */
