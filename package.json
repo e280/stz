@@ -1,6 +1,6 @@
 {
 	"name": "@e280/stz",
-	"version": "0.0.0-38",
+	"version": "0.0.0-39",
 	"description": "everyday ts fns for everything",
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
