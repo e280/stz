@@ -10,6 +10,8 @@
 
 ### v0.0.0-39
 - 🍏 fix scope keepConstructor types
+- 🍏 add new helper fn `denew`
+- 🍏 add new type helper `Ctor` (perhaps replaces `Constructor`?)
 
 ### v0.0.0-38
 - 🟥 rename `Scope` methods (now use add/stow/scoped/keep)
