@@ -1,76 +1,107 @@
 
 export type Scoped<Item> = [item: Item, dispose: () => void]
-export type Disposable = {dispose(): void}
+export abstract class Disposable { abstract dispose(): void }
+
+export type DisposableClass = {
+	new(...p: any[]): any
+	dispose(): void
+}
 
 export function scoped<Item>(item: Item, dispose: () => void) {
 	return [item, dispose] as Scoped<Item>
 }
 
-export class Scope {
+/**
+ * a trashcan you can fill with garbage, then call `scope.dispose()` to dump it all
+ *  - `add/stow/scoped` methods are for dealing with disposer fns
+ *  - `keep` methods are for dealing with disposable objects (with a dispose method)
+ *  - `sub` for creating nested sub-scopes
+ */
+export class Scope extends Disposable {
 	#disposers: (() => void)[] = []
 
-	/** add a dispose fn */
+	/** add disposer fn */
 	add(dispose: () => void) {
 		this.#disposers.push(dispose)
+		return this
 	}
 
-	/** add a dispose fn, and return the item */
-	reg<Item>(item: Item, dispose: () => void) {
+	/** add disposer, return item */
+	stow<Item>(item: Item, dispose: () => void) {
 		this.add(dispose)
 		return item
 	}
 
-	/** add a scoped item's disposer, and return the item */
-	register<Item>([item, dispose]: Scoped<Item>) {
+	/** add scoped disposer, return item */
+	scoped<Item>([item, dispose]: Scoped<Item>) {
 		this.add(dispose)
 		return item
 	}
 
-	/** register and return disposable item */
-	registerDisposable<Item extends Disposable>(item: Item) {
-		this.#disposers.push(() => item.dispose)
-		return item
+	/** add and return a disposable object */
+	keep<D extends Disposable>(disposable: D) {
+		this.add(() => disposable.dispose())
+		return disposable
 	}
 
-	/** augment a fn to register its returned scoped item */
-	fn<Params extends any[], Item>(fn: (...params: Params) => Scoped<Item>) {
+	/** wrap a fn, auto-add returned disposers */
+	scopedFn<Params extends any[], Item>(
+			fn: (...params: Params) => Scoped<Item>
+		) {
 		return (...a: Params) => {
 			const scoped = fn(...a)
-			return this.register(scoped)
+			return this.scoped(scoped)
 		}
 	}
 
-	/** augment an async fn to register its returned scoped item */
-	fnAsync<Params extends any[], Item>(fn: (...params: Params) => Promise<Scoped<Item>>) {
+	/** wrap an async fn, auto-add returned disposers */
+	scopedFnAsync<Params extends any[], Item>(
+			fn: (...params: Params) => Promise<Scoped<Item>>
+		) {
 		return async(...a: Params) => {
 			const scoped = await fn(...a)
-			return this.register(scoped)
+			return this.scoped(scoped)
 		}
 	}
 
-	/** augment a fn to register its returned disposable item */
-	fnDisposable<Params extends any[], Item extends Disposable>(fn: (...params: Params) => Item) {
+	/** wrap a fn, auto-add returned disposables */
+	keepFn<Params extends any[], D extends Disposable>(
+			fn: (...params: Params) => D
+		) {
 		return (...a: Params) => {
-			const scoped = fn(...a)
-			return this.registerDisposable(scoped)
+			const disposable = fn(...a)
+			return this.keep(disposable)
 		}
 	}
 
-	/** augment an async fn to register its returned disposable item */
-	fnAsyncDisposable<Params extends any[], Item extends Disposable>(fn: (...params: Params) => Promise<Item>) {
+	/** wrap an async fn, auto-add returned disposables */
+	keepFnAsync<Params extends any[], D extends Disposable>(
+			fn: (...params: Params) => Promise<D>
+		) {
 		return async(...a: Params) => {
-			const scoped = await fn(...a)
-			return this.registerDisposable(scoped)
+			const disposable = await fn(...a)
+			return this.keep(disposable)
 		}
 	}
 
-	/** create a subscope that is registered, so disposing the parent will dispose the children */
+	/** wrap a constructor, auto-add returned disposables */
+	keepConstructor<C extends DisposableClass>(Ctor: C) {
+		const scope = this
+		return class extends Ctor {
+			constructor(...p: any[]) {
+				super(...p)
+				scope.keep(this as any)
+			}
+		}
+	}
+
+	/** create a subscope, child gets disposed when parent does */
 	sub() {
-		const scope = new Scope()
-		return this.reg(scope, () => scope.dispose())
+		const subscope = new Scope()
+		return this.stow(subscope, () => subscope.dispose())
 	}
 
-	/** dispose all the disposers added to this scope */
+	/** dispose everything in this scope, in reverse order */
 	dispose() {
 		for (const fn of this.#disposers.reverse())
 			fn()

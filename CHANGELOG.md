@@ -8,6 +8,9 @@
 
 ## v0.0
 
+### v0.0.0-38
+- 🟥 rename `Scope` methods (now use add/stow/scoped/keep)
+
 ### v0.0.0-37
 - 🍏 add new `Scope` tool to maybe replace `Trash`
 
