@@ -8,6 +8,12 @@
 
 ## v0.0
 
+### v0.0.1
+- 🍏 add back the 'ol `Pipe.with` alias for `pipe` (why not)
+
+### v0.0.0
+- 🍏 first real release
+
 ### v0.0.0-39
 - 🍏 fix scope keepConstructor types
 - 🍏 add new helper fn `denew`
