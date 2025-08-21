@@ -7,6 +7,7 @@ export function pipe<I>(input: I) {
 
 export class Pipe<I> {
 	#input: I
+	static with = pipe
 
 	constructor(input: I) {
 		this.#input = input
