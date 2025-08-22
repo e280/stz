@@ -6,10 +6,14 @@
 
 <br/>
 
-## v0.0
+## v0.1
 
-### v0.0.1
+### v0.1.0
+- 🍏 moving to version range that allows non-breaking patches
+- 🍏 update dependencies
 - 🍏 add back the 'ol `Pipe.with` alias for `pipe` (why not)
+
+## v0.0
 
 ### v0.0.0
 - 🍏 first real release
