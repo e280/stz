@@ -40,7 +40,7 @@ export type ObPredicate<Ob extends object> = (
 ////////////
 ////////////
 
-const obMap = <Ob extends object, Value>(
+export const obMap = <Ob extends object, Value>(
 		o: Ob,
 		transform: ObTransform<Ob, Value>,
 	) => {
@@ -52,7 +52,7 @@ const obMap = <Ob extends object, Value>(
 	) as {[P in keyof Ob]: Value}
 }
 
-const obFilter = <Ob extends object>(
+export const obFilter = <Ob extends object>(
 		o: Ob,
 		predicate: ObPredicate<Ob>,
 	) => {

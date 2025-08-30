@@ -8,6 +8,9 @@
 
 ## v0.1
 
+### v0.1.1
+- 🍏 export `obMap` and `obFilter` (slightly more performant than `ob.map` forms)
+
 ### v0.1.0
 - 🍏 moving to version range that allows non-breaking patches
 - 🍏 update dependencies
