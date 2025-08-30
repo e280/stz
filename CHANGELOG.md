@@ -10,6 +10,7 @@
 
 ### v0.1.1
 - 🍏 export `obMap` and `obFilter` (slightly more performant than `ob.map` forms)
+- 🍏 add `SetG` concept similar to `MapG` but for sets
 
 ### v0.1.0
 - 🍏 moving to version range that allows non-breaking patches
