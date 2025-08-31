@@ -6,6 +6,16 @@
 
 <br/>
 
+## v0.2
+
+### v0.2.0
+- **pubsub changes**
+  - 🟥 change `xub`, now returns non-invocable full pubsub facilities (used to return a tuple)
+  - 🍏 add new `.publish` which is a normal publisher fn without the xub facilities
+  - 🍏 add new `.subscribe` which is a normal subscriber fn without the xub facilities
+
+<br/>
+
 ## v0.1
 
 ### v0.1.3
@@ -22,6 +32,8 @@
 - 🍏 moving to version range that allows non-breaking patches
 - 🍏 update dependencies
 - 🍏 add back the 'ol `Pipe.with` alias for `pipe` (why not)
+
+<br/>
 
 ## v0.0
 

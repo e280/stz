@@ -6,14 +6,20 @@ export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
 export interface Xub<A extends any[] = []> {
 
 	/** publish to all subscribed listeners. */
-	pub(...a: A): Promise<void>
+	publish(...a: A): Promise<void>
 
 	/** subscribe a listener function. */
-	sub(fn: Listener<A>): () => void
+	subscribe(fn: Listener<A>): () => void
+
+	/** publish to all subscribed listeners, with pubsub facilities. */
+	pub: Pub<A>
+
+	/** subscribe a listener function, with pubsub facilities. */
+	sub: Sub<A>
 
 	/**
 	 * subscribe a listener function.
-	 * @alias sub
+	 * @alias subscribe
 	 */
 	on(fn: Listener<A>): () => void
 
@@ -34,16 +40,25 @@ export interface Pub<A extends any[] = []> extends Xub<A> {
 	(...a: A): Promise<void>
 }
 
+/** make pubsub facilities */
 export function xub<A extends any[] = []>() {
 	const set = new Set<Listener<A>>()
 
-	function sub(fn: Listener<A>) {
+	async function publish(...a: A) {
+		await Promise.all([...set].map(fn => fn(...a)))
+	}
+
+	function subscribe(fn: Listener<A>) {
 		set.add(fn)
 		return () => { set.delete(fn) }
 	}
 
 	async function pub(...a: A) {
-		await Promise.all([...set].map(fn => fn(...a)))
+		return publish(...a)
+	}
+
+	function sub(fn: Listener<A>) {
+		return subscribe(fn)
 	}
 
 	async function next() {
@@ -59,34 +74,32 @@ export function xub<A extends any[] = []>() {
 		set.clear()
 	}
 
-	sub.pub = pub
-	sub.sub = sub
-	sub.on = sub
-	sub.next = next
-	sub.clear = clear
+	const x = {
+		pub,
+		sub,
+		publish,
+		subscribe,
+		on: subscribe,
+		next,
+		clear,
+	} as Xub<A>
 
-	pub.pub = pub
-	pub.sub = sub
-	pub.on = sub
-	pub.next = next
-	pub.clear = clear
-
-	return [pub, sub] as [Pub<A>, Sub<A>]
+	Object.assign(sub, x)
+	Object.assign(pub, x)
+	return x
 }
 
-/** create a subscriber fn that can be published to */
+/** create a subscriber fn that also has pubsub facilities */
 export function sub<A extends any[] = []>(listener?: Listener<A>): Sub<A> {
-	const fn = xub<A>()[1]
-	if (listener)
-		fn.sub(listener)
-	return fn
+	const x = xub<A>()
+	if (listener) x.sub(listener)
+	return x.sub
 }
 
-/** create a publisher fn that can be subscribed to */
+/** create a publisher fn that also has pubsub facilities */
 export function pub<A extends any[] = []>(listener?: Listener<A>): Pub<A> {
-	const fn = xub<A>()[0]
-	if (listener)
-		fn.sub(listener)
-	return fn
+	const x = xub<A>()
+	if (listener) x.sub(listener)
+	return x.pub
 }
 
