@@ -9,6 +9,7 @@
 ## v0.2
 
 ### v0.2.0
+- add new `WeakMapG` tool, like MapG but for WeakMap
 - **pubsub changes**
   - 🟥 change `xub`, now returns non-invocable full pubsub facilities (used to return a tuple)
   - 🍏 add new `.publish` which is a normal publisher fn without the xub facilities

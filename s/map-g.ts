@@ -31,6 +31,34 @@ export class MapG<K, V> extends Map<K, V> {
 	}
 }
 
+/** extended weak map with handy methods like `require` and `guarantee` */
+export class WeakMapG<K extends WeakKey, V> extends WeakMap<K, V> {
+	static require<K extends WeakKey, V>(map: WeakMap<K, V>, key: K) {
+		if (map.has(key))
+			return map.get(key)!
+		else
+			throw new Error(`required key not found`)
+	}
+
+	static guarantee<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, make: () => V) {
+		if (map.has(key))
+			return map.get(key)!
+		else {
+			const value = make()
+			map.set(key, value)
+			return value
+		}
+	}
+
+	require(key: K) {
+		return WeakMapG.require(this, key)
+	}
+
+	guarantee(key: K, make: () => V) {
+		return WeakMapG.guarantee(this, key, make)
+	}
+}
+
 export type Identifiable<Id = any> = {id: Id}
 
 /** js map but for things that have an `id` field */
