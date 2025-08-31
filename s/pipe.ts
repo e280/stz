@@ -20,5 +20,11 @@ export class Pipe<I> {
 	done() {
 		return this.#input
 	}
+
+	line(...fns: Piper<I, I>[]) {
+		let x = this.#input
+		for (const fn of fns) x = fn(x)
+		return x
+	}
 }
 

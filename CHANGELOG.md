@@ -8,6 +8,9 @@
 
 ## v0.1
 
+### v0.1.3
+- 🍏 add `pipe(x).line(fn1, fn2, fn3)`
+
 ### v0.1.2
 - 🍏 export `SetG` (whoops forgot it last version lol)
 
