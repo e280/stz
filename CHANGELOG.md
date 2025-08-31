@@ -8,6 +8,9 @@
 
 ## v0.1
 
+### v0.1.2
+- 🍏 export `SetG` (whoops forgot it last version lol)
+
 ### v0.1.1
 - 🍏 export `obMap` and `obFilter` (slightly more performant than `ob.map` forms)
 - 🍏 add `SetG` concept similar to `MapG` but for sets
