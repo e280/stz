@@ -61,9 +61,10 @@ export function xub<A extends any[] = []>() {
 		return subscribe(fn)
 	}
 
-	async function next() {
+	async function next(fn?: Listener<A>) {
 		const {promise, resolve} = defer<A>()
-		const unsubscribe = sub((...a) => {
+		const unsubscribe = sub(async(...a) => {
+			if (fn) await fn(...a)
 			resolve(a)
 			unsubscribe()
 		})

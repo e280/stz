@@ -14,6 +14,7 @@
   - 🟥 change `xub`, now returns non-invocable full pubsub facilities (used to return a tuple)
   - 🍏 add new `.publish` which is a normal publisher fn without the xub facilities
   - 🍏 add new `.subscribe` which is a normal subscriber fn without the xub facilities
+  - 🍏 add `fn` to `.next(fn)`
 
 <br/>
 
