@@ -1,8 +1,11 @@
 
 export const is = Object.freeze({
+
+	/** not undefined or null */
 	happy: <X>(x: X): x is NonNullable<X> =>
 		x !== undefined && x !== null,
 
+	/** undefined or null */
 	sad: (x: any): x is (undefined | null) =>
 		x === undefined || x === null,
 
