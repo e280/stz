@@ -12,7 +12,7 @@ zero dependencies.
 ## 🥨 stz primitives
 
 ### 🍏 MapG
-> extended js map
+> extended js Map
 
 ```ts
 import {MapG} from "@e280/stz"
@@ -23,16 +23,28 @@ const map = new MapG<number, string>([
 ])
 ```
 
-- `map.require(key)` — returns the value for key — if missing, throw an error
+- `map.require(key)` — returns the value for key.. if missing, throw an error
   ```ts
   const value = map.require(1)
     // "hello"
   ```
-- `map.guarantee(key, make)` — returns the value for `key` — if missing, run `make` to set the value and return it
+- `map.guarantee(key, makeFn)` — returns the value for `key`.. if missing, run `makeFn` to set and return the value
   ```ts
   const value = map.guarantee(3, () => "rofl")
     // "rofl"
   ```
+
+### 🍏 SetG
+> extended js Set
+- `new SetG<T>()`
+- `set.adds(item1, item2, item3)` — add multiple items without a for-loop
+- `set.deletes(item1, item2, item3)` — add multiple items without a for-loop
+
+### 🍏 WeakMapG
+> extended js WeakMap
+- `new WeakMapG<K, V>()`
+- `weakMap.require(key)` — returns value for key.. if missing, throw an error
+- `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
 
 ### 🍏 nap
 > sleep for some milliseconds
