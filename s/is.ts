@@ -1,9 +1,9 @@
 
 export const is = Object.freeze({
-	set: <X>(x: X): x is NonNullable<X> =>
+	happy: <X>(x: X): x is NonNullable<X> =>
 		x !== undefined && x !== null,
 
-	unset: (x: any): x is (undefined | null) =>
+	sad: (x: any): x is (undefined | null) =>
 		x === undefined || x === null,
 
 	boolean: (x: any): x is boolean =>

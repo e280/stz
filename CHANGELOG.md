@@ -9,12 +9,14 @@
 ## v0.2
 
 ### v0.2.0
-- add new `WeakMapG` tool, like MapG but for WeakMap
-- **pubsub changes**
+- 🟥 rename `is.set` to `is.happy`
+- 🟥 rename `is.unset` to `is.sad`
+- 🟥 pubsub changes
   - 🟥 change `xub`, now returns non-invocable full pubsub facilities (used to return a tuple)
   - 🍏 add new `.publish` which is a normal publisher fn without the xub facilities
   - 🍏 add new `.subscribe` which is a normal subscriber fn without the xub facilities
   - 🍏 add `fn` to `.next(fn)`
+- 🍏 add new `WeakMapG` tool, like MapG but for WeakMap
 
 <br/>
 
