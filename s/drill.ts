@@ -11,7 +11,7 @@ export function drill<xResult>(
 
 	for (const key of path) {
 		current = current[key]
-		if (is.unset(current))
+		if (is.sad(current))
 			break
 	}
 
