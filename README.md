@@ -9,7 +9,7 @@ zero dependencies.
 
 <br/>
 
-## 🧰 STZ PRIMITIVES
+## 🥨 stz primitives
 
 ### 🍏 MapG
 > extended js map
@@ -121,7 +121,7 @@ import {pub, sub} from "@e280/stz"
 
 <br/>
 
-## 🧰 STZ FN TOOLS
+## 🥨 stz fn tools
 
 ### 🍏 `queue(fn)`
 > execute calls in sequence (not concurrent)
@@ -211,7 +211,7 @@ stop()
 
 <br/>
 
-## 🧰 STZ DATA UTILITIES
+## 🥨 stz data utilities
 
 ### 🍏 Hex
 > convert to/from hexadecimal string format
@@ -330,7 +330,7 @@ import {Bytename} from "@e280/stz"
 
 <br/>
 
-## 💖 stz is made with open source love
+## 💖 stz is by e280
 reward us with github stars  
 build with us at https://e280.org/ but only if you're cool  
 
