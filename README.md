@@ -11,50 +11,75 @@ zero dependencies.
 
 ## 🥨 stz primitives
 
-### 🍏 MapG
-> extended js Map
+### 🍏 `pub` and `sub`
+> ergonomic event emitters
 
 ```ts
-import {MapG} from "@e280/stz"
-
-const map = new MapG<number, string>([
-  [1, "hello"],
-  [2, "world"],
-])
+import {pub, sub} from "@e280/stz"
 ```
 
-- `map.require(key)` — returns the value for key.. if missing, throw an error
+#### `pub`
+- make a publisher fn
   ```ts
-  const value = map.require(1)
-    // "hello"
+  // create a pub fn
+  const sendMessage = pub<[string]>()
+
+  // subscribe to it
+  sendMessage.subscribe(m => console.log(m))
+
+  // publish to it
+  sendMessage("hello")
   ```
-- `map.guarantee(key, makeFn)` — returns the value for `key`.. if missing, run `makeFn` to set and return the value
+
+#### `sub`
+- make a subscriber fn — *it's just like pub, except it's flipsy-reversey!*
   ```ts
-  const value = map.guarantee(3, () => "rofl")
-    // "rofl"
+  // create a sub fn
+  const onMessage = sub<[string]>()
+
+  // subscribe to it
+  onMessage(m => console.log(m))
+
+  // publish to it
+  onMessage.publish("hello")
   ```
 
-### 🍏 SetG
-> extended js Set
-- `new SetG<T>()`
-- `set.adds(item1, item2, item3)` — add multiple items without a for-loop
-- `set.deletes(item1, item2, item3)` — add multiple items without a for-loop
+#### pub vs sub
+- pub and sub both have the same facilities
+  - `.publish`
+  - `.subscribe`
+  - `.on`
+  - `.next`
+  - `.clear`
+- i seem to use `sub` more often
 
-### 🍏 WeakMapG
-> extended js WeakMap
-- `new WeakMapG<K, V>()`
-- `weakMap.require(key)` — returns value for key.. if missing, throw an error
-- `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
-
-### 🍏 nap
-> sleep for some milliseconds
-
-```ts
-import {nap} from "@e280/stz"
-
-await nap(900)
-  // wait for 900 milliseconds
-```
+#### the more you know, about pubsub
+- publish actually returns a promise, to wait for all async subscribers
+  ```ts
+  await onMessage.publish("hello")
+  ```
+- subscribe returns a fn to unsubscribe
+  ```ts
+  const unsubscribe = onMessage(() => {})
+  unsubscribe()
+  ```
+- `.clear()` to wipe all subscribed listeners
+  ```ts
+  onMessage.clear()
+  ```
+- `.next(fn?)` is a better way to do .once..  
+  - you can use it like a .once:
+    ```ts
+    onMessage.next(message => {})
+    ```
+  - but it also gives you a promise like this:
+    ```ts
+    const [message] = await onMessage.next()
+    ```
+  - of course the promise can be used like this:
+    ```ts
+    onMessage.next().then(([message]) => {})
+    ```
 
 ### 🍏 defer
 > defer the resolve/reject of a promise to the outside
@@ -78,58 +103,50 @@ const deferred = defer()
     await deferred.promise
     ```
 
-### 🍏 `pub` and `sub`
-> ergonomic event emitters
+### 🍏 nap
+> sleep for some milliseconds
 
 ```ts
-import {pub, sub} from "@e280/stz"
+import {nap} from "@e280/stz"
+
+await nap(900)
+  // wait for 900 milliseconds
 ```
 
-- make a publisher fn
+### 🍏 MapG
+> extended js Map
+
+- many say it's *"The Deluxe Mapping Experience"*
   ```ts
-  // create a pub fn
-  const sendMessage = pub<[string]>()
+  import {MapG} from "@e280/stz"
 
-  // subscribe to it
-  sendMessage.sub(m => console.log(m))
-
-  // publish to it
-  sendMessage("hello")
+  const map = new MapG<number, string>([
+    [1, "hello"],
+    [2, "world"],
+  ])
   ```
-- make a subscriber fn *(see how it's just the reverse of pub?)*
+- `map.require(key)` — returns the value for key.. if missing, throw an error
   ```ts
-  // create a sub fn
-  const onMessage = sub<[string]>()
-
-  // subscribe to it
-  onMessage(m => console.log(m))
-
-  // publish to it
-  onMessage.pub("hello")
+  const value = map.require(1)
+    // "hello"
   ```
-- the pub and sub are the same, but have differing invoke signatures
-- i seem to use `sub` more often
-- both have some extra functionality
+- `map.guarantee(key, makeFn)` — returns the value for `key`.. if missing, run `makeFn` to set and return the value
   ```ts
-  // pub fns return a promise, to wait for all async subscribers
-  await sendMessage("hello")
-  await onMessage.pub("hello")
-
-  // sub fns return an unsub fn
-  const unsub1 = onMessage(m => console.log(m))
-  unsub1() // unsubscribe that listener
-
-  const unsub2 = sendMessage.sub(m => console.log(m))
-  unsub2() // unsubscribe that listener
-
-  // you can clear all subscribers from a pub or a sub
-  sendMessage.clear()
-  onMessage.clear()
-
-  // instead of a 'once' fn we simply await next()
-  await onMessage.next()
-  await sendMessage.next()
+  const value = map.guarantee(3, () => "rofl")
+    // "rofl"
   ```
+
+### 🍏 SetG
+> extended js Set
+- `new SetG<T>()`
+- `set.adds(item1, item2, item3)` — add multiple items without a for-loop
+- `set.deletes(item1, item2, item3)` — add multiple items without a for-loop
+
+### 🍏 WeakMapG
+> extended js WeakMap
+- `new WeakMapG<K, V>()`
+- `weakMap.require(key)` — returns value for key.. if missing, throw an error
+- `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
 
 <br/>
 
