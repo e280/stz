@@ -17,6 +17,7 @@
   - 🍏 add new `.subscribe` which is a normal subscriber fn without the xub facilities
   - 🍏 add `fn` to `.next(fn)`
 - 🍏 add new `WeakMapG` tool, like MapG but for WeakMap
+- 🍏 add `range` fn
 
 <br/>
 

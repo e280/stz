@@ -10,3 +10,7 @@ export function* loop2d([columns, rows]: [number, number]) {
 			yield [x, y] as [number, number]
 }
 
+export function range(n: number) {
+	return [...loop(n)]
+}
+
