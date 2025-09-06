@@ -1,11 +1,9 @@
 
 # 🏂 `@e280/stz`
 
-**stz** is e280's standard library of environment-agnostic typescript tools.
+**stz** is e280's standard library of environment-agnostic typescript tools. zero dependencies.
 
-it's our javascript toolkit.
 
-zero dependencies.
 
 <br/>
 
@@ -148,6 +146,8 @@ await nap(900)
 - `weakMap.require(key)` — returns value for key.. if missing, throw an error
 - `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
 
+
+
 <br/>
 
 ## 🥨 stz fn tools
@@ -238,6 +238,8 @@ const stop = repeat(async() => {
 stop()
 ```
 
+
+
 <br/>
 
 ## 🥨 stz data utilities
@@ -321,6 +323,8 @@ stop()
   - `1uK3au` base62 epoch seconds (6 chars)
   - *nice*
 
+
+
 <br/>
 
 ### 🍏 Bytename
@@ -355,9 +359,9 @@ import {Bytename} from "@e280/stz"
     // "ribmug.hilmun ribmug.hilmun"
   ```
 
-<br/>
 
-<br/>
+
+<br/><br/>
 
 ## 💖 stz is by e280
 reward us with github stars  
