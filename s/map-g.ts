@@ -3,7 +3,7 @@
 export class MapG<K, V> extends Map<K, V> {
 	static require<K, V>(map: Map<K, V>, key: K) {
 		if (map.has(key))
-			return map.get(key)!
+			return map.get(key) as V
 		else
 			throw new Error(`required key not found: "${key}"`)
 	}
@@ -35,7 +35,7 @@ export class MapG<K, V> extends Map<K, V> {
 export class WeakMapG<K extends WeakKey, V> extends WeakMap<K, V> {
 	static require<K extends WeakKey, V>(map: WeakMap<K, V>, key: K) {
 		if (map.has(key))
-			return map.get(key)!
+			return map.get(key) as V
 		else
 			throw new Error(`required key not found`)
 	}
