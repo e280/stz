@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.2
+- 🍏 add SetG `.array()` method
+
 ### v0.2.1
 - 🔶 deprecate `Hat` in favor of new `Dispenser`
 - 🍏 add new `Dispenser` tool, better than `Hat`
