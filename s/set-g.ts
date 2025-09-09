@@ -1,5 +1,9 @@
 
 export class SetG<T> extends Set<T> {
+	array() {
+		return [...this]
+	}
+
 	hasAll(...items: T[]) {
 		return items.every(item => this.has(item))
 	}
