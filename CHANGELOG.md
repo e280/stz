@@ -4,9 +4,15 @@
 - 🔶 deprecation or possible breaking change
 - 🍏 harmless addition, fix, or enhancement
 
+
+
 <br/>
 
 ## v0.2
+
+### v0.2.1
+- 🔶 deprecate `Hat` in favor of new `Dispenser`
+- 🍏 add new `Dispenser` tool, better than `Hat`
 
 ### v0.2.0
 - 🟥 rename `is.set` to `is.happy`
@@ -18,6 +24,8 @@
   - 🍏 add `fn` to `.next(fn)`
 - 🍏 add new `WeakMapG` tool, like MapG but for WeakMap
 - 🍏 add `range` fn
+
+
 
 <br/>
 
@@ -37,6 +45,8 @@
 - 🍏 moving to version range that allows non-breaking patches
 - 🍏 update dependencies
 - 🍏 add back the 'ol `Pipe.with` alias for `pipe` (why not)
+
+
 
 <br/>
 

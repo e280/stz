@@ -1,4 +1,5 @@
 
+/** @deprecated use `Dispenser` instead */
 export class Hat<T> {
 	#content: T[] = []
 
