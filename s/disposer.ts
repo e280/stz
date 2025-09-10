@@ -9,6 +9,7 @@ export function disposer() {
 
 	d.schedule = (fn: () => void) => {
 		fns.push(fn)
+		return d
 	}
 
 	return d
