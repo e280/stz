@@ -6,6 +6,7 @@
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
 	"type": "module",
 	"main": "./x/index.js",
+	"sideEffects": false,
 	"exports": {
 		".": "./x/index.js"
 	},
