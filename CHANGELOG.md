@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.3
+- 🍏 add tool `disposer`
+
 ### v0.2.2
 - 🍏 add SetG `.array()` method
 
