@@ -4,7 +4,7 @@ export class Dispenser<T> {
 	#content: T[] = []
 
 	constructor(private getRefill: () => T[]) {
-		this.#content = [...getRefill()]
+		this.#refillWhenEmpty()
 	}
 
 	/** see what's currently available in the dispenser */
@@ -15,6 +15,8 @@ export class Dispenser<T> {
 	#refillWhenEmpty() {
 		if (this.#content.length === 0)
 			this.#content = [...this.getRefill()]
+		if (this.#content.length === 0)
+			throw new Error("dispenser's getRefill returned an empty array")
 	}
 
 	/** take everything that's left, and refill */
@@ -35,13 +37,13 @@ export class Dispenser<T> {
 	/** take out the first item */
 	takeFirst() {
 		this.#refillWhenEmpty()
-		return this.#content.shift()
+		return this.#content.shift()! as T
 	}
 
 	/** take out the last item */
 	takeLast() {
 		this.#refillWhenEmpty()
-		return this.#content.pop()
+		return this.#content.pop()! as T
 	}
 
 	/** @alias takeFirst */
