@@ -17,5 +17,10 @@ export class SetG<T> extends Set<T> {
 		for (const item of items) this.delete(item)
 		return this
 	}
+
+	clear() {
+		super.clear()
+		return this
+	}
 }
 
