@@ -1,17 +1,17 @@
 
-export type Rest<T extends any[]> = (
-	T extends [any, ...infer R]
-		? R
+export type First<A extends any[]> = (
+	A extends [infer X, ...any[]]
+		? X
 		: never
 )
 
-export type First<T extends any[]> = (
-	T extends [infer First, ...any[]]
-		? First
+export type DropFirst<A extends any[]> = (
+	A extends [any, ...infer X]
+		? X
 		: never
 )
 
-export type RestParams<Fn extends (...params: any[]) => any> = (
-	(...params: Rest<Parameters<Fn>>) => ReturnType<Fn>
+export type DropFirstParam<Fn extends (...params: any[]) => any> = (
+	(...params: DropFirst<Parameters<Fn>>) => ReturnType<Fn>
 )
 

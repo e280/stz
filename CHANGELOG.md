@@ -11,7 +11,7 @@
 ## v0.2
 
 ### v0.2.6
-- 🍏 add utility types `First`, `Rest`, `RestParams`
+- 🍏 add utility types `First`, `DropFirst`, `DropFirstParam`
 - 🍏 add SetG clear returns this
 
 ### v0.2.5
