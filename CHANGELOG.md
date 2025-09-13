@@ -10,6 +10,16 @@
 
 ## v0.2
 
+### v0.2.6
+- 🍏 add utility types `First`, `Rest`, `RestParams`
+- 🍏 add SetG clear returns this
+
+### v0.2.5
+- 🍏 improve dispenser's types
+
+### v0.2.4
+- 🍏 `disposer.schedule` returns the disposer
+
 ### v0.2.3
 - 🍏 add tool `disposer`
 
