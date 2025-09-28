@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.7
+- 🍏 add tool `untab` for de-tabbing template strings blocks
+
 ### v0.2.6
 - 🍏 add utility types `First`, `DropFirst`, `DropFirstParam`
 - 🍏 add SetG clear returns this
