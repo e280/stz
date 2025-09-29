@@ -3,7 +3,7 @@
  * repeat the given async function over and over.
  *  - consider using `nap` in your fn to create a delay
  */
-export function repeat(fn: (stop: () => void) => Promise<void>) {
+export function cycle(fn: (stop: () => void) => Promise<void>) {
 	let timeout: any
 	let stopped = false
 
@@ -22,4 +22,7 @@ export function repeat(fn: (stop: () => void) => Promise<void>) {
 	tick()
 	return stop
 }
+
+/** @deprecated renamed to `cycle` */
+export const repeat = cycle
 
