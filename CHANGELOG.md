@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.8
+- 🍏 add `collect` fn
+
 ### v0.2.7
 - 🍏 add tool `untab` for de-tabbing template strings blocks
 

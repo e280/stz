@@ -16,6 +16,7 @@ export * from "./deep/deep.js"
 export * from "./queue/queue.js"
 
 export * from "./coalesce.js"
+export * from "./collect.js"
 export * from "./concurrent.js"
 export * from "./constructor.js"
 export * from "./deadline.js"
