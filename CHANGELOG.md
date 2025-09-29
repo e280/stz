@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.9
+- 🍏 add `provide` fn
+
 ### v0.2.8
 - 🔶 deprecate `repeat` renamed to `cycle`
 - 🔶 deprecate `loop` renamed to `count`
