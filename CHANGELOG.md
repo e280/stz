@@ -11,6 +11,8 @@
 ## v0.2
 
 ### v0.2.8
+- 🔶 deprecate `loop` renamed to `count`
+- 🔶 deprecate `loop2d` renamed to `count2d`
 - 🍏 add `collect` fn
 
 ### v0.2.7
