@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.10
+- 🍏 update dependencies
+
 ### v0.2.9
 - 🍏 add `provide` fn
 
