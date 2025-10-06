@@ -15,6 +15,8 @@ export * from "./deep/deep.js"
 
 export * from "./queue/queue.js"
 
+export * from "./toq/index.js"
+
 export * from "./coalesce.js"
 export * from "./collect.js"
 export * from "./concurrent.js"
