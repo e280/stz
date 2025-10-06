@@ -6,7 +6,7 @@ export type Entry = [name: string, data: Uint8Array]
 
 export const magic = new Uint8Array([...Txt.toBytes("TOQ"), 0x01])
 
-export function pack(items: Iterable<Entry>) {
+export function from(items: Iterable<Entry>) {
 	return new Uint8Array([
 		...magic,
 		...[...items].flatMap(([name, data]) => {

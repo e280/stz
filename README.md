@@ -323,10 +323,6 @@ stop()
   - `1uK3au` base62 epoch seconds (6 chars)
   - *nice*
 
-
-
-<br/>
-
 ### 🍏 Bytename
 > friendly string encoding for binary data
 
@@ -359,6 +355,52 @@ import {Bytename} from "@e280/stz"
     // "ribmug.hilmun ribmug.hilmun"
   ```
 
+### 🍏 toq
+> tar-like binary file format for efficiently packing multiple files together
+
+```ts
+import {toq, Txt} from "@e280/stz"
+```
+
+#### data layout
+- 4 magic bytes, `"TOQ" + 0x01`
+- for each file
+  - `name length` 1 byte (u8)
+  - `name` x bytes
+  - `data length` 8 bytes (u64 le)
+  - `data` x bytes
+
+#### toq from/entries
+- **pack files together**
+    ```ts
+    const pack: Uint8Array = toq.from([
+      ["hello.txt", Txt.toBytes("hello world")],
+      ["deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF])],
+    ])
+    ```
+- **check if a file is a valid toq pack**
+    ```ts
+    toq.is(pack)
+    ```
+- **scan/read a toq pack**
+    ```ts
+    for (const [name, data] of toq.entries(pack))
+      console.log(name, data.length)
+    ```
+
+#### toq works nice with maps
+- **pack up a map of files**
+    ```ts
+    const files = new Map<string, Uint8Array>()
+    files.set("hello.txt", Txt.toBytes("hello world"))
+    files.set("deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
+
+    const pack = toq.from(files)
+    ```
+- **unpack into a new map**
+    ```ts
+    const files = new Map(toq.entries(pack))
+    ```
 
 
 <br/><br/>
