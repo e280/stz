@@ -8,6 +8,7 @@ import bytename from "./data/bytename/bytename.test.js"
 import deep from "./deep/deep.test.js"
 import data from "./data/data.test.js"
 import queue from "./queue/queue.test.js"
+import toq from "./toq/toq.test.js"
 
 await Science.run({
 	clone,
@@ -17,5 +18,6 @@ await Science.run({
 	deep,
 	data,
 	queue,
+	toq,
 })
 
