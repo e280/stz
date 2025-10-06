@@ -4,9 +4,9 @@ import {Bytes} from "../data/bytes.js"
 
 export type Entry = [name: string, data: Uint8Array]
 
-export const magic = new Uint8Array([...Txt.toBytes("TOQ"), 0x01])
+export const magic = Txt.toBytes("TOQ\x01")
 
-export function from(items: Iterable<Entry>) {
+export function pack(items: Iterable<Entry>) {
 	return new Uint8Array([
 		...magic,
 		...[...items].flatMap(([name, data]) => {
@@ -22,7 +22,7 @@ export function from(items: Iterable<Entry>) {
 	])
 }
 
-export function* entries(file: Uint8Array) {
+export function* unpack(file: Uint8Array) {
 	if (!is(file)) throw new Error("file is not a toq archive")
 
 	const view = new DataView(file.buffer, file.byteOffset, file.byteLength)

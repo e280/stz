@@ -363,43 +363,43 @@ import {toq, Txt} from "@e280/stz"
 ```
 
 #### data layout
-- 4 magic bytes, `"TOQ" + 0x01`
+- 4 magic bytes `"TOQ\x01"`
 - for each file
   - `name length` 1 byte (u8)
   - `name` x bytes
   - `data length` 8 bytes (u64 le)
   - `data` x bytes
 
-#### toq from/entries
-- **pack files together**
+#### toq pack/unpack
+- **pack** — accepts any iterable of file entries
     ```ts
-    const pack: Uint8Array = toq.from([
+    const pack: Uint8Array = toq.pack([
       ["hello.txt", Txt.toBytes("hello world")],
       ["deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF])],
     ])
     ```
-- **check if a file is a valid toq pack**
+- **check if a file is a toq pack**
     ```ts
-    toq.is(pack)
+    toq.is(pack) // true
     ```
-- **scan/read a toq pack**
+- **unpack** — generator fn yields file entries
     ```ts
-    for (const [name, data] of toq.entries(pack))
+    for (const [name, data] of toq.unpack(pack))
       console.log(name, data.length)
     ```
 
 #### toq works nice with maps
-- **pack up a map of files**
+- **pack a map of files**
     ```ts
     const files = new Map<string, Uint8Array>()
     files.set("hello.txt", Txt.toBytes("hello world"))
     files.set("deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
 
-    const pack = toq.from(files)
+    const pack = toq.pack(files)
     ```
 - **unpack into a new map**
     ```ts
-    const files = new Map(toq.entries(pack))
+    const files = new Map(toq.unpack(pack))
     ```
 
 
