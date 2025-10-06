@@ -218,15 +218,15 @@ fn()
 // coolAction is only called once here, other calls are redundant
 ```
 
-### 🍏 `repeat(fn)`
+### 🍏 `cycle(fn)`
 > execute a function over and over again, back to back
 
 ```ts
-import {repeat} from "@e280/stz"
+import {cycle} from "@e280/stz"
 
 let ticks = 0
 
-const stop = repeat(async() => {
+const stop = cycle(async() => {
 
   // use a nap to add a delay between each execution
   await nap(200)
