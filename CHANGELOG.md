@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.11
+- 🍏 add `toq` file format tool
+
 ### v0.2.10
 - 🍏 update dependencies
 
