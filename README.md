@@ -364,11 +364,11 @@ import {toq, Txt} from "@e280/stz"
 
 #### data layout
 - 4 magic bytes `"TOQ\x01"`
-- for each file
+- for each file (little endian)
   - `name length` 1 byte (u8)
-  - `name` x bytes
-  - `data length` 8 bytes (u64 le)
-  - `data` x bytes
+  - `name` x bytes (max 255 B)
+  - `data length` 4 bytes (u32)
+  - `data` x bytes (max 4 GB)
 
 #### toq pack/unpack
 - **pack** — accepts any iterable of file entries
