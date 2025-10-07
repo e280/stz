@@ -1,5 +1,5 @@
 
-import {bytes} from "./bytes.js"
+import {bytes} from "../bytes.js"
 
 /** @deprecated use `base64` instead */
 export const Base64 = Object.freeze({

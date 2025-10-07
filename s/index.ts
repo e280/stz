@@ -1,11 +1,13 @@
 
-export * from "./data/bytename/index.js"
+export * from "./data/bytename/bytename.js"
+export * from "./data/bytename/thumbprint.js"
+export * from "./data/legacy/base58.js"
+export * from "./data/legacy/base64.js"
+export * from "./data/legacy/base64url.js"
+export * from "./data/legacy/hex.js"
+export * from "./data/base-x-codecs.js"
 export * from "./data/base-x.js"
-export * from "./data/base58.js"
-export * from "./data/base64.js"
-export * from "./data/base64url.js"
 export * from "./data/bytes.js"
-export * from "./data/hex.js"
 export * from "./data/txt.js"
 
 export * from "./debounce/debounce.js"

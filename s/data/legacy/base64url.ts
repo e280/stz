@@ -1,5 +1,5 @@
 
-import {bytes} from "./bytes.js"
+import {bytes} from "../bytes.js"
 import {Base64} from "./base64.js"
 
 /** @deprecated use `base64url` instead */

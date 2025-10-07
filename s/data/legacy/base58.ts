@@ -10,7 +10,7 @@
 */
 
 import {Hex} from "./hex.js"
-import {bytes} from "./bytes.js"
+import {bytes} from "../bytes.js"
 
 const base = 58
 const characters = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"

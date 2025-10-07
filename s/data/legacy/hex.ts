@@ -9,7 +9,7 @@
 
 */
 
-import {bytes} from "./bytes.js"
+import {bytes} from "../bytes.js"
 
 /** @deprecated use `hex` instead */
 export const Hex = Object.freeze({

@@ -2,14 +2,11 @@
 import {Science, test, expect} from "@e280/science"
 import {ob} from "../ob.js"
 import {txt} from "./txt.js"
-import {Hex} from "./hex.js"
 import {bytes} from "./bytes.js"
 import {BaseX} from "./base-x.js"
-import {Base58} from "./base58.js"
-import {Base64} from "./base64.js"
-import {Base64url} from "./base64url.js"
+import {base58, base64, base64url, hex} from "./base-x-codecs.js"
 
-const sampleBytes = Hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
+const sampleBytes = hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
 
 type ByteUtil = {
 	toBytes: (string: string) => Uint8Array
@@ -63,10 +60,10 @@ function testCompat(alpha: ByteUtil, bravo: ByteUtil) {
 }
 
 export default Science.suite({
-	"Base58": testBytes(Base58),
-	"Base64": testBytes(Base64),
-	"Base64url": testBytes(Base64url),
-	"Hex": testBytes(Hex),
+	"Base58": testBytes(base58),
+	"Base64": testBytes(base64),
+	"Base64url": testBytes(base64url),
+	"Hex": testBytes(hex),
 
 	"Txt": test(async() => {
 		const original = `build or die. 💻>☠️ 命火工`
@@ -80,9 +77,9 @@ export default Science.suite({
 			ob(BaseX.lexicons).map(lex => testBoth(new BaseX(lex)))
 		),
 		compat: Science.suite({
-			"Hex": testCompat(Hex, new BaseX(BaseX.lexicons.hex)),
-			"Base64": testCompat(Base64, new BaseX(BaseX.lexicons.base64)),
-			"Base64url": testCompat(Base64url, new BaseX(BaseX.lexicons.base64url)),
+			"Hex": testCompat(hex, new BaseX(BaseX.lexicons.hex)),
+			"Base64": testCompat(base64, new BaseX(BaseX.lexicons.base64)),
+			"Base64url": testCompat(base64url, new BaseX(BaseX.lexicons.base64url)),
 		}),
 		"base64 has padding": test(async() => {
 			const s = new BaseX(BaseX.lexicons.base64).fromBytes(sampleBytes)
