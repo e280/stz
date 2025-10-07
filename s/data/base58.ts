@@ -10,11 +10,12 @@
 */
 
 import {Hex} from "./hex.js"
-import {Bytes} from "./bytes.js"
+import {bytes} from "./bytes.js"
 
 const base = 58
 const characters = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
+/** @deprecated use `base58` instead */
 export const Base58 = Object.freeze({
 	fromBytes(bytes: Uint8Array) {
 		let intVal = BigInt("0x" + Hex.fromBytes(bytes))
@@ -59,7 +60,7 @@ export const Base58 = Object.freeze({
 	},
 
 	random(count = 32) {
-		return this.fromBytes(Bytes.random(count))
+		return this.fromBytes(bytes.random(count))
 	},
 
 	/** @deprecated renamed to `fromBytes` */

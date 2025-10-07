@@ -1,7 +1,8 @@
 
-import {Bytes} from "./bytes.js"
+import {bytes} from "./bytes.js"
 import {Base64} from "./base64.js"
 
+/** @deprecated use `base64url` instead */
 export const Base64url = {
 	fromBytes(bytes: Uint8Array) {
 		return Base64.fromBytes(bytes)
@@ -20,7 +21,7 @@ export const Base64url = {
 	},
 
 	random(count = 32) {
-		return this.fromBytes(Bytes.random(count))
+		return this.fromBytes(bytes.random(count))
 	},
 
 	/** @deprecated renamed to "fromBytes" */

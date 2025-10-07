@@ -1,5 +1,5 @@
 
-import {Bytes} from "../bytes.js"
+import {bytes} from "../bytes.js"
 import {Dictionary, Pattern} from "./types.js"
 
 export class Nomen<D extends Dictionary> {
@@ -27,7 +27,7 @@ export class Nomen<D extends Dictionary> {
 	}
 
 	random() {
-		const buffer = Bytes.random(32)
+		const buffer = bytes.random(32)
 		return this.generate(buffer)
 	}
 }

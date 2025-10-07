@@ -1,5 +1,5 @@
 
-export const Bytes = Object.freeze({
+export const bytes = Object.freeze({
 	eq(a: Uint8Array, b: Uint8Array) {
 		if (a.length !== b.length)
 			return false
@@ -14,4 +14,7 @@ export const Bytes = Object.freeze({
 		return crypto.getRandomValues(new Uint8Array(count))
 	},
 })
+
+/** @deprecated renamed to `bytes` */
+export const Bytes = bytes
 

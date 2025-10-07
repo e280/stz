@@ -1,5 +1,5 @@
 
-import {Bytes} from "./bytes.js"
+import {bytes} from "./bytes.js"
 
 export type Lexicon = {
 	characters: string
@@ -164,7 +164,7 @@ export class BaseX {
 	}
 
 	random(count = 32) {
-		return this.fromBytes(Bytes.random(count))
+		return this.fromBytes(bytes.random(count))
 	}
 }
 

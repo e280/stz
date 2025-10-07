@@ -1,6 +1,7 @@
 
-import {Bytes} from "./bytes.js"
+import {bytes} from "./bytes.js"
 
+/** @deprecated use `base64` instead */
 export const Base64 = Object.freeze({
 	fromBytes(bytes: Uint8Array) {
 		return (typeof btoa === "function")
@@ -15,7 +16,7 @@ export const Base64 = Object.freeze({
 	},
 
 	random(count = 32) {
-		return this.fromBytes(Bytes.random(count))
+		return this.fromBytes(bytes.random(count))
 	},
 
 	/** @deprecated rename to "fromBytes" */

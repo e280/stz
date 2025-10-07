@@ -1,6 +1,6 @@
 
 import {ob} from "../../ob.js"
-import {Bytes} from "../bytes.js"
+import {bytes} from "../bytes.js"
 import {GrammarTemplate, PhraseFns} from "./types.js"
 
 export class Grammar<P extends PhraseFns> {
@@ -34,7 +34,7 @@ export class Grammar<P extends PhraseFns> {
 	}
 
 	random() {
-		const buffer = Bytes.random(32)
+		const buffer = bytes.random(32)
 		return this.generate(buffer)
 	}
 }

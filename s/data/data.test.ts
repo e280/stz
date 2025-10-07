@@ -1,9 +1,9 @@
 
 import {Science, test, expect} from "@e280/science"
 import {ob} from "../ob.js"
-import {Txt} from "./txt.js"
+import {txt} from "./txt.js"
 import {Hex} from "./hex.js"
-import {Bytes} from "./bytes.js"
+import {bytes} from "./bytes.js"
 import {BaseX} from "./base-x.js"
 import {Base58} from "./base58.js"
 import {Base64} from "./base64.js"
@@ -25,7 +25,7 @@ function testBytes(util: ByteUtil) {
 	return async() => {
 		const string = util.fromBytes(sampleBytes)
 		const recreated = util.toBytes(string)
-		expect(Bytes.eq(sampleBytes, recreated)).ok()
+		expect(bytes.eq(sampleBytes, recreated)).ok()
 	}
 }
 
@@ -70,8 +70,8 @@ export default Science.suite({
 
 	"Txt": test(async() => {
 		const original = `build or die. 💻>☠️ 命火工`
-		const bytes = Txt.toBytes(original)
-		const recreated = Txt.fromBytes(bytes)
+		const bytes = txt.toBytes(original)
+		const recreated = txt.fromBytes(bytes)
 		expect(original).is(recreated)
 	}),
 

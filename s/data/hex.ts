@@ -9,8 +9,9 @@
 
 */
 
-import {Bytes} from "./bytes.js"
+import {bytes} from "./bytes.js"
 
+/** @deprecated use `hex` instead */
 export const Hex = Object.freeze({
 	fromBytes(bytes: Uint8Array) {
 		return [...bytes]
@@ -29,7 +30,7 @@ export const Hex = Object.freeze({
 
 	/** generate a random hex string. byteCount defaults to 32. */
 	random(byteCount = 32) {
-		return this.fromBytes(Bytes.random(byteCount))
+		return this.fromBytes(bytes.random(byteCount))
 	},
 
 	/** @deprecated renamed to `fromBytes` */

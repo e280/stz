@@ -1,11 +1,11 @@
 
-import {Txt} from "../data/txt.js"
-import {Bytes} from "../data/bytes.js"
+import {txt} from "../data/txt.js"
+import {bytes} from "../data/bytes.js"
 
 export type Entry = [name: string, data: Uint8Array]
 
 const u32len = 4
-const magic = Txt.toBytes("TOQ\x01")
+const magic = txt.toBytes("TOQ\x01")
 
 function u32(n: number) {
 	const view = new DataView(new ArrayBuffer(u32len))
@@ -39,7 +39,7 @@ export function* unpack(file: Uint8Array) {
 		const nameLen = file[cursor]
 		cursor += 1
 
-		const name = Txt.fromBytes(file.slice(cursor, cursor + nameLen))
+		const name = txt.fromBytes(file.slice(cursor, cursor + nameLen))
 		cursor += nameLen
 
 		const dataLen = view.getUint32(cursor, true)
@@ -54,7 +54,7 @@ export function* unpack(file: Uint8Array) {
 }
 
 export function is(file: Uint8Array) {
-	return Bytes.eq(
+	return bytes.eq(
 		file.slice(0, magic.length),
 		magic,
 	)

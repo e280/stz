@@ -1,5 +1,5 @@
 
-export const Txt = Object.freeze({
+export const txt = Object.freeze({
 	fromBytes(bytes: Uint8Array) {
 		return new TextDecoder().decode(bytes)
 	},
@@ -10,12 +10,15 @@ export const Txt = Object.freeze({
 
 	/** @deprecated renamed to `fromBytes` */
 	string(bytes: Uint8Array) {
-		return Txt.fromBytes(bytes)
+		return txt.fromBytes(bytes)
 	},
 
 	/** @deprecated renamed to `toBytes` */
 	bytes(string: string) {
-		return Txt.toBytes(string)
+		return txt.toBytes(string)
 	},
 })
+
+/** @deprecated renamed to `txt` */
+export const Txt = txt
 

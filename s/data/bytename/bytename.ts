@@ -1,6 +1,6 @@
 
-import {Hex} from "../hex.js"
-import {Bytes} from "../bytes.js"
+import {bytes} from "../bytes.js"
+import {hex} from "../base-x-codecs.js"
 import {prefixes} from "./utils/prefixes.js"
 import {suffixes} from "./utils/suffixes.js"
 
@@ -16,7 +16,7 @@ export type BytenameOptions = {
  *  - each byte maps to a three-letter triplet
  *  - all delimiters are just sugar, parser doesn't care
  */
-export const Bytename = {
+export const bytename = {
 	defaults: (<BytenameOptions>{
 		groupSize: 4,
 		wordSeparator: ".",
@@ -24,21 +24,21 @@ export const Bytename = {
 	}),
 
 	random(byteCount: number, options?: Partial<BytenameOptions>) {
-		const bytes = Bytes.random(byteCount)
-		return this.fromBytes(bytes, options)
+		const b = bytes.random(byteCount)
+		return this.fromBytes(b, options)
 	},
 
-	fromBytes(bytes: Uint8Array, options: Partial<BytenameOptions> = {}) {
+	fromBytes(b: Uint8Array, options: Partial<BytenameOptions> = {}) {
 		const {
-			groupSize = Bytename.defaults.groupSize,
-			wordSeparator = Bytename.defaults.wordSeparator,
-			groupSeparator = Bytename.defaults.groupSeparator,
+			groupSize = bytename.defaults.groupSize,
+			wordSeparator = bytename.defaults.wordSeparator,
+			groupSeparator = bytename.defaults.groupSeparator,
 		} = options
 
 		const words: string[] = []
 		let currentWord: string[] = []
 
-		bytes.forEach((byte, index) => {
+		b.forEach((byte, index) => {
 			const source = ((index % 2) === 0) ? prefixes : suffixes
 			currentWord.push(source[byte]!)
 			if (currentWord.length === 2) {
@@ -57,8 +57,8 @@ export const Bytename = {
 		return grouped.join(groupSeparator)
 	},
 
-	toBytes(bytename: string) {
-		const letters = bytename
+	toBytes(bname: string) {
+		const letters = bname
 			.toLowerCase()
 			.replace(/[^a-z]/g, "") // strip everything except letters
 
@@ -79,12 +79,15 @@ export const Bytename = {
 		}))
 	},
 
-	toHex(bytename: string) {
-		return Hex.fromBytes(Bytename.toBytes(bytename))
+	toHex(bname: string) {
+		return hex.fromBytes(bytename.toBytes(bname))
 	},
 
-	fromHex(hex: string, options?: Partial<BytenameOptions>) {
-		return Bytename.fromBytes(Hex.toBytes(hex), options)
+	fromHex(h: string, options?: Partial<BytenameOptions>) {
+		return bytename.fromBytes(hex.toBytes(h), options)
 	},
 }
+
+/** @deprecated renamed to `bytename` */
+export const Bytename = bytename
 
