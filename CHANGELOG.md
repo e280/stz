@@ -12,6 +12,18 @@
 
 ### v0.2.11
 - 🍏 add `toq` file format tool
+- 🔶 uncapitalize data utilities (old names deprecated)
+  - `Txt` -> `txt`
+  - `Bytes` -> `bytes`
+  - `Bytename` -> `bytename`
+  - `Thumbprint` -> `thumbprint`
+  - `Hex` -> `hex`
+  - `Base58` -> `base58`
+  - `Base64` -> `base64`
+  - `Base64url` -> `base64url`
+- 🔶 rename parsed ThumbprintData
+  - `thumbprint.parse(s).bytes` -> `thumbprint.parse(s).raw`
+  - `thumbprint.parse(s).thumbprint` -> `thumbprint.parse(s).full`
 
 ### v0.2.10
 - 🍏 update dependencies
