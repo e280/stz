@@ -244,78 +244,39 @@ stop()
 
 ## 🥨 stz data utilities
 
-### 🍏 Hex
-> convert to/from hexadecimal string format
-- `Hex.fromBytes(bytes)` — bytes to hex string
-- `Hex.toBytes(string)` — hex string to bytes
-- `Hex.random(32)` — generate random hex string (32 bytes)
+### 🍏 BaseX utilities
+> convert binary data to/from various encodings
 
-### 🍏 Base64
-> convert to/from base64 string format
-- `Base64.fromBytes(bytes)` — bytes to string
-- `Base64.toBytes(string)` — string to bytes
-- `Base64.random(32)` — generate random string (32 bytes)
+```ts
+import {hex, base58, base64} from "@e280/stz"
+```
 
-### 🍏 Base64url
-> convert to/from base64 string format
-- `Base64url.fromBytes(bytes)` — bytes to string
-- `Base64url.toBytes(string)` — string to bytes
-- `Base64url.random(32)` — generate random string (32 bytes)
+#### hex
+> all BaseX utilities have these methods
+- `hex.fromBytes(u8array)` — encode bytes to string
+- `hex.toBytes(str)` — decode string to bytes
+- `hex.toInteger(string)` — decode string as js integer
+- `hex.fromInteger(n)` — encode js integer as a string
+- `hex.random(32)` — generate random encoded string (32 bytes)
 
-### 🍏 Base58
-> convert to/from base64 string format
-- `Base58.fromBytes(bytes)` — bytes to string
-- `Base58.toBytes(string)` — string to bytes
-- `Base58.random(32)` — generate random string (32 bytes)
+#### all BaseX utilities
+- `hex`
+- `base2`
+- `base36`
+- `base58`
+- `base62`
+- `base64`
+- `base64url`
 
-### 🍏 Txt
-> convert to/from utf8 string format
-- `Txt.fromBytes(bytes)` — bytes to string
-- `Txt.toBytes(string)` — string to bytes
+#### make a custom BaseX utility
+- you can provide a `lexicon` to produce your own BaseX codec
+    ```ts
+    const myHex = new BaseX({characters: "0123456789abcdef"})
+    ```
 
-### 🍏 Bytes
-> utilities for dealing with Uint8Array
-- `Bytes.eq(bytesA, bytesB)` — check if two byte arrays are equal
-- `Bytes.random(32)` — generate crypto-random bytes
-
-### 🍏 BaseX
-> convert data into arbitrary data encodings
-- make a BaseX instance
+#### tiny timestamps
+- fun fact: you can make insanely compact timestamp strings like this:
   ```ts
-  import {BaseX} from "@e280/stz"
-
-  const hex = new BaseX(BaseX.lexicons.hex)
-  ```
-- convert between strings and binary
-  ```ts
-  hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
-    // Uint8Array
-
-  hex.fromBytes(bytes)
-    // string
-  ```
-- you can also convert between strings and integers
-  ```ts
-  hex.fromInteger(Date.now())
-    // "197140ac804"
-
-  hex.toInteger(hex)
-    // 1748387940356
-  ```
-- available lexicons include
-	- base2
-	- hex
-	- base36
-	- base58
-	- base62
-	- base64 (with standard padding)
-	- base64url
-- you can make insanely compact timestamps like this:
-  ```ts
-  import {BaseX} from "@e280/stz"
-
-  const base62 = new BaseX(BaseX.lexicons.base62)
-
   base62.fromInteger(Date.now() / 1000)
     // "1uK3au"
   ```
@@ -323,31 +284,41 @@ stop()
   - `1uK3au` base62 epoch seconds (6 chars)
   - *nice*
 
-### 🍏 Bytename
+### 🍏 txt
+> convert to/from utf8 string format
+- `txt.fromBytes(bytes)` — bytes to string
+- `txt.toBytes(string)` — string to bytes
+
+### 🍏 bytes
+> utilities for dealing with Uint8Array
+- `bytes.eq(bytesA, bytesB)` — check if two byte arrays are equal
+- `bytes.random(32)` — generate crypto-random bytes
+
+### 🍏 bytename
 > friendly string encoding for binary data
 
 a bytename looks like `"midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"`. that's 16 bytes. each byte maps to a three-letter triplet
 
-the bytename parser (`Bytename.toBytes`) ignores all non-alphabetic characters. thus `midsen.picmyn`, `midsenpicmyn`, and `mid@sen$pic@myn` are all equal.
+the bytename parser (`bytename.toBytes`) ignores all non-alphabetic characters. thus `midsen.picmyn`, `midsenpicmyn`, and `mid@sen$pic@myn` are all equal.
 
 ```ts
-import {Bytename} from "@e280/stz"
+import {bytename} from "@e280/stz"
 ```
 - ```ts
-  Bytename.fromBytes(new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
+  bytename.fromBytes(new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
     // "ribmug.hilmun"
   ```
 - ```ts
-  Bytename.toBytes("ribmug.hilmun")
+  bytename.toBytes("ribmug.hilmun")
     // Uint8Array, 4 bytes
   ```
 - ```ts
-  const bytes = new Uint8Array([
+  const data = new Uint8Array([
     0xDE, 0xAD, 0xBE, 0xEF,
     0xDE, 0xAD, 0xBE, 0xEF,
   ])
 
-  Bytename.fromBytes(bytes, {
+  Bytename.fromBytes(data, {
     groupSize: 2, // default is 4
     groupSeparator: " ",
     wordSeparator: ".",
@@ -359,7 +330,7 @@ import {Bytename} from "@e280/stz"
 > tar-like binary file format for efficiently packing multiple files together
 
 ```ts
-import {toq, Txt} from "@e280/stz"
+import {toq, txt} from "@e280/stz"
 ```
 
 #### data layout
@@ -371,18 +342,18 @@ import {toq, Txt} from "@e280/stz"
   - `data` x bytes (max 4 GB)
 
 #### toq pack/unpack
-- **pack** — accepts any iterable of file entries
+- **toq.pack** — accepts any iterable of file entries
     ```ts
     const pack: Uint8Array = toq.pack([
-      ["hello.txt", Txt.toBytes("hello world")],
+      ["hello.txt", txt.toBytes("hello world")],
       ["deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF])],
     ])
     ```
-- **check if a file is a toq pack**
+- **toq.is** — check if a file is a toq pack or not
     ```ts
     toq.is(pack) // true
     ```
-- **unpack** — generator fn yields file entries
+- **toq.unpack** — generator fn yields file entries
     ```ts
     for (const [name, data] of toq.unpack(pack))
       console.log(name, data.length)
