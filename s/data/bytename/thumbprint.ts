@@ -9,11 +9,17 @@ export type ThumbprintOptions = {
 }
 
 export type ThumbprintData = {
-	bytes: Uint8Array
-	thumbprint: string
+	raw: Uint8Array
+	full: string
 	preview: string
 	bulk: string
 	sigil: string
+
+	/** @deprecated renamed to `raw` */
+	readonly bytes: Uint8Array
+
+	/** @deprecated renamed to `full` */
+	readonly thumbprint: string
 }
 
 /**
@@ -55,12 +61,12 @@ export const thumbprint = {
 	},
 
 	build: {
-		fromBytes(b: Uint8Array, options: Partial<ThumbprintOptions> = {}): ThumbprintData {
+		fromBytes(raw: Uint8Array, options: Partial<ThumbprintOptions> = {}): ThumbprintData {
 			const {delimiter, previewBytes, sigilBytes}
 				= {...thumbprint.defaults, ...options}
 
-			const yoink = (len: number) => (b.length > 0)
-				? bytename.fromBytes(b.slice(0, len), {
+			const yoink = (len: number) => (raw.length > 0)
+				? bytename.fromBytes(raw.slice(0, len), {
 					wordSeparator: delimiter,
 					groupSeparator: delimiter,
 				})
@@ -69,15 +75,24 @@ export const thumbprint = {
 			const sigil = yoink(sigilBytes)
 			const preview = yoink(previewBytes)
 
-			const bulk = (b.length > previewBytes)
-				? base58.fromBytes(b.slice(previewBytes))
+			const bulk = (raw.length > previewBytes)
+				? base58.fromBytes(raw.slice(previewBytes))
 				: ""
 
-			const tstring = [preview, bulk]
+			const full = [preview, bulk]
 				.filter(s => s.length > 0)
 				.join(delimiter)
 
-			return {bytes: b, thumbprint: tstring, preview, bulk, sigil}
+			return {
+				raw,
+				full,
+				preview,
+				bulk,
+				sigil,
+
+				bytes: raw,
+				thumbprint: full,
+			}
 		},
 
 		fromHex(hstring: string, options?: Partial<ThumbprintOptions>) {
@@ -92,7 +107,7 @@ export const thumbprint = {
 	},
 
 	fromBytes(b: Uint8Array, options?: Partial<ThumbprintOptions>) {
-		return thumbprint.build.fromBytes(b, options).thumbprint
+		return thumbprint.build.fromBytes(b, options).full
 	},
 
 	fromHex(h: string, options?: Partial<ThumbprintOptions>) {
