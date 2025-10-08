@@ -244,6 +244,16 @@ stop()
 
 ## 🥨 stz data utilities
 
+### 🍏 txt
+> convert to/from utf8 string format
+- `txt.fromBytes(bytes)` — bytes to string
+- `txt.toBytes(string)` — string to bytes
+
+### 🍏 bytes
+> utilities for dealing with Uint8Array
+- `bytes.eq(bytesA, bytesB)` — check if two byte arrays are equal
+- `bytes.random(32)` — generate crypto-random bytes
+
 ### 🍏 BaseX utilities
 > convert binary data to/from various encodings
 
@@ -284,16 +294,6 @@ import {hex, base58, base64} from "@e280/stz"
   - `1uK3au` base62 epoch seconds (6 chars)
   - *nice*
 
-### 🍏 txt
-> convert to/from utf8 string format
-- `txt.fromBytes(bytes)` — bytes to string
-- `txt.toBytes(string)` — string to bytes
-
-### 🍏 bytes
-> utilities for dealing with Uint8Array
-- `bytes.eq(bytesA, bytesB)` — check if two byte arrays are equal
-- `bytes.random(32)` — generate crypto-random bytes
-
 ### 🍏 bytename
 > friendly string encoding for binary data
 
@@ -318,13 +318,23 @@ import {bytename} from "@e280/stz"
     0xDE, 0xAD, 0xBE, 0xEF,
   ])
 
-  Bytename.fromBytes(data, {
+  bytename.fromBytes(data, {
     groupSize: 2, // default is 4
     groupSeparator: " ",
     wordSeparator: ".",
   })
     // "ribmug.hilmun ribmug.hilmun"
   ```
+
+### 🍏 thumbprint
+> hybrid of bytename and base58 to make binary data more human-friendly
+- looks like `nodlyn.fasrep.habbud.ralwel.Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ`
+- the idea is that the first parts are in bytename format, so it's easy for humans to recognize
+- and the remaining data is shown in base58
+- `thumbprint.fromBytes(u8array)` — encode bytes to thumbprint string
+- `thumbprint.toBytes(thumbstring)` — decode thumbprint string to bytes
+- `thumbprint.fromHex(hexstring)` — convert a hex string into a thumbprint
+- `thumbprint.toHex(thumbstring)` — convert a thumbprint into a hex string
 
 ### 🍏 toq
 > tar-like binary file format for efficiently packing multiple files together
@@ -363,7 +373,7 @@ import {toq, txt} from "@e280/stz"
 - **pack a map of files**
     ```ts
     const files = new Map<string, Uint8Array>()
-    files.set("hello.txt", Txt.toBytes("hello world"))
+    files.set("hello.txt", txt.toBytes("hello world"))
     files.set("deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
 
     const pack = toq.pack(files)
