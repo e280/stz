@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.12
+- 🍏 fix pub/sub `.next` type, accepts `fn` param
+
 ### v0.2.11
 - 🍏 add `toq` file format tool
 - 🔶 uncapitalize data utilities (old names deprecated)
