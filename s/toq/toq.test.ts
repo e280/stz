@@ -2,7 +2,7 @@
 import {expect, Science, test} from "@e280/science"
 import {toq} from "./index.js"
 import {txt} from "../data/txt.js"
-import {deep} from "../deep/deep.js"
+import {deep} from "../deep/index.js"
 
 export default Science.suite({
 	"roundtrip one file": test(async() => {

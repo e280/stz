@@ -13,7 +13,7 @@ export * from "./data/txt.js"
 export * from "./debounce/debounce.js"
 export * from "./debounce/types.js"
 
-export * from "./deep/deep.js"
+export * from "./deep/index.js"
 
 export * from "./g/map.js"
 export * from "./g/pool.js"

@@ -1,8 +1,7 @@
 
-import {is} from "../../is.js"
+import {is} from "../is.js"
 
-export function deepFreeze<X>(item: X): X {
-
+export function freeze<X>(item: X): X {
 	function recurse(x: X, parents: object[]) {
 		if (!is.object(x) || parents.includes(x))
 			return x

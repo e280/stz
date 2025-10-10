@@ -5,6 +5,8 @@ import {txt} from "./txt.js"
 import {bytes} from "./bytes.js"
 import {BaseX} from "./base-x.js"
 import {base58, base64, base64url, hex} from "./base-x-codecs.js"
+import bytename from "./bytename/bytename.test.js"
+import thumbprint from "./bytename/thumbprint.test.js"
 
 const sampleBytes = hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
 
@@ -60,6 +62,9 @@ function testCompat(alpha: ByteUtil, bravo: ByteUtil) {
 }
 
 export default Science.suite({
+	bytename,
+	thumbprint,
+
 	"Base58": testBytes(base58),
 	"Base64": testBytes(base64),
 	"Base64url": testBytes(base64url),

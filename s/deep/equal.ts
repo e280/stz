@@ -1,7 +1,7 @@
 
-import {is} from "../../is.js"
+import {is} from "../is.js"
 
-export const deepEqual = (alpha: any, bravo: any): boolean => {
+export const equal = (alpha: any, bravo: any): boolean => {
 
 	function recurse(alpha: any, bravo: any, parents: object[]) {
 		if (!is.object(alpha) || !is.object(bravo))

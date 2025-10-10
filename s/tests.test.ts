@@ -1,22 +1,16 @@
 
 import {Science} from "@e280/science"
 
-import clone from "./clone/clone.test.js"
-import thumbprint from "./data/bytename/thumbprint.test.js"
-import debounce from "./debounce/debounce.test.js"
-import bytename from "./data/bytename/bytename.test.js"
-import deep from "./deep/deep.test.js"
 import data from "./data/data.test.js"
+import debounce from "./debounce/debounce.test.js"
+import deep from "./deep/index.test.js"
 import queue from "./queue/queue.test.js"
 import toq from "./toq/toq.test.js"
 
 await Science.run({
-	clone,
-	bytename,
-	thumbprint,
+	data,
 	debounce,
 	deep,
-	data,
 	queue,
 	toq,
 })
