@@ -111,10 +111,12 @@ await nap(900)
   // wait for 900 milliseconds
 ```
 
-### 🍏 MapG
-> extended js Map
+### 🍏 G Crew
+> extended js data types
 
-- many say it's *"The Deluxe Mapping Experience"*
+#### GMap
+> extended js Map
+- many are saying it's *"The Deluxe Mapping Experience"*
   ```ts
   import {MapG} from "@e280/stz"
 
@@ -134,13 +136,13 @@ await nap(900)
     // "rofl"
   ```
 
-### 🍏 SetG
+#### GSet
 > extended js Set
 - `new SetG<T>()`
 - `set.adds(item1, item2, item3)` — add multiple items without a for-loop
 - `set.deletes(item1, item2, item3)` — add multiple items without a for-loop
 
-### 🍏 WeakMapG
+#### GWeakMap
 > extended js WeakMap
 - `new WeakMapG<K, V>()`
 - `weakMap.require(key)` — returns value for key.. if missing, throw an error

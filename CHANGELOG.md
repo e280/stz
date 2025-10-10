@@ -25,6 +25,11 @@
   - `thumbprint.parse(s).bytes` -> `thumbprint.parse(s).raw`
   - `thumbprint.parse(s).thumbprint` -> `thumbprint.parse(s).full`
 - 🔶 rename `Time` to `time`
+- 🔶 rename the whole G Crew
+  - `MapG` -> `GMap`
+  - `SetG` -> `GSet`
+  - `WeakMapG` -> `GWeakMap`
+  - `PoolG` -> `GPool`
 
 ### v0.2.10
 - 🍏 update dependencies

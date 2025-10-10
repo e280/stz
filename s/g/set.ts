@@ -1,5 +1,5 @@
 
-export class SetG<T> extends Set<T> {
+export class GSet<T> extends Set<T> {
 	array() {
 		return [...this]
 	}
@@ -23,4 +23,7 @@ export class SetG<T> extends Set<T> {
 		return this
 	}
 }
+
+/** @deprecated renamed to `GSet` */
+export const SetG = GSet
 
