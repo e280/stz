@@ -24,7 +24,7 @@ export interface Xub<A extends any[] = []> {
 	on(fn: Listener<A>): () => void
 
 	/** wait for the next published value */
-	next(): Promise<A>
+	next(fn?: Listener<A>): Promise<A>
 
 	/** wipe all listeners attached to this. */
 	clear(): void
