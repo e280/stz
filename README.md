@@ -111,6 +111,41 @@ await nap(900)
   // wait for 900 milliseconds
 ```
 
+### 🍏 disposer
+> easy trash management
+
+```ts
+import {disposer} from "@e280/stz"
+```
+
+- create a disposer
+    ```ts
+    const dispose = disposer()
+    ```
+- schedule something for cleanup
+    ```ts
+    dispose.schedule(() => console.log("disposed!"))
+    ```
+- schedule multiple things at once
+    ```ts
+    dispose.schedule(
+      () => console.log("disposed thing 1"),
+      () => console.log("disposed thing 2"),
+      () => ev(window, {keydown: () => console.log("keydown")}),
+    )
+    ```
+- schedule is chainable if you prefer that vibe
+    ```ts
+    dispose
+      .schedule(() => console.log("disposed thing 1"))
+      .schedule(() => console.log("disposed thing 2"))
+      .schedule(() => ev(window, {keydown: () => console.log("keydown")}))
+    ```
+- **dispose** of all that garbage
+    ```ts
+    dispose()
+    ```
+
 ### 🍏 G Crew
 > extended js data types
 
