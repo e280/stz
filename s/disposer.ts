@@ -1,5 +1,10 @@
 
-export function disposer() {
+export type Disposer = {
+	(): void
+	schedule: (...fns: (() => void)[]) => Disposer
+}
+
+export function disposer(): Disposer {
 	let fns: (() => void)[] = []
 
 	function d() {
@@ -7,8 +12,8 @@ export function disposer() {
 		fns = []
 	}
 
-	d.schedule = (fn: () => void) => {
-		fns.push(fn)
+	d.schedule = (...newFns: (() => void)[]) => {
+		fns.push(...newFns)
 		return d
 	}
 
