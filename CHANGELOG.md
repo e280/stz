@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.13
+- 🍏 improve `disposer` types
+
 ### v0.2.12
 - 🍏 fix pub/sub `.next` type, accepts `fn` param
 
