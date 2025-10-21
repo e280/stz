@@ -153,9 +153,9 @@ import {disposer} from "@e280/stz"
 > extended js Map
 - many are saying it's *"The Deluxe Mapping Experience"*
   ```ts
-  import {MapG} from "@e280/stz"
+  import {GMap} from "@e280/stz"
 
-  const map = new MapG<number, string>([
+  const map = new GMap<number, string>([
     [1, "hello"],
     [2, "world"],
   ])
@@ -173,13 +173,13 @@ import {disposer} from "@e280/stz"
 
 #### GSet
 > extended js Set
-- `new SetG<T>()`
+- `new GSet<T>()`
 - `set.adds(item1, item2, item3)` — add multiple items without a for-loop
 - `set.deletes(item1, item2, item3)` — add multiple items without a for-loop
 
 #### GWeakMap
 > extended js WeakMap
-- `new WeakMapG<K, V>()`
+- `new GWeakMap<K, V>()`
 - `weakMap.require(key)` — returns value for key.. if missing, throw an error
 - `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
 
