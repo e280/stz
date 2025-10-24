@@ -1,7 +1,7 @@
 
 import {defer, Deferred} from "../defer.js"
 
-export function debounceMicrotask<F extends (...params: any[]) => any>(fn: F) {
+export function microbounce<F extends (...params: any[]) => any>(fn: F) {
 	let scheduled: {
 		params: any[]
 		deferred: Deferred<any>
@@ -22,6 +22,6 @@ export function debounceMicrotask<F extends (...params: any[]) => any>(fn: F) {
 			})
 		}
 		return scheduled.deferred.promise
-	}) as ((...params: Parameters<F>) => Promise<ReturnType<F>>)
+	}) as ((...params: Parameters<F>) => Promise<Awaited<ReturnType<F>>>)
 }
 
