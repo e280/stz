@@ -11,6 +11,7 @@ export * from "./data/bytes.js"
 export * from "./data/txt.js"
 
 export * from "./debounce/debounce.js"
+export * from "./debounce/microtask.js"
 export * from "./debounce/types.js"
 
 export * from "./deep/index.js"

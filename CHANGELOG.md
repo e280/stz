@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.14
+- 🍏 add new `debounceMicrotask` fn
+
 ### v0.2.13
 - 🍏 improve `disposer` types
 
