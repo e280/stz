@@ -255,6 +255,20 @@ fn()
 // coolAction is only called once here, other calls are redundant
 ```
 
+### 🍏 `microbounce(fn)`
+> collapse multiple calls into a single call (uses queueMicrotask under the hood)
+
+it's like `debounce(0, fn)` but more efficient by using queueMicrotask instead of setTimeout
+
+```ts
+import {microbounce} from "@e280/stz"
+
+const fn = microbounce(async() => coolAction())
+fn()
+fn()
+fn() // previous calls are redundant
+```
+
 ### 🍏 `cycle(fn)`
 > execute a function over and over again, back to back
 
