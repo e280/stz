@@ -10,6 +10,11 @@
 
 ## v0.2
 
+### v0.2.15
+- 🍏 add new `all` fn (sugar for `Promise.all`)
+- 🍏 document `all` and `concurrent` fns in readme
+- 🍏 update dependencies
+
 ### v0.2.14
 - 🍏 add new `microbounce` fn
 
