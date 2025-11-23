@@ -111,6 +111,32 @@ await nap(900)
   // wait for 900 milliseconds
 ```
 
+### 🍏 all
+> it's just sugar for `Promise.all`
+
+```ts
+import {all} from "@e280/stz"
+
+await all(
+  nap(500),
+  Promise.resolve("hello"),
+  fetch("whatever.json"),
+)
+```
+
+### 🍏 concurrent
+> sugar for `Promise.all`, but returns named things as an object
+
+```ts
+import {concurrent} from "@e280/stz"
+
+cons {slept, hello, whatever} = await concurrent({
+  slept: nap(500),
+  hello: Promise.resolve("hello"),
+  whatever: fetch("whatever.json"),
+})
+```
+
 ### 🍏 disposer
 > easy trash management
 
