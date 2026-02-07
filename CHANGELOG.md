@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.18
+- 🍏 add new `yay` validators
+
 ### v0.2.17
 - 🍏 update github actions
 
