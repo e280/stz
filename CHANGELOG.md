@@ -10,6 +10,12 @@
 
 ## v0.2
 
+### v0.2.17
+- 🍏 update github actions
+
+### v0.2.16
+- 🍏 update dependencies
+
 ### v0.2.15
 - 🍏 add new `all` fn (sugar for `Promise.all`)
 - 🍏 document `all` and `concurrent` fns in readme
