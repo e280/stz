@@ -4,7 +4,7 @@ export const txt = Object.freeze({
 		return new TextDecoder().decode(bytes)
 	},
 
-	toBytes(string: string) {
+	toBytes(string: string): Uint8Array {
 		return new TextEncoder().encode(string)
 	},
 
