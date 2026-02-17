@@ -10,6 +10,10 @@
 
 ## v0.2
 
+### v0.2.19
+- 🍏 update dependencies
+- 🍏 tweak publish.yml
+
 ### v0.2.18
 - 🍏 update dependencies
 - 🍏 fix txt.toBytes types
