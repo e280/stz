@@ -11,6 +11,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    environment:
+      name: npm
+      url: "https://www.npmjs.com/package/@e280/stz"
     steps:
     - uses: actions/checkout@v6
     - uses: actions/setup-node@v6
