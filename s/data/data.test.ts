@@ -81,19 +81,27 @@ export default Science.suite({
 		lexicons: Science.suite(
 			ob(BaseX.lexicons).map(lex => testBoth(new BaseX(lex)))
 		),
+
 		compat: Science.suite({
 			"hex": testCompat(hex, new BaseX(BaseX.lexicons.hex)),
 			"base64": testCompat(base64, new BaseX(BaseX.lexicons.base64)),
 			"base64url": testCompat(base64url, new BaseX(BaseX.lexicons.base64url)),
 		}),
+
 		"base64 has padding": test(async() => {
 			const s = new BaseX(BaseX.lexicons.base64).fromBytes(sampleBytes)
 			expect(s.endsWith("=")).ok()
 		}),
+
 		"antagonistic base64 positive integer": test(async() => {
 			const base64url = new BaseX(BaseX.lexicons.base64url)
 			expect(base64url.toInteger(base64url.fromInteger(62))).is(62)
 			expect(base64url.toInteger(base64url.fromInteger(4030))).is(4030)
+		}),
+
+		"instances are directly invocable": test(async() => {
+			expect(hex(new Uint8Array([0xBE, 0xEF]))).is("beef")
+			expect(hex instanceof BaseX).ok()
 		}),
 	}),
 })

@@ -10,6 +10,10 @@ export type Lexicon = {
 	}
 }
 
+export interface BaseX {
+	(bytes: Uint8Array): string
+}
+
 export class BaseX {
 	static lexicons = Object.freeze({
 		base2: {characters: "01"},
@@ -35,6 +39,10 @@ export class BaseX {
 			[...lexicon.characters].map((char, i) => [char, i])
 		)
 		this.negativePrefix = lexicon.negativePrefix ?? "-"
+
+		const fn = this.fromBytes.bind(this)
+		Object.setPrototypeOf(fn, new.target.prototype)
+		return new Proxy(fn, {get: (_, key) => (this as any)[key]}) as BaseX
 	}
 
 	toBytes(s: string): Uint8Array {
