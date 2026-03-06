@@ -10,6 +10,14 @@
 
 ## v0.2
 
+### v0.2.22
+- 🍏 make BaseX instances (like hex, base64, etc) directly invocable via some spooky constructor magic
+  - `hex(bytes) // "cd4501"`
+- 🍏 hex is now case-insensitive
+
+### v0.2.21
+- 🍏 update dependencies and tweak publish workflows
+
 ### v0.2.19
 - 🍏 update dependencies
 - 🍏 tweak publish.yml
