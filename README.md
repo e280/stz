@@ -340,6 +340,7 @@ import {hex, base58, base64} from "@e280/stz"
 
 #### hex
 > all BaseX utilities have these methods
+- `hex(u8array)` — encode bytes to string *(alias for hex.FromBytes)*
 - `hex.fromBytes(u8array)` — encode bytes to string
 - `hex.toBytes(str)` — decode string to bytes
 - `hex.toInteger(string)` — decode string as js integer
