@@ -4,6 +4,7 @@ import {bytes} from "./bytes.js"
 export type Lexicon = {
 	characters: string
 	negativePrefix?: string
+	caseInsensitive?: boolean
 	padding?: {
 		character: string
 		size: number
@@ -17,7 +18,7 @@ export interface BaseX {
 export class BaseX {
 	static lexicons = Object.freeze({
 		base2: {characters: "01"},
-		hex: {characters: "0123456789abcdef"},
+		hex: {characters: "0123456789abcdef", caseInsensitive: true},
 		base36: {characters: "0123456789abcdefghijklmnopqrstuvwxyz"},
 		base58: {characters: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"},
 		base62: {characters: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"},
@@ -46,6 +47,7 @@ export class BaseX {
 	}
 
 	toBytes(s: string): Uint8Array {
+		if (this.lexicon.caseInsensitive) s = s.toLowerCase()
 		const bitsPerChar = Math.log2(this.lexicon.characters.length)
 		if (Number.isInteger(bitsPerChar)) {
 			// Bitstream mode (for power-of-2 lexicons)

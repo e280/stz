@@ -99,6 +99,12 @@ export default Science.suite({
 			expect(base64url.toInteger(base64url.fromInteger(4030))).is(4030)
 		}),
 
+		"hex accepts uppercase": test(async() => {
+			const bytes = hex.toBytes("BEEF")
+			expect(bytes[0]).is(0xBE)
+			expect(bytes[1]).is(0xEF)
+		}),
+
 		"instances are directly invocable": test(async() => {
 			expect(hex(new Uint8Array([0xBE, 0xEF]))).is("beef")
 			expect(hex instanceof BaseX).ok()
