@@ -65,26 +65,26 @@ export default Science.suite({
 	bytename,
 	thumbprint,
 
-	"Base58": testBytes(base58),
-	"Base64": testBytes(base64),
-	"Base64url": testBytes(base64url),
-	"Hex": testBytes(hex),
+	"base58": testBytes(base58),
+	"base64": testBytes(base64),
+	"base64url": testBytes(base64url),
+	"hex": testBytes(hex),
 
-	"Txt": test(async() => {
+	"txt": test(async() => {
 		const original = `build or die. 💻>☠️ 命火工`
 		const bytes = txt.toBytes(original)
 		const recreated = txt.fromBytes(bytes)
 		expect(original).is(recreated)
 	}),
 
-	"BaseX": Science.suite({
+	"baseX": Science.suite({
 		lexicons: Science.suite(
 			ob(BaseX.lexicons).map(lex => testBoth(new BaseX(lex)))
 		),
 		compat: Science.suite({
-			"Hex": testCompat(hex, new BaseX(BaseX.lexicons.hex)),
-			"Base64": testCompat(base64, new BaseX(BaseX.lexicons.base64)),
-			"Base64url": testCompat(base64url, new BaseX(BaseX.lexicons.base64url)),
+			"hex": testCompat(hex, new BaseX(BaseX.lexicons.hex)),
+			"base64": testCompat(base64, new BaseX(BaseX.lexicons.base64)),
+			"base64url": testCompat(base64url, new BaseX(BaseX.lexicons.base64url)),
 		}),
 		"base64 has padding": test(async() => {
 			const s = new BaseX(BaseX.lexicons.base64).fromBytes(sampleBytes)
