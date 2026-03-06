@@ -43,7 +43,8 @@ export class BaseX {
 
 		const fn = this.fromBytes.bind(this)
 		Object.setPrototypeOf(fn, new.target.prototype)
-		return new Proxy(fn, {get: (_, key) => (this as any)[key]}) as BaseX
+		Object.assign(fn, this)
+		return fn as BaseX
 	}
 
 	toBytes(s: string): Uint8Array {
