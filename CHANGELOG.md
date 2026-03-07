@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.24
+- 🍏 make `bytes.eq` constant-time
+
 ### v0.2.23
 - 🍏 `txt(bytes)` is now an alias for `txt.fromBytes(bytes)`
 
