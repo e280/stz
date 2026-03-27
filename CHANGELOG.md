@@ -10,6 +10,10 @@
 
 ## v0.2
 
+### v0.2.25
+- 🍏 add `maybe` validation utility kit
+- 🍏 update dependencies
+
 ### v0.2.24
 - 🍏 make `bytes.eq` constant-time
 
