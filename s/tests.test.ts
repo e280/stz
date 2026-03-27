@@ -7,6 +7,7 @@ import microbounce from "./debounce/microbounce.test.js"
 import deep from "./deep/index.test.js"
 import queue from "./queue/queue.test.js"
 import toq from "./toq/toq.test.js"
+import maybe from "./maybe/test.js"
 
 await Science.run({
 	data,
@@ -15,5 +16,6 @@ await Science.run({
 	deep,
 	queue,
 	toq,
+	maybe,
 })
 
