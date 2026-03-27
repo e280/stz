@@ -76,8 +76,8 @@ export default suite({
 			expect(maybe.problems(denyBig(123))!.length).is(0)
 		}),
 
-		"all": test(async() => {
-			const validator = maybe.all<number>(
+		"validator": test(async() => {
+			const validator = maybe.validator<number>(
 				allow("must be integer", n => Number.isInteger(n)),
 				deny("too big", n => n > 10),
 			)
@@ -88,8 +88,8 @@ export default suite({
 			expect(maybe.problems(validator(15.1))!.includes("too big")).ok()
 		}),
 
-		"all without validators passes": test(async() => {
-			const validator = maybe.all<number>()
+		"validator without validators passes": test(async() => {
+			const validator = maybe.validator<number>()
 			expect(validator(5).yay).is(true)
 		}),
 	},

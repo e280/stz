@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.26
+- 🍏 rename `maybe.all` to `maybe.validator`
+
 ### v0.2.25
 - 🍏 add `maybe` validation utility kit
 - 🍏 update dependencies

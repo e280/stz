@@ -3,7 +3,7 @@ import {nay} from "../fns/nay.js"
 import {yay} from "../fns/yay.js"
 import {Validator} from "../types.js"
 
-export function all<X>(...validators: Validator<X>[]): Validator<X> {
+export function validator<X>(...validators: Validator<X>[]): Validator<X> {
 	return x => {
 		let failures = 0
 		const probs: string[] = []
@@ -21,4 +21,7 @@ export function all<X>(...validators: Validator<X>[]): Validator<X> {
 			: yay(x)
 	}
 }
+
+/** @deprecated renamed to `validator` */
+export const all = validator
 

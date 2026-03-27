@@ -7,7 +7,7 @@ export * from "./fns/problems.js"
 export * from "./fns/require.js"
 export * from "./fns/yay.js"
 
-export * from "./validators/all.js"
+export * from "./validators/validator.js"
 export * from "./validators/allow.js"
 export * from "./validators/deny.js"
 
