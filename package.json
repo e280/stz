@@ -22,7 +22,7 @@
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +"
 	},
 	"devDependencies": {
-		"@e280/science": "^0.1.8",
+		"@e280/science": "^0.1.9",
 		"@types/node": "^25.5.0",
 		"typescript": "^6.0.2"
 	},
