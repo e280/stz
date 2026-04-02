@@ -23,8 +23,8 @@ export * from "./g/weak-map.js"
 
 export * from "./queue/queue.js"
 
+export * from "./ok/index.js"
 export * from "./toq/index.js"
-
 export * from "./maybe/index.js"
 
 export * from "./all.js"
@@ -53,6 +53,7 @@ export * from "./provide.js"
 export * from "./pubsub.js"
 export * from "./scope.js"
 export * from "./templating.js"
+export * from "./thrown.js"
 export * from "./time.js"
 export * from "./trash.js"
 export * from "./types.js"
