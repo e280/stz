@@ -315,6 +315,46 @@ const stop = cycle(async() => {
 stop()
 ```
 
+### 🍏 ok
+> tiny result toolkit for saying "this worked" or "this did not work"
+
+rust-inspired pattern for explicit error handling instead of the usual js yolo vibes
+
+#### result shapes
+- `Ok<Value>` — `{ok: true, value}`
+- `Err<E>` — `{ok: false, error}`
+- `Result<Value, E>` — either of the above
+
+#### constructors
+- `ok(value)` — make a successful result
+  ```ts
+  const result = ok("fusion stable")
+    // {ok: true, value: "fusion stable"}
+  ```
+- `err(error)` — make a failed result
+  ```ts
+  const result = err("containment lost")
+    // {ok: false, error: "containment lost"}
+  ```
+
+#### helpers
+- `grab(result)` — get the value, or `undefined`
+  ```ts
+  grab(ok(123))
+    // 123
+
+  grab(err("nope"))
+    // undefined
+  ```
+- `need(result)` — get the value, or throw
+  ```ts
+  need(ok(123))
+    // 123
+
+  need(err("containment lost"))
+    // throws Error("containment lost")
+  ```
+
 
 
 <br/>
