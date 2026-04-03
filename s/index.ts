@@ -29,6 +29,7 @@ export * from "./toq/index.js"
 export * from "./maybe/index.js"
 
 export * from "./all.js"
+export * from "./assert.js"
 export * from "./coalesce.js"
 export * from "./collect.js"
 export * from "./concurrent.js"

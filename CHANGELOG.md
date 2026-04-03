@@ -13,6 +13,7 @@
 ### v0.2.29
 - 🔶 deprecate `drill` in favor of `dig`
 - 🍏 add `dig`
+- 🍏 add `assert`
 
 ### v0.2.28
 - 🍏 add ok microlib, `ok`, `err`, `Result`, `need`, `grab`
