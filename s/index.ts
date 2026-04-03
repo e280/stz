@@ -15,6 +15,7 @@ export * from "./debounce/microbounce.js"
 export * from "./debounce/types.js"
 
 export * from "./deep/index.js"
+export * from "./dig/dig.js"
 
 export * from "./g/map.js"
 export * from "./g/pool.js"

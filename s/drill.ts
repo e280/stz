@@ -1,7 +1,10 @@
 
 import {is} from "./is.js"
 
-/** return a value within an object tree, found at the given path. */
+/**
+ * return a value within an object tree, found at the given path.
+ * @deprecated prefer `dig` instead
+ */
 export function drill<xResult>(
 		object: {[key: string]: any},
 		path: string[],

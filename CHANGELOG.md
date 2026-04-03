@@ -10,6 +10,10 @@
 
 ## v0.2
 
+### v0.2.29
+- 🔶 deprecate `drill` in favor of `dig`
+- 🍏 add `dig`
+
 ### v0.2.28
 - 🍏 add ok microlib, `ok`, `err`, `Result`, `need`, `grab`
 - 🍏 add `thrown` helper that yoinks the error from a fn

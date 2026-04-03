@@ -8,6 +8,7 @@ import deep from "./deep/index.test.js"
 import queue from "./queue/queue.test.js"
 import toq from "./toq/toq.test.js"
 import maybe from "./maybe/test.js"
+import dig from "./dig/test.js"
 import ok from "./ok/test.js"
 
 await Science.run({
@@ -18,5 +19,7 @@ await Science.run({
 	queue,
 	toq,
 	maybe,
+	dig,
 	ok,
 })
+
