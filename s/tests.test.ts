@@ -1,5 +1,5 @@
 
-import {Science} from "@e280/science"
+import {science} from "@e280/science"
 
 import data from "./data/data.test.js"
 import debounce from "./debounce/debounce.test.js"
@@ -11,7 +11,7 @@ import maybe from "./maybe/test.js"
 import dig from "./dig/test.js"
 import ok from "./ok/test.js"
 
-await Science.run({
+await science.run({
 	data,
 	debounce,
 	microbounce,
