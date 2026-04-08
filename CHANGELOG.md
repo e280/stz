@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.30
+- 🍏 fix BaseX utils like hex/base58 to support leading zeros
+
 ### v0.2.29
 - 🔶 deprecate `drill` in favor of `dig`
 - 🍏 add `dig`
