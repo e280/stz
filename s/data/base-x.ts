@@ -75,22 +75,26 @@ export class BaseX {
 		// Radix mode fallback
 		let num = 0n
 		const base = BigInt(this.lexicon.characters.length)
-		let negative = false
 		if (s.startsWith(this.negativePrefix)) {
 			s = s.slice(this.negativePrefix.length)
-			negative = true
 		}
+		const zeroCharacter = this.lexicon.characters[0]
+		let leadingZeroBytes = 0
+		while (s[leadingZeroBytes] === zeroCharacter)
+			leadingZeroBytes++
+		s = s.slice(leadingZeroBytes)
 		for (const char of s) {
 			const val = this.lookup[char]
 			if (val === undefined) throw new Error(`Invalid character: ${char}`)
 			num = num * base + BigInt(val)
 		}
-		const out: number[] = []
+		const out = new Uint8Array(leadingZeroBytes + (num === 0n ? 0 : this.countBytes(num)))
+		let writeIndex = out.length
 		while (num > 0n) {
-			out.unshift(Number(num % 256n))
+			out[--writeIndex] = Number(num % 256n)
 			num = num / 256n
 		}
-		return new Uint8Array(out)
+		return out
 	}
 
 	fromBytes(bytes: Uint8Array): string {
@@ -128,11 +132,16 @@ export class BaseX {
 		}
 
 		// Radix mode fallback
+		if (bytes.length === 0) return ""
+		const zeroCharacter = this.lexicon.characters[0]
+		let leadingZeroBytes = 0
+		while (bytes[leadingZeroBytes] === 0)
+			leadingZeroBytes++
 		let num = 0n
-		for (const byte of bytes)
+		for (const byte of bytes.slice(leadingZeroBytes))
 			num = (num << 8n) + BigInt(byte)
 
-		if (num === 0n) return this.lexicon.characters[0]
+		if (num === 0n) return zeroCharacter.repeat(leadingZeroBytes)
 
 		const base = BigInt(this.lexicon.characters.length)
 		let out = ""
@@ -140,7 +149,7 @@ export class BaseX {
 			out = this.lexicon.characters[Number(num % base)] + out
 			num = num / base
 		}
-		return out
+		return zeroCharacter.repeat(leadingZeroBytes) + out
 	}
 
 	toInteger(s: string) {
@@ -177,5 +186,13 @@ export class BaseX {
 	random(count = 32) {
 		return this.fromBytes(bytes.random(count))
 	}
-}
 
+	private countBytes(num: bigint) {
+		let count = 0
+		while (num > 0n) {
+			count++
+			num = num / 256n
+		}
+		return count
+	}
+}

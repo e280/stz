@@ -23,10 +23,10 @@ type NumberUtil = {
 
 function testBytes(util: ByteUtil) {
 	return async() => {
-		const string = util.fromBytes(sampleBytes)
-		const recreated = util.toBytes(string)
-		expect(bytes.eq(sampleBytes, recreated)).ok()
-		expect(bytes.eq(sampleBytesWithLeadingZeros, recreated)).ok()
+		const roundtrip = (original: Uint8Array) => util.toBytes(util.fromBytes(original))
+		expect(bytes.eq(sampleBytes, roundtrip(sampleBytes))).ok()
+		expect(bytes.eq(sampleBytesWithLeadingZeros, roundtrip(sampleBytesWithLeadingZeros))).ok()
+		expect(bytes.eq(new Uint8Array([]), roundtrip(new Uint8Array([])))).ok()
 	}
 }
 
@@ -113,4 +113,3 @@ export default Science.suite({
 		}),
 	}),
 })
-
