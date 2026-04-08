@@ -23,7 +23,7 @@
 	},
 	"devDependencies": {
 		"@e280/science": "^0.1.10",
-		"@types/node": "^25.5.0",
+		"@types/node": "^25.5.2",
 		"typescript": "^6.0.2"
 	},
 	"keywords": [
