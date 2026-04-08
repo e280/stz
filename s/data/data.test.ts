@@ -9,6 +9,7 @@ import bytename from "./bytename/bytename.test.js"
 import thumbprint from "./bytename/thumbprint.test.js"
 
 const sampleBytes = hex.toBytes("9960cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
+const sampleBytesWithLeadingZeros = hex.toBytes("0000cd633a46acfe8307d8a400e842da0d930a75fb8188e0f5da264e4b6b4e5b")
 
 type ByteUtil = {
 	toBytes: (string: string) => Uint8Array
@@ -25,6 +26,7 @@ function testBytes(util: ByteUtil) {
 		const string = util.fromBytes(sampleBytes)
 		const recreated = util.toBytes(string)
 		expect(bytes.eq(sampleBytes, recreated)).ok()
+		expect(bytes.eq(sampleBytesWithLeadingZeros, recreated)).ok()
 	}
 }
 
