@@ -11,6 +11,10 @@
 ## v0.2
 
 ### v0.2.31
+- 🔶 rename `grab` to `getOk`
+- 🔶 rename `need` to `needOk`
+- 🍏 add `getErr` fn
+- 🍏 add `needErr` fn
 - 🍏 add `attempt` fn for ok/err wrapping
 - 🍏 add `errorString` fn
 
