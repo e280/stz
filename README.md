@@ -338,22 +338,24 @@ rust-inspired pattern for explicit error handling instead of the usual js yolo v
   ```
 
 #### helpers
-- `grab(result)` — get the value, or `undefined`
+- `getOk(result)` — get the value, or `undefined`
   ```ts
-  grab(ok(123))
+  getOk(ok(123))
     // 123
 
-  grab(err("nope"))
+  getOk(err("nope"))
     // undefined
   ```
-- `need(result)` — get the value, or throw
+  - there is also `getErr(result)`
+- `needOk(result)` — get the value, or throw
   ```ts
-  need(ok(123))
+  needOk(ok(123))
     // 123
 
-  need(err("containment lost"))
+  needOk(err("containment lost"))
     // throws Error("containment lost")
   ```
+  - there is also `needErr(result)`
 
 
 
