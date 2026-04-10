@@ -12,13 +12,18 @@ export function attempt<Value, E = unknown>(fn: () => Value): Result<Value, E> {
 	}
 }
 
-export async function attemptAsync<Value, E = unknown>(fn: () => Promise<Value>): Promise<Result<Value, E>> {
-	return attemptPromise<Value, E>(fn())
-}
+export async function attemptAsync<Value, E = unknown>(
+		input: Promise<Value> | (() => Promise<Value>),
+	): Promise<Result<Value, E>> {
 
-export async function attemptPromise<Value, E = unknown>(promise: Promise<Value>): Promise<Result<Value, E>> {
-	return promise
-		.then(value => ok(value))
-		.catch(error => err<E>(error))
+	try {
+		const promise = (typeof input === "function")
+			? input()
+			: input
+		return ok(await promise)
+	}
+	catch (error) {
+		return err(error as E)
+	}
 }
 
