@@ -2,7 +2,7 @@
 export * from "./fns/attempt.js"
 export * from "./fns/ok.js"
 export * from "./fns/err.js"
-export * from "./fns/grab.js"
+export * from "./fns/get.js"
 export * from "./fns/need.js"
 
 export * from "./types/ok.js"

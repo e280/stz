@@ -1,8 +1,8 @@
 
 import type {Result} from "../types/result.js"
 
-/** get value or throw error */
-export function need<Value, E>(result: Result<Value, E>): Value {
+/** return ok value, otherwise throw error */
+export function needOk<Value, E>(result: Result<Value, E>): Value {
 	if (result.ok)
 		return result.value
 
@@ -17,4 +17,13 @@ export function need<Value, E>(result: Result<Value, E>): Value {
 	else
 		throw new Error("unknown")
 }
+
+/** return error, otherwise throw error */
+export function needErr<E>(result: Result<unknown, E>): E {
+	if (result.ok) throw new Error("didn't get needed error")
+	return result.error
+}
+
+/** @deprecated renamed to `needOk` */
+export const need = needOk
 

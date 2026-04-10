@@ -1,7 +1,7 @@
 
 import {expect, suite, test} from "@e280/science"
 import {thrown} from "../thrown.js"
-import {ok, err, grab, need, attempt} from "./index.js"
+import {ok, err, getOk, needOk, attempt, needErr, getErr} from "./index.js"
 
 export default suite({
 	"ok": test(async() => {
@@ -16,36 +16,47 @@ export default suite({
 		expect("value" in err("nope")).is(false)
 	}),
 
-	"grab": test(async() => {
-		expect(grab(ok(123))).is(123)
-		expect(grab(err("nope"))).is(undefined)
+	"getOk": test(async() => {
+		expect(getOk(ok(123))).is(123)
+		expect(getOk(err("nope"))).is(undefined)
 	}),
 
-	"need": test(async() => {
-		expect(need(ok(123))).is(123)
-		expect(() => need(err("nope"))).throws()
+	"getErr": test(async() => {
+		expect(getErr(err("nope"))).is("nope")
+		expect(getErr(ok(123))).is(undefined)
+	}),
+
+	"needOk": test(async() => {
+		expect(needOk(ok(123))).is(123)
+		expect(() => needOk(err("nope"))).throws()
+	}),
+
+	"needErr": test(async() => {
+		expect(needErr(err("nope"))).is("nope")
+		expect(() => needErr(ok(123))).throws()
 	}),
 
 	"attempt": test(async() => {
-		expect(need(await attempt(async() => 123))).is(123)
+		expect(needOk(await attempt(async() => 123))).is(123)
 		expect((await attempt(async() => {throw new Error("rofl")})).ok).is(false)
+		expect(needErr<Error>(await attempt(async() => {throw new Error("rofl")})).message).is("rofl")
 	}),
 
-	"need error handling": {
+	"needOk error handling": {
 		"rethrows errors": test(async() => {
 			const error = new TypeError()
-			expect(() => need(err(error))).throws(TypeError)
-			expect(thrown(() => need(err(error)))).is(error)
+			expect(() => needOk(err(error))).throws(TypeError)
+			expect(thrown(() => needOk(err(error)))).is(error)
 		}),
 
 		"upgrades strings to errors": test(async() => {
-			expect(() => need(err("nope"))).throws(Error)
-			expect(thrown(() => need(err("nope"))).message).is("nope")
+			expect(() => needOk(err("nope"))).throws(Error)
+			expect(thrown(() => needOk(err("nope"))).message).is("nope")
 		}),
 
 		"everything else is unknown": test(async() => {
-			expect(() => need(err({code: 234}))).throws(Error)
-			expect(thrown(() => need(err({code: 234}))).message).is("unknown")
+			expect(() => needOk(err({code: 234}))).throws(Error)
+			expect(thrown(() => needOk(err({code: 234}))).message).is("unknown")
 		}),
 	},
 })
