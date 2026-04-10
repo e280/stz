@@ -9,7 +9,7 @@ export function getOk<Value>(result: Result<Value, unknown>): Value | undefined 
 }
 
 /** get error or undefined */
-export function getErr<E = string>(result: Result<unknown, E>): E | undefined {
+export function getErr<E = unknown>(result: Result<unknown, E>): E | undefined {
 	return result.ok
 		? undefined
 		: result.error

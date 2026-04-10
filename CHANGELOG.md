@@ -11,6 +11,7 @@
 ## v0.2
 
 ### v0.2.31
+- 🔶 make err agnostic about error types
 - 🔶 rename `grab` to `getOk`
 - 🔶 rename `need` to `needOk`
 - 🍏 add `getErr` fn
