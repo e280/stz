@@ -16,7 +16,7 @@
 - 🔶 rename `need` to `needOk`
 - 🍏 add `getErr` fn
 - 🍏 add `needErr` fn
-- 🍏 add `attempt` fn for ok/err wrapping
+- 🍏 add `attempt` and `attemptAsync` fns for ok/err wrapping
 - 🍏 add `errorString` fn
 
 ### v0.2.30

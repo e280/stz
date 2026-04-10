@@ -1,7 +1,7 @@
 
 import {expect, suite, test} from "@e280/science"
 import {thrown} from "../thrown.js"
-import {ok, err, getOk, needOk, attempt, needErr, getErr} from "./index.js"
+import {ok, err, getOk, needOk, attempt, needErr, getErr, attemptAsync} from "./index.js"
 
 export default suite({
 	"ok": test(async() => {
@@ -37,9 +37,15 @@ export default suite({
 	}),
 
 	"attempt": test(async() => {
-		expect(needOk(await attempt(async() => 123))).is(123)
-		expect((await attempt(async() => {throw new Error("rofl")})).ok).is(false)
-		expect(needErr<Error>(await attempt(async() => {throw new Error("rofl")})).message).is("rofl")
+		expect(needOk(attempt(() => 123))).is(123)
+		expect(attempt(() => {throw new Error("rofl")}).ok).is(false)
+		expect(needErr<Error>(attempt(() => {throw new Error("rofl")})).message).is("rofl")
+	}),
+
+	"attemptAsync": test(async() => {
+		expect(needOk(await attemptAsync(async() => 123))).is(123)
+		expect((await attemptAsync(async() => {throw new Error("rofl")})).ok).is(false)
+		expect(needErr<Error>(await attemptAsync(async() => {throw new Error("rofl")})).message).is("rofl")
 	}),
 
 	"needOk error handling": {
