@@ -1,7 +1,7 @@
 
 import {expect, suite, test} from "@e280/science"
 import {thrown} from "../thrown.js"
-import {ok, err, grab, need} from "./index.js"
+import {ok, err, grab, need, attempt} from "./index.js"
 
 export default suite({
 	"ok": test(async() => {
@@ -24,6 +24,11 @@ export default suite({
 	"need": test(async() => {
 		expect(need(ok(123))).is(123)
 		expect(() => need(err("nope"))).throws()
+	}),
+
+	"attempt": test(async() => {
+		expect(need(await attempt(async() => 123))).is(123)
+		expect((await attempt(async() => {throw new Error("rofl")})).ok).is(false)
 	}),
 
 	"need error handling": {

@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.31
+- 🍏 add `attempt` fn for ok/err wrapping
+
 ### v0.2.30
 - 🍏 fix BaseX utils like hex/base58 to support leading zeros
 
