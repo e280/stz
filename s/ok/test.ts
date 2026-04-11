@@ -1,7 +1,7 @@
 
 import {expect, suite, test} from "@e280/science"
 import {thrown} from "../thrown.js"
-import {ok, err, getOk, needOk, attempt, needErr, getErr, attemptAsync} from "./index.js"
+import {ok, err, getOk, needOk, attempt, needErr, getErr, attemptAsync, resultify, Err, resultifyAsync} from "./index.js"
 
 export default suite({
 	"ok": test(async() => {
@@ -36,16 +36,16 @@ export default suite({
 		expect(() => needErr(ok(123))).throws()
 	}),
 
-	"attempt": test(async() => {
-		expect(needOk(attempt(() => 123))).is(123)
-		expect(attempt(() => {throw new Error("rofl")}).ok).is(false)
-		expect(needErr<Error>(attempt(() => {throw new Error("rofl")})).message).is("rofl")
+	"resultify": test(async() => {
+		expect(needOk(resultify(() => 123)())).is(123)
+		expect(resultify(() => {throw new Error("rofl")})().ok).is(false)
+		expect(needErr(resultify(() => {throw new Error("rofl")})() as Err<Error>).message).is("rofl")
 	}),
 
-	"attemptAsync": test(async() => {
-		expect(needOk(await attemptAsync(async() => 123))).is(123)
-		expect((await attemptAsync(async() => {throw new Error("rofl")})).ok).is(false)
-		expect(needErr<Error>(await attemptAsync(async() => {throw new Error("rofl")})).message).is("rofl")
+	"resultifyAsync": test(async() => {
+		expect(needOk(await resultifyAsync(async() => 123)())).is(123)
+		expect((await resultifyAsync(async() => {throw new Error("rofl")})()).ok).is(false)
+		expect(needErr(await resultifyAsync(async() => {throw new Error("rofl")})() as Err<Error>).message).is("rofl")
 	}),
 
 	"needOk error handling": {

@@ -10,6 +10,10 @@
 
 ## v0.2
 
+### v0.2.32
+- 🔶 deprecate `attempt` in favor of `resultify`
+- 🔶 deprecate `attemptAsync` in favor of `resultifyAsync`
+
 ### v0.2.31
 - 🔶 make err agnostic about error types
 - 🔶 rename `grab` to `getOk`
