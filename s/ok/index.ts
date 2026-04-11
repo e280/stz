@@ -1,5 +1,5 @@
 
-export * from "./fns/resultify.js"
+export * from "./fns/attempt.js"
 export * from "./fns/ok.js"
 export * from "./fns/err.js"
 export * from "./fns/get.js"
