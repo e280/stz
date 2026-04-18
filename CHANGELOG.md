@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.33
+- 🍏 relax `cycle` typings for convenience
+
 ### v0.2.32
 - 🍏 add `resultify` and `resultifyAsync` fns
 

@@ -3,7 +3,7 @@
  * repeat the given async function over and over.
  *  - consider using `nap` in your fn to create a delay
  */
-export function cycle(fn: (stop: () => void) => Promise<void>) {
+export function cycle(fn: (stop: () => void) => unknown | Promise<unknown>) {
 	let timeout: any
 	let stopped = false
 
