@@ -186,9 +186,9 @@ import {disposer} from "@e280/stz"
     [2, "world"],
   ])
   ```
-- `map.require(key)` — returns the value for key.. if missing, throw an error
+- `map.need(key)` — returns the value for key.. if missing, throw an error
   ```ts
-  const value = map.require(1)
+  const value = map.need(1)
     // "hello"
   ```
 - `map.guarantee(key, makeFn)` — returns the value for `key`.. if missing, run `makeFn` to set and return the value
@@ -206,7 +206,7 @@ import {disposer} from "@e280/stz"
 #### GWeakMap
 > extended js WeakMap
 - `new GWeakMap<K, V>()`
-- `weakMap.require(key)` — returns value for key.. if missing, throw an error
+- `weakMap.need(key)` — returns value for key.. if missing, throw an error
 - `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
 
 
