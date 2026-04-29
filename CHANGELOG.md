@@ -10,6 +10,9 @@
 
 ## v0.2
 
+### v0.2.35
+- 🍏 add `dataViewFrom` helper
+
 ### v0.2.34
 - 🔶 rename `GMap.require` to `GMap.need` (same for GWeakMap)
 
