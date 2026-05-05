@@ -27,17 +27,10 @@ export class GWeakMap<K extends WeakKey, V> extends WeakMap<K, V> {
 	}
 
 	/** @deprecated renamed to `need` */
-	require(key: K) {
-		return GWeakMap.require(this, key)
-	}
+	require = this.need
 
 	/** @deprecated renamed to `need` */
-	static require<K extends WeakKey, V>(map: WeakMap<K, V>, key: K) {
-		if (map.has(key))
-			return map.get(key) as V
-		else
-			throw new Error(`required key not found`)
-	}
+	static require = this.need
 }
 
 /** @deprecated renamed to `GWeakMap` */

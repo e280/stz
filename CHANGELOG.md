@@ -10,6 +10,10 @@
 
 ## v0.2
 
+### v0.2.36
+- 🍏 add handy `gmap.setEntries(entries)` method
+- 🍏 add handy `gmap.absorbObject(obj)` method
+
 ### v0.2.35
 - 🍏 add `dataViewFrom` helper
 

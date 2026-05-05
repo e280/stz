@@ -18,6 +18,12 @@ export class GMap<K, V> extends Map<K, V> {
 		}
 	}
 
+	static setEntries<K, V>(map: Map<K, V>, entries: Iterable<[K, V]>) {
+		for (const [key, value] of entries)
+			map.set(key, value)
+		return map
+	}
+
 	array() {
 		return [...this]
 	}
@@ -30,18 +36,20 @@ export class GMap<K, V> extends Map<K, V> {
 		return GMap.guarantee(this, key, make)
 	}
 
-	/** @deprecated renamed to `need` */
-	require(key: K) {
-		return GMap.require(this, key)
+	setEntries(entries: Iterable<[K, V]>) {
+		GMap.setEntries(this, entries)
+		return this
+	}
+
+	absorbObject(obj: object) {
+		return this.setEntries(Object.entries(obj) as any[])
 	}
 
 	/** @deprecated renamed to `need` */
-	static require<K, V>(map: Map<K, V>, key: K) {
-		if (map.has(key))
-			return map.get(key) as V
-		else
-			throw new Error(`required key not found: "${key}"`)
-	}
+	require = this.need
+
+	/** @deprecated renamed to `need` */
+	static require = this.need
 }
 
 /** @deprecated renamed to `GMap` */
