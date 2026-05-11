@@ -24,6 +24,3 @@ export function needErr<E>(result: Result<unknown, E>): E {
 	return result.error
 }
 
-/** @deprecated renamed to `needOk` */
-export const need = needOk
-
