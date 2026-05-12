@@ -16,6 +16,29 @@
   - 🍏 basic: `got`
   - 🍏 map: `MapLike`, `need`, `guarantee`, `inserts`
   - 🍏 set: `SetLike`, `adds`, `deletes`
+- 🟥 delete ALL previously `@deprecated` things
+  - these renames had occurred
+    - `loop` -> `count`
+    - `loop2d` -> `count2d`
+    - `repeat` -> `cycle`
+    - `Bytename` -> `bytename`
+    - `ThumbprintData.bytes` -> `ThumbprintData.raw`
+    - `ThumbprintData.thumbprint` -> `ThumbprintData.full`
+    - `Thumbprint` -> `thumbprint`
+    - `Bytes` -> `bytes`
+    - `txt.string` -> `txt.fromBytes`
+    - `txt.bytes` -> `txt.toBytes`
+    - `Time` -> `time`
+    - `all` -> `validator`
+    - `grabOk` -> `getOk`
+  - these encoding utils were replaced
+    - `Base58`, see new `base58`
+    - `Base64`, see new `base64`
+    - `Base64url`, see new `base64url`
+    - `Hex`, see new `hex`
+  - these things were replaced by newer alternatives
+    - `drill`, see `dig`
+    - `Hat`, see `Dispenser`
 
 
 
