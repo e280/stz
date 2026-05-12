@@ -172,43 +172,6 @@ import {disposer} from "@e280/stz"
     dispose()
     ```
 
-### 🍏 G Crew
-> extended js data types
-
-#### GMap
-> extended js Map
-- many are saying it's *"The Deluxe Mapping Experience"*
-  ```ts
-  import {GMap} from "@e280/stz"
-
-  const map = new GMap<number, string>([
-    [1, "hello"],
-    [2, "world"],
-  ])
-  ```
-- `map.need(key)` — returns the value for key.. if missing, throw an error
-  ```ts
-  const value = map.need(1)
-    // "hello"
-  ```
-- `map.guarantee(key, makeFn)` — returns the value for `key`.. if missing, run `makeFn` to set and return the value
-  ```ts
-  const value = map.guarantee(3, () => "rofl")
-    // "rofl"
-  ```
-
-#### GSet
-> extended js Set
-- `new GSet<T>()`
-- `set.adds(item1, item2, item3)` — add multiple items without a for-loop
-- `set.deletes(item1, item2, item3)` — add multiple items without a for-loop
-
-#### GWeakMap
-> extended js WeakMap
-- `new GWeakMap<K, V>()`
-- `weakMap.need(key)` — returns value for key.. if missing, throw an error
-- `weakMap.guarantee(key, makeFn)` — returns the value for key.. if missing, run `makeFn` to set and return the value
-
 
 
 <br/>
