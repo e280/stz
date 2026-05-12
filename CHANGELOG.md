@@ -10,6 +10,20 @@
 
 ## v0.2
 
+### v0.3.0
+- 🟥 deleted "g" utils: `GMap`, `GSet`, `GWeakMap`, `GPool`, in favor of new "utensils"
+- 🍏 add new "utensils": `got`, `MapLike`, `need`, `guarantee`
+  - 🍏 basic: `got`
+  - 🍏 map: `MapLike`, `need`, `guarantee`, `inserts`
+  - 🍏 set: `SetLike`, `adds`, `deletes`
+
+
+
+
+<br/>
+
+## v0.2
+
 ### v0.2.36
 - 🍏 add handy `gmap.setEntries(entries)` method
 - 🍏 add handy `gmap.absorbObject(obj)` method
