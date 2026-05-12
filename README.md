@@ -130,7 +130,7 @@ await all(
 ```ts
 import {concurrent} from "@e280/stz"
 
-cons {slept, hello, whatever} = await concurrent({
+const {slept, hello, whatever} = await concurrent({
   slept: nap(500),
   hello: Promise.resolve("hello"),
   whatever: fetch("whatever.json"),
