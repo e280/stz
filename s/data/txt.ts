@@ -8,12 +8,3 @@ export function txt(bytes: Uint8Array) {
 txt.fromBytes = fromBytes
 txt.toBytes = toBytes
 
-/** @deprecated renamed to `fromBytes` */
-txt.string = txt.fromBytes
-
-/** @deprecated renamed to `toBytes` */
-txt.bytes = txt.toBytes
-
-/** @deprecated renamed to `txt` */
-export const Txt = txt
-

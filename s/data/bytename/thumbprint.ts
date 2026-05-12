@@ -14,12 +14,6 @@ export type ThumbprintData = {
 	preview: string
 	bulk: string
 	sigil: string
-
-	/** @deprecated renamed to `raw` */
-	readonly bytes: Uint8Array
-
-	/** @deprecated renamed to `full` */
-	readonly thumbprint: string
 }
 
 /**
@@ -89,9 +83,6 @@ export const thumbprint = {
 				preview,
 				bulk,
 				sigil,
-
-				bytes: raw,
-				thumbprint: full,
 			}
 		},
 
@@ -123,7 +114,4 @@ export const thumbprint = {
 		},
 	},
 }
-
-/** @deprecated renamed to `thumbprint` */
-export const Thumbprint = thumbprint
 

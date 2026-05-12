@@ -22,6 +22,3 @@ export function validator<X>(...validators: Validator<X>[]): Validator<X> {
 	}
 }
 
-/** @deprecated renamed to `validator` */
-export const all = validator
-

@@ -15,6 +15,3 @@ export function getErr<E = unknown>(result: Result<unknown, E>): E | undefined {
 		: result.error
 }
 
-/** @deprecated renamed to `getOk` */
-export const grab = getOk
-

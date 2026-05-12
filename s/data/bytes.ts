@@ -12,6 +12,3 @@ export const bytes = Object.freeze({
 	},
 })
 
-/** @deprecated renamed to `bytes` */
-export const Bytes = bytes
-

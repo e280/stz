@@ -23,6 +23,3 @@ export function cycle(fn: (stop: () => void) => unknown | Promise<unknown>) {
 	return stop
 }
 
-/** @deprecated renamed to `cycle` */
-export const repeat = cycle
-

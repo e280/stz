@@ -88,6 +88,3 @@ export const bytename = {
 	},
 }
 
-/** @deprecated renamed to `bytename` */
-export const Bytename = bytename
-

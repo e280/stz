@@ -14,9 +14,3 @@ export function range(n: number) {
 	return [...count(n)]
 }
 
-/** @deprecated renamed to `count` */
-export const loop = count
-
-/** @deprecated renamed to `count2d` */
-export const loop2d = count2d
-

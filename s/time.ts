@@ -20,6 +20,3 @@ export const time = {
 	},
 }
 
-/** @deprecated renamed to `time` */
-export const Time = time
-
