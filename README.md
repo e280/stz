@@ -9,6 +9,38 @@
 
 ## 🥨 stz primitives
 
+### 🍏 utensil fns
+> everyday helper fns
+
+- **got(value)** — throw an error if the value is null or undefined
+    ```ts
+    const value = got(nullableValue)
+    ```
+
+#### map helpers
+- **need(map, key)** — return-or-throw a map value
+    ```ts
+    const value = need(map, "my_key")
+    ```
+- **guarantee(map, key, makeFn)** — get-or-create a map value
+    ```ts
+    const value = guarantee(map, "my_key", () => 123)
+    ```
+- **inserts(map, entries)** — set many entries at once
+    ```ts
+    inserts(map, [["my_key1", 123], ["my_key2", 234]])
+    ```
+
+#### set helpers
+- **adds(set, values)** — add many values at once
+    ```ts
+    adds(set, ["alpha", "bravo", "charlie"])
+    ```
+- **deletes(set, values)** — delete many values at once
+    ```ts
+    deletes(map, ["alpha", "bravo", "charlie"])
+    ```
+
 ### 🍏 `pub` and `sub`
 > ergonomic event emitters
 
