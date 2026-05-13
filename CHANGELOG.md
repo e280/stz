@@ -12,10 +12,10 @@
 
 ### v0.3.0
 - 🟥 deleted "g" utils: `GMap`, `GSet`, `GWeakMap`, `GPool`, in favor of new "utensils"
-- 🍏 add new "utensils": `got`, `MapLike`, `need`, `guarantee`
+- 🍏 add new "utensils"
   - 🍏 basic: `got`
-  - 🍏 map: `MapLike`, `need`, `guarantee`, `inserts`
-  - 🍏 set: `SetLike`, `adds`, `deletes`
+  - 🍏 map: `need`, `guarantee`, `inserts`
+  - 🍏 set: `adds`, `deletes`
 - 🟥 delete ALL previously `@deprecated` things
   - these renames had occurred
     - `loop` -> `count`
