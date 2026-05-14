@@ -16,6 +16,7 @@
   - 🍏 basic: `got`
   - 🍏 map: `need`, `guarantee`, `inserts`
   - 🍏 set: `adds`, `deletes`
+- 🍏 add `Rand` facility for random-number operations
 - 🟥 delete ALL previously `@deprecated` things
   - these renames had occurred
     - `loop` -> `count`

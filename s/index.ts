@@ -14,6 +14,7 @@ export * from "./deep/index.js"
 export * from "./dig/dig.js"
 
 export * from "./queue/queue.js"
+export * from "./rand/index.js"
 
 export * from "./ok/index.js"
 export * from "./toq/index.js"
