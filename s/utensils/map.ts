@@ -5,7 +5,7 @@ type MapLike<K, V> = {
 	set(key: K, value: V): unknown
 }
 
-export function need<K, V>(map: MapLike<K, V>, key: K) {
+export function need<K, V>(map: Pick<MapLike<K, V>, "has" | "get">, key: K) {
 	if (map.has(key))
 		return map.get(key) as V
 	else
@@ -22,7 +22,7 @@ export function guarantee<K, V>(map: MapLike<K, V>, key: K, make: () => V) {
 	}
 }
 
-export function inserts<K, V, M extends MapLike<K, V>>(map: M, entries: Iterable<[K, V]>) {
+export function inserts<K, V, M extends Pick<MapLike<K, V>, "set">>(map: M, entries: Iterable<[K, V]>) {
 	for (const [key, value] of entries)
 		map.set(key, value)
 	return map
