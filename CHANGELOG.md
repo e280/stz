@@ -8,7 +8,7 @@
 
 <br/>
 
-## v0.2
+## v0.3
 
 ### v0.3.0
 - 🟥 deleted "g" utils: `GMap`, `GSet`, `GWeakMap`, `GPool`, in favor of new "utensils"
@@ -40,7 +40,6 @@
   - these things were replaced by newer alternatives
     - `drill`, see `dig`
     - `Hat`, see `Dispenser`
-
 
 
 
