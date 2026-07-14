@@ -10,6 +10,13 @@
 
 ## v0.3
 
+### v0.3.2
+- 🍏 add optional err string argument to `got` and `need` utilities
+- 🍏 update dependencies
+
+### v0.3.1
+- 🍏 update dependencies
+
 ### v0.3.0
 - 🍏 update dependencies
 
