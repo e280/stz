@@ -2,7 +2,7 @@
 import type {Result} from "../types/result.js"
 
 /** return ok value, otherwise throw error */
-export function needOk<Value, E>(result: Result<Value, E>): Value {
+export function gotOk<Value, E>(result: Result<Value, E>): Value {
 	if (result.ok)
 		return result.value
 
@@ -19,8 +19,14 @@ export function needOk<Value, E>(result: Result<Value, E>): Value {
 }
 
 /** return error, otherwise throw error */
-export function needErr<E>(result: Result<unknown, E>): E {
+export function gotErr<E>(result: Result<unknown, E>): E {
 	if (result.ok) throw new Error("didn't get needed error")
 	return result.error
 }
+
+/** @deprecated renamed to `gotOk` */
+export const needOk = gotOk
+
+/** @deprecated renamed to `gotErr` */
+export const needErr = gotErr
 

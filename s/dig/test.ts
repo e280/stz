@@ -1,12 +1,12 @@
 
 import {suite, expect, assert} from "@e280/science"
 import {dig} from "./dig.js"
-import {needOk} from "../ok/index.js"
+import {gotOk} from "../ok/index.js"
 
 const check = (t: any, path: (string | number)[]) => ({
 	ok: (value: any) => async() => {
 		const result = dig(t, path)
-		expect(needOk(result)).is(value)
+		expect(gotOk(result)).is(value)
 	},
 	err: (e: any) => async() => {
 		const result = dig(t, path)

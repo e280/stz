@@ -344,15 +344,15 @@ rust-inspired pattern for explicit error handling instead of the usual js yolo v
     // undefined
   ```
   - there is also `getErr(result)`
-- `needOk(result)` — get the value, or throw
+- `gotOk(result)` — get the value, or throw
   ```ts
-  needOk(ok(123))
+  gotOk(ok(123))
     // 123
 
-  needOk(err("containment lost"))
+  gotOk(err("containment lost"))
     // throws Error("containment lost")
   ```
-  - there is also `needErr(result)`
+  - there is also `gotErr(result)`
 
 
 

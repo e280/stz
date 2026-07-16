@@ -10,6 +10,10 @@
 
 ## v0.3
 
+### v0.3.3
+- 🔶 rename `needOk` to `gotOk`
+- 🔶 rename `needErr` to `gotErr`
+
 ### v0.3.2
 - 🍏 add optional err string argument to `got` and `need` utilities
 - 🍏 update dependencies
