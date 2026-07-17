@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.4
+- 🍏 add `bytes.concat([bytesA, bytesB, bytesC])`
+
 ### v0.3.3
 - 🔶 rename `needOk` to `gotOk`
 - 🔶 rename `needErr` to `gotErr`
