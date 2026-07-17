@@ -5,7 +5,11 @@ type MapLike<K, V> = {
 	set(key: K, value: V): unknown
 }
 
-export function need<K, V>(map: Pick<MapLike<K, V>, "has" | "get">, key: K, err = "need failed") {
+export function need<K, V>(
+		map: Pick<MapLike<K, V>, "has" | "get">,
+		key: K,
+		err = (typeof key === "string" ? `needed key not found "${key}"` : "needed key not found"),
+	) {
 	if (map.has(key))
 		return map.get(key) as V
 	else
