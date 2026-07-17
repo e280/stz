@@ -22,9 +22,6 @@
 - 🍏 update dependencies
 
 ### v0.3.0
-- 🍏 update dependencies
-
-### v0.3.0
 - 🟥 deleted "g" utils: `GMap`, `GSet`, `GWeakMap`, `GPool`, in favor of new "utensils"
 - 🍏 add new "utensils"
   - 🍏 basic: `got`
