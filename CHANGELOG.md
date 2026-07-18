@@ -10,6 +10,10 @@
 
 ## v0.3
 
+### v0.3.5
+- 🍏 add optional limit arg to queue `queue(fn, limit)`
+- 🍏 add `sequence` fn, that creates queued invocation fn
+
 ### v0.3.4
 - 🍏 enhance `need` default err message
 - 🍏 add `bytes.concat([bytesA, bytesB, bytesC])`

@@ -1,11 +1,11 @@
 
-import {Science, expect} from "@e280/science"
+import {suite, test, expect} from "@e280/science"
 
 import {nap} from "../nap.js"
 import {queue} from "./queue.js"
 
-export default Science.suite({
-	"job runs": Science.test(async() => {
+export default suite({
+	"job runs": test(async() => {
 		let concurrent = 0
 		const job = queue(async() => {
 			concurrent++
@@ -19,7 +19,7 @@ export default Science.suite({
 		expect(concurrent).is(0)
 	}),
 
-	"sequencing is enforced": Science.test(async() => {
+	"sequencing is enforced": test(async() => {
 		let concurrent = 0
 		const job = queue(async() => {
 			concurrent++
@@ -41,7 +41,7 @@ export default Science.suite({
 		expect(concurrent).is(0)
 	}),
 
-	"params and return values seem to work": Science.test(async() => {
+	"params and return values seem to work": test(async() => {
 		const add = queue(async(a: number, b: number) => {
 			await nap(100)
 			return a + b
@@ -52,7 +52,7 @@ export default Science.suite({
 		expect(await promise2).is(30)
 	}),
 
-	"first job throws, second job unaffected": Science.test(async() => {
+	"first job throws, second job unaffected": test(async() => {
 		let run = 0
 		const job = queue(async() => {
 			run++
@@ -62,6 +62,17 @@ export default Science.suite({
 		})
 		expect(async() => job()).throwsAsync()
 		expect(async() => job()).not.throwsAsync()
+	}),
+
+	"limit exceeded": test(async() => {
+		const job = queue(async() => nap(10), 2)
+		await expect(
+			async() => await Promise.all([
+				job(),
+				job(),
+				job(),
+			])
+		).throwsAsync()
 	}),
 })
 
