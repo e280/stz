@@ -1,7 +1,5 @@
 
-/**
- * create a job queue that ensures the given fn is always called in sequence (not concurrently).
- */
+/** create a job queue that ensures the given fn is always called in sequence (not concurrently). */
 export function queue<Args extends any[], Result>(
 		fn: (...args: Args) => Promise<Result>,
 		limit = Infinity,
