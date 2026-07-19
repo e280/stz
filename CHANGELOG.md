@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.6
+- 🍏 add `Cubby` type
+
 ### v0.3.5
 - 🍏 add optional limit arg to queue `queue(fn, limit)`
 - 🍏 add `lane` fn, that creates queued invocation fn
