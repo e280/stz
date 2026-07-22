@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.7
+- 🍏 promote `happy` and `sad` as top-level exports (previously only under `is` helper)
+
 ### v0.3.6
 - 🍏 add `Cubby` type
 

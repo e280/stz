@@ -1,13 +1,21 @@
 
+/** not null or undefined */
+export function happy<X>(x: X): x is NonNullable<X> {
+	return x !== undefined && x !== null
+}
+
+/** null or undefined */
+export function sad(x: any): x is (undefined | null) {
+	return x === undefined || x === null
+}
+
 export const is = Object.freeze({
 
-	/** not undefined or null */
-	happy: <X>(x: X): x is NonNullable<X> =>
-		x !== undefined && x !== null,
+	/** not null or undefined */
+	happy,
 
-	/** undefined or null */
-	sad: (x: any): x is (undefined | null) =>
-		x === undefined || x === null,
+	/** null or undefined */
+	sad,
 
 	boolean: (x: any): x is boolean =>
 		typeof x === "boolean",
