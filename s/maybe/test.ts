@@ -35,9 +35,9 @@ export default suite({
 			expect(maybe.problems(nay("nope"))!.length).is(1)
 		}),
 
-		"require": test(async() => {
-			expect(maybe.require(yay(123))).is(123)
-			expect(() => maybe.require(nay("nope"))).throws()
+		"gotYay": test(async() => {
+			expect(maybe.gotYay(yay(123))).is(123)
+			expect(() => maybe.gotYay(nay("nope"))).throws()
 		}),
 
 		"yay": test(async() => {

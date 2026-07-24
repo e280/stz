@@ -10,6 +10,10 @@
 
 ## v0.3
 
+### v0.3.8
+- 🔶 rename `maybe.require` to `maybe.gotYay`
+- 🍏 add `maybe.gotNay`
+
 ### v0.3.7
 - 🍏 promote `happy` and `sad` as top-level exports (previously only under `is` helper)
 
