@@ -13,6 +13,7 @@
 ### v0.3.8
 - 🔶 rename `maybe.require` to `maybe.gotYay`
 - 🍏 add `maybe.gotNay`
+- 🍏 export direct maybe fns, `isYay`, `isNay`, `gotYay`, `gotNay`
 
 ### v0.3.7
 - 🍏 promote `happy` and `sad` as top-level exports (previously only under `is` helper)
