@@ -5,8 +5,8 @@ import {maybe, yay, nay, allow, deny} from "./index.js"
 export default suite({
 	fns: {
 		"get": test(async() => {
-			expect(maybe.get(yay(123))).is(123)
-			expect(maybe.get(nay("nope"))).is(undefined)
+			expect(maybe.getValue(yay(123))).is(123)
+			expect(maybe.getValue(nay("nope"))).is(undefined)
 		}),
 
 		"isNay": test(async() => {
@@ -36,8 +36,8 @@ export default suite({
 		}),
 
 		"gotYay": test(async() => {
-			expect(maybe.gotYay(yay(123))).is(123)
-			expect(() => maybe.gotYay(nay("nope"))).throws()
+			expect(maybe.gotValue(yay(123))).is(123)
+			expect(() => maybe.gotValue(nay("nope"))).throws()
 		}),
 
 		"yay": test(async() => {

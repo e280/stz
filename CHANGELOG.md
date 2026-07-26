@@ -10,6 +10,16 @@
 
 ## v0.3
 
+### v0.3.9
+- 🔶 okay seriously this time, i reworked the `maybe` naming:
+  - 🍏 `getValue` + `gotValue`
+  - 🍏 `getProblems` + `gotProblems`
+  - 🔶 deprecated `get`, renamed to `getValue`
+  - 🔶 deprecated `require`, renamed to `gotValue`
+  - 🔶 deprecated `gotYay`, renamed to `gotValue`
+  - 🔶 deprecated `problems`, renamed to `getProblems`
+  - 🔶 deprecated `gotNay`, renamed to `gotProblems`
+
 ### v0.3.8
 - 🔶 rename `maybe.require` to `maybe.gotYay`
 - 🍏 add `maybe.gotNay`
