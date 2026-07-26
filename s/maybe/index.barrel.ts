@@ -4,7 +4,6 @@ export * from "./fns/is-nay.js"
 export * from "./fns/is-yay.js"
 export * from "./fns/nay.js"
 export * from "./fns/problems.js"
-export * from "./fns/require.js"
 export * from "./fns/yay.js"
 
 export * from "./validators/validator.js"
