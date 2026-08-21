@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.10
+- 🍏 update deps
+
 ### v0.3.9
 - 🔶 okay seriously this time, i reworked the `maybe` naming:
   - 🍏 `getValue` + `gotValue`
