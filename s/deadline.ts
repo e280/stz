@@ -15,9 +15,15 @@ async function invoke<R>(fn: Promise<R> | (() => Promise<R>)) {
 }
 
 /** set a deadline for a fn to do something, will reject with a `DeadlineError` if it takes too long */
-export function deadline<R>(milliseconds: number, fn: Promise<R> | (() => Promise<R>)) {
-	if (milliseconds <= 0 || milliseconds === Infinity)
+export function deadline<R>(milliseconds: number | undefined | null, fn: Promise<R> | (() => Promise<R>)) {
+	if (milliseconds === undefined || milliseconds === null || milliseconds === Infinity)
 		return invoke(fn)
+
+	if (milliseconds < 0 || Number.isNaN(milliseconds))
+		throw new RangeError("invalid value provided as milliseconds to deadline fn")
+
+	if (milliseconds === 0)
+		return Promise.reject(new DeadlineError(milliseconds))
 
 	return new Promise<R>((resolve, reject) => {
 		const id = setTimeout(

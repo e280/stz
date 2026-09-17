@@ -11,6 +11,10 @@
 ## v0.3
 
 ### v0.3.11
+- 🔶 reworked `deadline` semantics
+  - deadline milliseconds `0` used to mean "no deadline", now it means "please instantly fail with a DeadlineError"
+  - deadline milliseconds `< 0` used to mean "no deadline", now it throws a RangeError (invalid input)
+  - deadline milliseconds `undefined` and `null` join `Infinity` to all mean "no deadline"
 - 🍏 allow the `deadline` fn to accept either a fn or a promise
 
 ### v0.3.10
