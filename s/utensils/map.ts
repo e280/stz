@@ -26,9 +26,12 @@ export function guarantee<K, V>(map: MapLike<K, V>, key: K, make: () => V) {
 	}
 }
 
-export function inserts<K, V, M extends Pick<MapLike<K, V>, "set">>(map: M, entries: Iterable<[K, V]>) {
+export function setEntries<K, V, M extends Pick<MapLike<K, V>, "set">>(map: M, entries: Iterable<[K, V]>) {
 	for (const [key, value] of entries)
 		map.set(key, value)
 	return map
 }
+
+/** @deprecated renamed to `setEntries` */
+export const inserts = setEntries
 

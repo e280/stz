@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.12
+- 🔶 deprecate `inserts` to rename it to `setEntries`
+
 ### v0.3.11
 - 🔶 reworked `deadline` semantics
   - deadline milliseconds `0` used to mean "no deadline", now it means "please instantly fail with a DeadlineError"
