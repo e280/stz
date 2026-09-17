@@ -16,6 +16,7 @@
   - deadline milliseconds `< 0` used to mean "no deadline", now it throws a RangeError (invalid input)
   - deadline milliseconds `undefined` and `null` join `Infinity` to all mean "no deadline"
 - 🍏 allow the `deadline` fn to accept either a fn or a promise
+- 🍏 update deps
 
 ### v0.3.10
 - 🍏 update deps
