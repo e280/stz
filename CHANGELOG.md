@@ -11,6 +11,7 @@
 ## v0.3
 
 ### v0.3.12
+- 🍏 export MapLike
 - 🔶 deprecate `inserts` to rename it to `setEntries`
 
 ### v0.3.11
