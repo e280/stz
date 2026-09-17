@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.11
+- 🍏 allow the `deadline` fn to accept either a fn or a promise
+
 ### v0.3.10
 - 🍏 update deps
 
