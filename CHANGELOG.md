@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.14
+- 🍏 `errorString` will now show the Error object's name and message, like `"Error: an error occurred"`
+
 ### v0.3.13
 - 🔶 `disposer` now disposes scheduled things in reverse order
 - 🍏 add `.own` to `disposer`
