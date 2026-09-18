@@ -5,7 +5,7 @@
 		"outDir": "x",
 		"target": "es2025",
 		"lib": ["es2025", "dom"],
-		"types": ["node"],
+		"types": [],
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"sourceMap": true,
