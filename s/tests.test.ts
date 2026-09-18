@@ -11,6 +11,7 @@ import maybe from "./maybe/test.js"
 import dig from "./dig/test.js"
 import ok from "./ok/test.js"
 import defer from "./defer.test.js"
+import rand from "./rand/test.js"
 
 await science.run({
 	data,
@@ -23,5 +24,6 @@ await science.run({
 	dig,
 	ok,
 	defer,
+	rand,
 })
 
