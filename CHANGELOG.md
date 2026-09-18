@@ -10,6 +10,9 @@
 
 ## v0.4
 
+### v0.4.1
+- 🍏 fix tests
+
 ### v0.4.0
 - 🟥 deleted all deprecated stuff
 - 🟥 reworked `deadline` semantics

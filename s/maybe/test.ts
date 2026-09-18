@@ -1,6 +1,7 @@
 
 import {expect, suite, test} from "@e280/science"
 import {maybe, yay, nay, allow, deny} from "./index.js"
+import { problems } from "./fns/problems.js"
 
 export default suite({
 	fns: {
@@ -30,9 +31,9 @@ export default suite({
 		}),
 
 		"problems": test(async() => {
-			expect(maybe.problems(yay(123))).is(undefined)
-			expect(maybe.problems(nay("nope"))).ok()
-			expect(maybe.problems(nay("nope"))!.length).is(1)
+			expect(problems(yay(123))).is(undefined)
+			expect(problems(nay("nope"))).ok()
+			expect(problems(nay("nope"))!.length).is(1)
 		}),
 
 		"gotYay": test(async() => {
@@ -52,28 +53,28 @@ export default suite({
 			const allowBig = allow<number>("must be big", n => n > 99)
 			expect(allowBig(1).yay).is(false)
 			expect(allowBig(123).yay).is(true)
-			expect(maybe.problems(allowBig(1))!.length).is(1)
+			expect(problems(allowBig(1))!.length).is(1)
 		}),
 
 		"allow, null problem": test(async() => {
 			const allowBig = allow<number>(null, n => n > 99)
 			expect(allowBig(1).yay).is(false)
 			expect(allowBig(123).yay).is(true)
-			expect(maybe.problems(allowBig(1))!.length).is(0)
+			expect(problems(allowBig(1))!.length).is(0)
 		}),
 
 		"deny": test(async() => {
 			const denyBig = deny<number>("cannot be big", n => n > 99)
 			expect(denyBig(1).yay).is(true)
 			expect(denyBig(123).yay).is(false)
-			expect(maybe.problems(denyBig(123))!.length).is(1)
+			expect(problems(denyBig(123))!.length).is(1)
 		}),
 
 		"deny, null problem": test(async() => {
 			const denyBig = deny<number>(null, n => n > 99)
 			expect(denyBig(1).yay).is(true)
 			expect(denyBig(123).yay).is(false)
-			expect(maybe.problems(denyBig(123))!.length).is(0)
+			expect(problems(denyBig(123))!.length).is(0)
 		}),
 
 		"validator": test(async() => {
@@ -84,8 +85,8 @@ export default suite({
 			expect(validator(5).yay).is(true)
 			expect(validator(5.1).yay).is(false)
 			expect(validator(15).yay).is(false)
-			expect(maybe.problems(validator(15.1))!.includes("must be integer")).ok()
-			expect(maybe.problems(validator(15.1))!.includes("too big")).ok()
+			expect(problems(validator(15.1))!.includes("must be integer")).ok()
+			expect(problems(validator(15.1))!.includes("too big")).ok()
 		}),
 
 		"validator without validators passes": test(async() => {
