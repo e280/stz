@@ -9,8 +9,10 @@ export function disposer(): Disposer {
 	let fns: (() => void)[] = []
 
 	function d() {
-		for (const fn of fns.reverse()) fn()
+		const doomed = fns
 		fns = []
+		for (let i = doomed.length - 1; i >= 0; i--)
+			doomed[i]()
 	}
 
 	d.schedule = (...newFns: (() => void)[]) => {
