@@ -32,6 +32,3 @@ export function setEntries<K, V, M extends Pick<MapLike<K, V>, "set">>(map: M, e
 	return map
 }
 
-/** @deprecated renamed to `setEntries` */
-export const inserts = setEntries
-

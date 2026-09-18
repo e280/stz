@@ -24,9 +24,3 @@ export function gotErr<E>(result: Result<unknown, E>): E {
 	return result.error
 }
 
-/** @deprecated renamed to `gotOk` */
-export const needOk = gotOk
-
-/** @deprecated renamed to `gotErr` */
-export const needErr = gotErr
-

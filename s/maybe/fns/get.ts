@@ -23,18 +23,3 @@ export function gotProblems<X>(maybe: Maybe<X>) {
 	return maybe.problems
 }
 
-/** @deprecated renamed to `gotYay` */
-export const require = gotValue
-
-/** @deprecated renamed to `getValue` */
-export const get = getValue
-
-/** @deprecated renamed to `gotValue` */
-export const gotYay = gotValue
-
-/** @deprecated renamed to `getProblems` */
-export const problems = getProblems
-
-/** @deprecated renamed to `gotProblems` */
-export const gotNay = gotProblems
-
