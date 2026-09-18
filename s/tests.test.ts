@@ -10,6 +10,7 @@ import toq from "./toq/toq.test.js"
 import maybe from "./maybe/test.js"
 import dig from "./dig/test.js"
 import ok from "./ok/test.js"
+import defer from "./defer.test.js"
 
 await science.run({
 	data,
@@ -21,5 +22,6 @@ await science.run({
 	maybe,
 	dig,
 	ok,
+	defer,
 })
 
