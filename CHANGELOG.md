@@ -11,6 +11,7 @@
 ## v0.3
 
 ### v0.3.13
+- 🔶 `disposer` now disposes scheduled things in reverse order
 - 🍏 add `.own` to `disposer`
 
 ### v0.3.12
