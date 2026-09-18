@@ -8,6 +8,22 @@
 
 <br/>
 
+## v0.4
+
+### v0.4.0
+- 🟥 deleted all deprecated stuff
+- 🟥 reworked `deadline` semantics
+  - export `defaultTimeout` which is `60_000`
+  - milliseconds `undefined` now means "fallback on defaultTimeout"
+  - milliseconds `null` now means "fallback on defaultTimeout"
+  - milliseconds `0` means "return a rejected promise with DeadlineError"
+  - milliseconds less than 0 or NaN throws a RangeError
+  - milliseconds `Infinity` means "never timeout"
+
+
+
+<br/>
+
 ## v0.3
 
 ### v0.3.14
