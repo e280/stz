@@ -9,14 +9,14 @@ export function rand32() {
 	return crypto.getRandomValues(new Uint32Array(1))[0]!
 }
 
-export function mix32(x: number) {
+function mix32(x: number) {
 	x = Math.imul(x ^ (x >>> 15), x | 1)
 	x ^= x + Math.imul(x ^ (x >>> 7), x | 61)
 	x ^= x >>> 14
 	return x >>> 0
 }
 
-export function string32(text: string) {
+function string32(text: string) {
 	let hash = 0x811C9DC5
 
 	for (const byte of encoder.encode(text)) {

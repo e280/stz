@@ -11,12 +11,11 @@
 ## v0.4
 
 ### v0.4.2
+- 🍏 add new helper fn, `array`.
 - 🍏 added new suite of pseudo-random functionality.
     - new `mulberry(123, "terrainChunk", 45, 67)` produces a `Random` fn that gives you a series of 0 to 1 fraction values.
     - this mulberry fn requires a seed number, then any number of salt values (strings or numbers).
     - new `rand32()` fn returns a crypto-random 32 bit unsigned integer (js number).
-    - new `mix32()` takes a u32 and scrambles up the bits to gives you a new seemingly random u32.
-    - new `string32()` takes a string and hashes it up and gives you a u32.
     - new `hash32()` takes numbers and strings and hashes them together to gives you a u32.
 - 🔶 changes to `defer`.
     - 🍏 improve `defer` typings (resolve accepts a PromiseLike).

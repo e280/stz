@@ -26,6 +26,7 @@ export * from "./utensils/map.js"
 export * from "./utensils/set.js"
 
 export * from "./all.js"
+export * from "./array.js"
 export * from "./assert.js"
 export * from "./coalesce.js"
 export * from "./collect.js"

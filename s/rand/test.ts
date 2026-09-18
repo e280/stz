@@ -2,10 +2,24 @@
 import {suite, expect, test} from "@e280/science"
 import {Rand} from "./rand.js"
 import {count} from "../count.js"
-import {mulberry} from "./mulberry.js"
+import {array} from "../array.js"
+import {hash32, mulberry} from "./mulberry.js"
 
 export default suite({
 	rand: {
+		"snapshot": test(async() => {
+			const seed = 1234
+			const rand = new Rand(mulberry(seed))
+			const snapshot = array(10, () => rand.u32())
+			expect(snapshot).deep([
+				314799534, 3021131492,
+				3877737075, 4168477787,
+				175938938, 505788695,
+				694861204, 3447815142,
+				1713389954, 547570102,
+			])
+		}),
+
 		"coin toss challenge": test(async() => {
 			const seed = 1234
 			const x = 10_000
@@ -38,6 +52,32 @@ export default suite({
 					qualified += 1
 			expect(qualified).gte(70)
 			expect(qualified).lte(130)
+		}),
+	},
+
+	hash32: {
+		"is deterministic": test(async() => {
+			expect(hash32("hello")).is(hash32("hello"))
+		}),
+
+		"can do a numbers and strings": test(async() => {
+			expect(hash32(123)).is(2905384493)
+			expect(hash32("hello")).is(1686101545)
+		}),
+
+		"boundary-aware": test(async() => {
+			expect(hash32("hello", "world"))
+				.not.is(hash32("helloworld"))
+		}),
+
+		"order matters": test(async() => {
+			expect(hash32("hello", "world"))
+				.not.is(hash32("world", "hello"))
+		}),
+
+		"numbers and strings are distinct": test(async() => {
+			expect(hash32(123))
+				.not.is(hash32("123"))
 		}),
 	},
 
