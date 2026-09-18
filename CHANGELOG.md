@@ -10,6 +10,9 @@
 
 ## v0.3
 
+### v0.3.13
+- 🍏 add `.own` to `disposer`
+
 ### v0.3.12
 - 🍏 export MapLike
 - 🔶 deprecate `inserts` to rename it to `setEntries`
