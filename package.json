@@ -16,12 +16,13 @@
 		"s"
 	],
 	"scripts": {
-		"build": "rm -rf x && mkdir x && ln -s '$(realpath node_modules)' x/node_modules && tsc",
-		"dev": "tsc -w & node --watch x/tests.test.js & wait",
+		"build": "rm -rf x && mkdir x && tsc",
+		"dev": "octo 'tsc -w' 'node --watch x/tests.test.js'",
 		"test": "node x/tests.test.js",
 		"count": "find s -path '*/_archive' -prune -o -name '*.ts' -exec wc -l {} +"
 	},
 	"devDependencies": {
+		"@e280/octo": "^0.1.5",
 		"@e280/science": "^0.1.12",
 		"typescript": "^7.0.2"
 	},
