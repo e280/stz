@@ -12,6 +12,12 @@
 
 ### v0.4.4
 - 🍏 add class `Rollerstat`
+- 🔶 de-namespace all `is` fns (old way is deprecated):
+  - 🔶 rename `is.happy` to `isHappy`
+  - 🔶 rename `is.number` to `isNumber`
+  - 🔶 rename `is.boolean` to `isBoolean`
+  - 🔶 i should think you're seeing a pattern.
+  - 🔶 also `happy` and `sad` are now `isHappy` and `isSad` respectively.
 
 ### v0.4.3
 - 🍏 add fn `disposables`
