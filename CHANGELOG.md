@@ -11,6 +11,7 @@
 ## v0.4
 
 ### v0.4.5
+- 🍏 add type `Json`
 - 🍏 add `rollerstat.on`
 - 🍏 add `rollerstat.length`
 
