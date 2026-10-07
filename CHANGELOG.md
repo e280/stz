@@ -10,6 +10,10 @@
 
 ## v0.4
 
+### v0.4.5
+- 🍏 add `rollerstat.on`
+- 🍏 add `rollerstat.length`
+
 ### v0.4.4
 - 🍏 add class `Rollerstat`
 - 🔶 de-namespace all `is` fns (old way is deprecated):
