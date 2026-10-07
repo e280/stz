@@ -49,6 +49,10 @@ export class Rollerstat {
 			: undefined
 	}
 
+	get length() {
+		return this.#array.length
+	}
+
 	add(x: number) {
 		this.#array.push(x)
 		this.#trim()
