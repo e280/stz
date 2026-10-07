@@ -10,6 +10,9 @@
 
 ## v0.4
 
+### v0.4.4
+- 🍏 add class `Rollerstat`
+
 ### v0.4.3
 - 🍏 add fn `disposables`
 - 🍏 add fn `arraylimit`
