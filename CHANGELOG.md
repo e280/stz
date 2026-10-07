@@ -13,15 +13,20 @@
 ### v0.4.4
 - 🍏 add class `Rollerstat`
 - 🔶 de-namespace all `is` fns (old way is deprecated):
-  - 🔶 rename `is.happy` to `isHappy`
-  - 🔶 rename `is.number` to `isNumber`
-  - 🔶 rename `is.boolean` to `isBoolean`
-  - 🔶 i should think you're seeing a pattern.
+  - 🔶 `is.happy` -> `isHappy`
+  - 🔶 `is.number` -> `isNumber`
+  - 🔶 `is.boolean` -> `isBoolean`
+  - 🔶 ...etc
   - 🔶 also `happy` and `sad` are now `isHappy` and `isSad` respectively.
 - 🔶 de-namespace all `deep` fns (old way is deprecated):
   - 🔶 `deep.freeze` -> `deepFreeze`
   - 🔶 `deep.equal` -> `deepEqual`
   - 🔶 `deep.clone` -> `deepClone`
+- 🔶 de-namespace all `time` fns (old way is deprecated):
+  - 🔶 `time.seconds` -> `seconds`
+  - 🔶 `time.minutes` -> `minutes`
+  - 🔶 `time.future.seconds` -> `futureSeconds`
+  - 🔶 `time.past.seconds` -> `pastSeconds`
 
 ### v0.4.3
 - 🍏 add fn `disposables`
