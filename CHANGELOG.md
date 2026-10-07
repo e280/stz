@@ -10,6 +10,11 @@
 
 ## v0.4
 
+### v0.4.3
+- 🍏 add fn `disposables`
+- 🍏 add fn `arraylimit`
+- 🍏 un-deprecate `deferred.promise`, nice for destructuring patterns
+
 ### v0.4.2
 - 🍏 add new helper fn, `array`.
 - 🍏 added new suite of pseudo-random functionality.
