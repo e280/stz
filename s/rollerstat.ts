@@ -1,5 +1,9 @@
 
+import {sub} from "./pubsub.js"
+
 export class Rollerstat {
+	on = sub<[number]>()
+
 	#memoryLimit = 10
 	#array: number[] = []
 
@@ -56,6 +60,7 @@ export class Rollerstat {
 	add(x: number) {
 		this.#array.push(x)
 		this.#trim()
+		this.on.publish(x)
 		return this
 	}
 
