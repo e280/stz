@@ -3,12 +3,13 @@ import {expect, Science, test} from "@e280/science"
 import {toq} from "./index.js"
 import {txt} from "../data/txt.js"
 import {deep} from "../deep/index.js"
+import {deepEqual} from "../deep/equal.js"
 
 export default Science.suite({
 	"roundtrip one file": test(async() => {
 		const a: toq.Entry[] = [["hello.txt", txt.toBytes("hello world")]]
 		const b = [...toq.unpack(toq.pack(a))]
-		expect(deep.equal(a, b)).ok()
+		expect(deepEqual(a, b)).ok()
 	}),
 
 	"roundtrip two files": test(async() => {

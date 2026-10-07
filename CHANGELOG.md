@@ -18,6 +18,10 @@
   - 🔶 rename `is.boolean` to `isBoolean`
   - 🔶 i should think you're seeing a pattern.
   - 🔶 also `happy` and `sad` are now `isHappy` and `isSad` respectively.
+- 🔶 de-namespace all `deep` fns (old way is deprecated):
+  - 🔶 `deep.freeze` -> `deepFreeze`
+  - 🔶 `deep.equal` -> `deepEqual`
+  - 🔶 `deep.clone` -> `deepClone`
 
 ### v0.4.3
 - 🍏 add fn `disposables`

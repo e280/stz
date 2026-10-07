@@ -1,5 +1,5 @@
 
-import {clone} from "./clone.js"
+import {deepClone} from "./clone.js"
 import {Science, expect} from "@e280/science"
 
 function checkMapOrSetEquality(original: any, cloned: any) {
@@ -12,21 +12,21 @@ function checkMapOrSetEquality(original: any, cloned: any) {
 export default Science.suite({
 
 	async "clone primitive types"() {
-		expect(clone(123)).is(123)
-		expect(clone("abc")).is("abc")
-		expect(clone(true)).is(true)
+		expect(deepClone(123)).is(123)
+		expect(deepClone("abc")).is("abc")
+		expect(deepClone(true)).is(true)
 	},
 
 	async "clone arrays"() {
 		const array = [1, 2, 3]
-		const clonedArray = clone(array)
+		const clonedArray = deepClone(array)
 		expect(JSON.stringify(clonedArray)).is(JSON.stringify(array))
 		expect(clonedArray).not.is(array) // check for deep cloning
 	},
 
 	async "clone plain objects"() {
 		const object = {foo: "bar", baz: 123}
-		const clonedObject = clone(object)
+		const clonedObject = deepClone(object)
 		expect(JSON.stringify(clonedObject)).is(JSON.stringify(object))
 		expect(clonedObject).not.is(object) // check for deep cloning
 	},
@@ -34,7 +34,7 @@ export default Science.suite({
 	async "clone Map"() {
 		const map = new Map()
 		map.set("key", "value")
-		const clonedMap = clone(map)
+		const clonedMap = deepClone(map)
 		expect(map.get("key")).is("value")
 		expect(clonedMap).not.is(map)
 	},
@@ -42,14 +42,14 @@ export default Science.suite({
 	async "clone Set"() {
 		const set = new Set()
 		set.add("value")
-		const clonedSet = clone(set)
+		const clonedSet = deepClone(set)
 		expect(clonedSet.has("value")).ok()
 		expect(clonedSet).not.is(set)
 	},
 
 	async "clone Date"() {
 		const date = new Date()
-		const clonedDate = clone(date)
+		const clonedDate = deepClone(date)
 		expect(clonedDate.getTime()).is(date.getTime())
 		expect(clonedDate).not.is(date) // check for deep cloning
 	},
@@ -59,7 +59,7 @@ export default Science.suite({
 		object.self = object // create circular reference
 		let error: any
 		try {
-			clone(object)
+			deepClone(object)
 		} catch (e) {
 			error = e
 		}
@@ -69,7 +69,7 @@ export default Science.suite({
 
 	async "clone nested objects"() {
 		const object = {foo: "bar", inner: {baz: 123, deeper: {qux: true}}}
-		const clonedObject = clone(object)
+		const clonedObject = deepClone(object)
 		expect(JSON.stringify(clonedObject)).is(JSON.stringify(object))
 		expect(clonedObject).not.is(object) // check for deep cloning
 		expect(clonedObject.inner).not.is(object.inner) // check for deep cloning
@@ -78,14 +78,14 @@ export default Science.suite({
 
 	async "clone array of objects"() {
 		const array = [{foo: "bar"}, {baz: 123}, {qux: true}]
-		const clonedArray = clone(array)
+		const clonedArray = deepClone(array)
 		expect(JSON.stringify(clonedArray)).is(JSON.stringify(array))
 		expect(clonedArray).not.is(array) // check for deep cloning
 	},
 
 	async "clone object with array"() {
 		const object = {foo: "bar", array: [1, 2, 3]}
-		const clonedObject = clone(object)
+		const clonedObject = deepClone(object)
 		expect(JSON.stringify(clonedObject)).is(JSON.stringify(object))
 		expect(clonedObject).not.is(object) // check for deep cloning
 	},
@@ -94,7 +94,7 @@ export default Science.suite({
 		const map = new Map()
 		map.set("key", "value")
 		const object = {foo: "bar", map}
-		const clonedObject = clone(object)
+		const clonedObject = deepClone(object)
 		expect(JSON.stringify(clonedObject.foo)).is(JSON.stringify(object.foo))
 		checkMapOrSetEquality(object.map, clonedObject.map)
 	},
@@ -107,7 +107,7 @@ export default Science.suite({
 		let clonedData: typeof data = {} as typeof data
 
 		try {
-			clonedData = clone(data)
+			clonedData = deepClone(data)
 		}
 		catch (error) {
 			didThrow = true
