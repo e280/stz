@@ -1,14 +1,12 @@
 
 /** a promise which can be resolved or rejected from the outside */
 export type Deferred<R = void> = Promise<R> & {
+	promise: Promise<R>
 	resolve: (result: R | PromiseLike<R>) => void
 	reject: (reason: any) => void
 
 	/** adopt the outcome of another promise */
 	entangle: (other: Promise<R>) => Promise<R>
-
-	/** @deprecated instead of `deferred.promise`, deferred is now itself a promise, just use `deferred` */
-	promise: Promise<R>
 }
 
 /** returns a deferred promise with exposed resolve and reject fns */
