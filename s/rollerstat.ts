@@ -1,10 +1,21 @@
 
 export class Rollerstat {
+	#memoryLimit = 10
 	#array: number[] = []
 
-	constructor(public memoryLimit = 10) {
-		if (memoryLimit < 0 || !Number.isSafeInteger(memoryLimit))
+	constructor(memoryLimit = this.#memoryLimit) {
+		this.memoryLimit = memoryLimit
+	}
+
+	get memoryLimit() {
+		return this.#memoryLimit
+	}
+
+	set memoryLimit(x: number) {
+		if (!Number.isSafeInteger(x) || x < 0)
 			throw new Error("invalid memory limit")
+		this.#memoryLimit = x
+		this.#trim()
 	}
 
 	get average() {
@@ -40,14 +51,18 @@ export class Rollerstat {
 
 	add(x: number) {
 		this.#array.push(x)
-		while (this.#array.length > this.memoryLimit)
-			this.#array.shift()
+		this.#trim()
 		return this
 	}
 
 	clear() {
 		this.#array = []
 		return this
+	}
+
+	#trim() {
+		while (this.#array.length > this.#memoryLimit)
+			this.#array.shift()
 	}
 }
 
