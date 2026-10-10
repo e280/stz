@@ -23,8 +23,6 @@ export function pubby<P extends any[]>(fn?: Fn<P>) {
 	return pubby as Pubby<P>
 }
 
-////////////////////////////////////////////////////////////////
-
 type Fn<P extends any[]> = (...p: P) => unknown
 
 function mk<P extends any[]>() {
@@ -33,8 +31,9 @@ function mk<P extends any[]>() {
 	let waiter: Deferred<P> | undefined
 	const next = () => waiter ??= defer()
 	const resolveWaiter = (p: P) => {
-		waiter?.resolve(p)
+		const ready = waiter
 		waiter = undefined
+		ready?.resolve(p)
 	}
 
 	const on = (fn: Fn<P>) => {
@@ -44,7 +43,7 @@ function mk<P extends any[]>() {
 
 	const publish = (...p: P) => {
 		resolveWaiter(p)
-		for (const fn of set)
+		for (const fn of [...set])
 			fn(...p)
 	}
 
