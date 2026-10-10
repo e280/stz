@@ -2,6 +2,7 @@
 import {defer} from "./defer.js"
 
 export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
+export type Subscriber<A extends any[]> = (fn: Listener<A>) => () => void
 
 export interface Xub<A extends any[] = []> {
 
@@ -9,7 +10,7 @@ export interface Xub<A extends any[] = []> {
 	publish(...a: A): Promise<void>
 
 	/** subscribe a listener function. */
-	subscribe(fn: Listener<A>): () => void
+	subscribe: Subscriber<A>
 
 	/** publish to all subscribed listeners, with pubsub facilities. */
 	pub: Pub<A>

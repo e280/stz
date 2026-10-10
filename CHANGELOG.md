@@ -12,6 +12,7 @@
 
 ### v0.4.6
 - 🍏 add 'dispose' fn to disposer's return
+- 🍏 export pubsub `Subscriber` type
 
 ### v0.4.5
 - 🍏 add type `Json`
