@@ -10,6 +10,9 @@
 
 ## v0.4
 
+### v0.4.7
+- 🍏 add new `subby` and `pubby` facilities (fresher alternatives to pub/sub).
+
 ### v0.4.6
 - 🍏 add 'dispose' fn to disposer's return
 - 🍏 export pubsub `Subscriber` type
