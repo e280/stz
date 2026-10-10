@@ -10,6 +10,9 @@
 
 ## v0.4
 
+### v0.4.6
+- 🍏 add 'dispose' fn to disposer's return
+
 ### v0.4.5
 - 🍏 add type `Json`
 - 🍏 add `rollerstat.on`
