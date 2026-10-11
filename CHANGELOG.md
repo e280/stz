@@ -10,6 +10,13 @@
 
 ## v0.4
 
+### v0.4.8
+- 🍏 rewrite readme.
+- 🍏 add `disposable` to `disposer`.
+- 🔶 replace `count2d` with `grid`, not using array as param anymore.
+- 🔶 deprecate `sub` and `pub` in favor of new `subby` and `pubby`.
+- 🔶 rename `obMap` to `obmap`, and `obFilter` to `obfilter`.
+
 ### v0.4.7
 - 🍏 add new `subby` and `pubby` facilities (fresher alternatives to pub/sub).
 
