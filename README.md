@@ -98,7 +98,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 - **'is' type guards** — check the identity of things with proper type guards.
     ```ts
     isHappy(0) // true if not null nor undefined.
-    isSad(undefined) // true if null nor undefined.
+    isSad(undefined) // true if null or undefined.
     isBoolean(true) // true
     isNumber(123) // true
     isString("hello") // true
@@ -108,24 +108,27 @@ import {got, subby, Rand, hex} from "@e280/stz"
     isFn(() => {}) // true
     isSymbol(Symbol()) // true
     ```
-- **time** — convert time to milliseconds.
+- **time** — durations and timestamps.  
+    durations:
     ```ts
     seconds(1) // 1000
-    minutes(2)
-    hours(2)
-    days(2)
+    minutes(1)
+    hours(1)
+    days(1)
     ```
+    timestamps after Date.now:
     ```ts
     futureSeconds(1)
-    futureMinutes(2)
-    futureHours(2)
-    futureDays(2)
+    futureMinutes(1)
+    futureHours(1)
+    futureDays(1)
     ```
+    timestamps before Date.now:
     ```ts
     pastSeconds(1)
-    pastMinutes(2)
-    pastHours(2)
-    pastDays(2)
+    pastMinutes(1)
+    pastHours(1)
+    pastDays(1)
     ```
 
 
@@ -374,7 +377,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     rand32()
       // 3948271056
     ```
-- **hash32** — mix entropy into a 32-bit integer.
+- **hash32** — mix entropy into a 32-bit integer (fast, non-cryptographic).
     ```ts
     hash32(123, "hello", 234, "world")
       // 1012994381
@@ -423,7 +426,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 <br/><a id="hex"></a>
 
 ## 🧬 hex and more
-- **hex** — encode/decode hexidecimal data.
+- **hex** — encode/decode hexadecimal data.
     ```ts
     hex(bytes) // encode Uint8Array bytes to string.
     hex.toBytes(string) // decode string to bytes.
