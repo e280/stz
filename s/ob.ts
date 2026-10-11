@@ -1,4 +1,39 @@
 
+export type ObTransform<Ob extends object, Value> = (
+	(value: Ob[keyof Ob], key: keyof Ob) => Value
+)
+
+export type ObPredicate<Ob extends object> = (
+	(value: Ob[keyof Ob], key: keyof Ob) => boolean
+)
+
+export const obmap = <Ob extends object, Value>(
+		o: Ob,
+		transform: ObTransform<Ob, Value>,
+	) => {
+
+	return Object.fromEntries(
+		Object.entries(o).map(
+			([key, value]: any) => [key, transform(value, key)]
+		)
+	) as {[P in keyof Ob]: Value}
+}
+
+export const obfilter = <Ob extends object>(
+		o: Ob,
+		predicate: ObPredicate<Ob>,
+	) => {
+
+	return Object.fromEntries(
+		Object.entries(o).filter(
+			([key, value]: any) => predicate(value, key)
+		)
+	) as {[P in keyof Ob]?: Ob[keyof Ob]}
+}
+
+////////////////////////////////////////////////////////////////
+
+/** @deprecated use `obmap` and `obfilter` directly. */
 export function ob<Ob extends object>(o: Ob) {
 	return {
 		map: <Value>(transform: ObTransform<Ob, Value>) => (
@@ -10,9 +45,7 @@ export function ob<Ob extends object>(o: Ob) {
 	}
 }
 
-////////////
-////////////
-
+/** @deprecated */
 ob.pipe = Object.freeze({
 	map: <O extends {}, Value>(
 			transform: (value: O[keyof O], key: keyof O) => Value,
@@ -26,41 +59,9 @@ ob.pipe = Object.freeze({
 	),
 })
 
-////////////
-////////////
+/** @deprecated renamed to `obmap` */
+export const obMap = obmap
 
-export type ObTransform<Ob extends object, Value> = (
-	(value: Ob[keyof Ob], key: keyof Ob) => Value
-)
-
-export type ObPredicate<Ob extends object> = (
-	(value: Ob[keyof Ob], key: keyof Ob) => boolean
-)
-
-////////////
-////////////
-
-export const obMap = <Ob extends object, Value>(
-		o: Ob,
-		transform: ObTransform<Ob, Value>,
-	) => {
-
-	return Object.fromEntries(
-		Object.entries(o).map(
-			([key, value]: any) => [key, transform(value, key)]
-		)
-	) as {[P in keyof Ob]: Value}
-}
-
-export const obFilter = <Ob extends object>(
-		o: Ob,
-		predicate: ObPredicate<Ob>,
-	) => {
-
-	return Object.fromEntries(
-		Object.entries(o).filter(
-			([key, value]: any) => predicate(value, key)
-		)
-	) as {[P in keyof Ob]?: Ob[keyof Ob]}
-}
+/** @deprecated renamed to `obfilter` */
+export const obFilter = obfilter
 
