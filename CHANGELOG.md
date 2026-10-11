@@ -10,7 +10,8 @@
 
 ## v0.4
 
-### v0.4.8
+### v0.4.9
+- 🍏 fix `disposer().dispose`, was not exposed.
 - 🔶 fix `disposer().disposables` name to correct `disposer().disposable`.
 
 ### v0.4.8
