@@ -3,6 +3,11 @@ export type Disposer = {
 	(): void
 	schedule: (...fns: (() => void)[]) => Disposer
 	own: <X>(x: X, fn: (x: X) => void) => X
+	disposables: <X extends Disposable>(x: X) => X
+}
+
+export type Disposable = {
+	dispose: () => void
 }
 
 export function disposer(): Disposer {
@@ -28,6 +33,11 @@ export function disposer(): Disposer {
 
 	d.own = <X>(x: X, fn: (x: X) => void) => {
 		fns.push(() => fn(x))
+		return x
+	}
+
+	d.disposables = <X extends Disposable>(x: X) => {
+		fns.push(() => x.dispose())
 		return x
 	}
 

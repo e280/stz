@@ -1,8 +1,8 @@
 
+import {Disposable} from "./disposer.js"
 import {Constructor} from "./constructor.js"
 
 export type Scoped<Item> = [item: Item, dispose: () => void]
-export type Disposable = {dispose(): void}
 
 export function scoped<Item>(item: Item, dispose: () => void) {
 	return [item, dispose] as Scoped<Item>
