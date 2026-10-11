@@ -1,6 +1,7 @@
 
 export type Disposer = {
 	(): void
+	dispose: () => void
 	schedule: (...fns: (() => void)[]) => Disposer
 	own: <X>(x: X, fn: (x: X) => void) => X
 	disposable: <X extends Disposable>(x: X) => X
