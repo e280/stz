@@ -1,509 +1,451 @@
 
 # 🏂 `@e280/stz`
+> *my typescript everyday carry*
 
-**stz** is e280's standard library of environment-agnostic typescript tools. zero dependencies.
+environment-agnostic zero-dependency tools and utilities. by https://e280.org/
+
+🍴 [**utensils**](#utensils)  
+⏳ [**async/fns**](#async)  
+📣 [**subby**](#subby)  
+🧹 [**housekeeping**](#housekeeping)  
+🎲 [**rand**](#rand)  
+✅ [**ok, err, result**](#ok)  
+🧬 [**hex encoding**](#hex)  
 
 
 
 <br/>
 
-## 🥨 stz primitives
+```sh
+npm install @e280/stz
+```
 
-### 🍏 utensil fns
-> everyday helper fns
+```ts
+import {got, subby, Rand, hex} from "@e280/stz"
+```
 
-- **got(value)** — throw an error if the value is null or undefined
+
+
+<br/><a id="utensils"></a>
+
+## 🍴 utensils
+
+- **got** — throw an error if the value is null or undefined.
     ```ts
     const value = got(nullableValue)
     ```
-
-#### map helpers
-- **need(map, key)** — return-or-throw a map value
+- **need** — return a Map value, or throw an error if missing.
     ```ts
     const value = need(map, "my_key")
     ```
-- **guarantee(map, key, makeFn)** — get-or-create a map value
+- **guarantee** — get-or-create a Map value.
     ```ts
     const value = guarantee(map, "my_key", () => 123)
     ```
-- **inserts(map, entries)** — set many entries at once
+- **setEntries** — set many Map entries at once.
     ```ts
-    inserts(map, [["my_key1", 123], ["my_key2", 234]])
+    setEntries(map, [["my_key1", 123], ["my_key2", 234]])
+    ```
+- **count** — iterate numbers
+    ```ts
+    for (const i of count(4))
+      console.log(i)
+    ```
+- **grid** — iterate columns and rows
+    ```ts
+    for (const [x, y] of grid(2, 4))
+      console.log(i)
+    ```
+- **arraylimit** — limit array length by dropping oldest.
+    ```ts
+    const trimmed = arraylimit(["a", "b", "c", "d"], 2)
+      // ["c", "d"]
+      // returns new array if trimming happens,
+      // otherwise returns the same array unchanged.
+    ```
+- **pipe** — run data through several fns.
+    ```ts
+    const result = pipe(rawData)
+      .to(parse)
+      .to(validate)
+      .to(normalize)
+      .done()
+    ```
+- **obmap** — map over object entries.
+    ```ts
+    const alpha = {alpha: 1, bravo: 2, charlie: 3}
+    ```
+    ```ts
+    obmap(alpha, n => n * 10)
+      // {alpha: 10, bravo: 20, charlie: 30}
+    ```
+- **obfilter** — filter object entries.
+    ```ts
+    obfilter(alpha, n => n > 1)
+      // {bravo: 20, charlie: 30}
+    ```
+- **deepFreeze** — recursively Object.freeze an object tree.
+    ```ts
+    const freezie = deepFreeze({alpha: 123})
+
+    freezie.alpha = 5 // throws error
+    ```
+- **deepEqual** — check if two object trees have the same primitive values.
+    ```ts
+    deepEqual({alpha: 123}, {alpha: 123})
+      // true
+    ```
+- **is** — check the identity of things with proper type guards.
+    ```ts
+    isHappy(0) // true if not null nor undefined.
+    isSad(undefined) // true if null nor undefined.
+    isBoolean(true) // true
+    isNumber(123) // true
+    isString("hello") // true
+    isBigint(123n) // true
+    isArray([]) // true
+    isObject({}) // true
+    isFn(() => {}) // true
+    isSymbol(Symbol()) // true
+    ```
+- **time** — convert time to milliseconds
+    ```ts
+    seconds(1) // 1000
+    minutes(2)
+    hours(2)
+    days(2)
+    ```
+    ```ts
+    futureSeconds(1)
+    futureMinutes(2)
+    futureHours(2)
+    futureDays(2)
+    ```
+    ```ts
+    pastSeconds(1)
+    pastMinutes(2)
+    pastHours(2)
+    pastDays(2)
     ```
 
-#### set helpers
-- **adds(set, values)** — add many values at once
+
+
+<br/><a id="async"></a>
+
+## ⏳ async/fns
+
+- **nap** — return a promise that resolves later.
     ```ts
-    adds(set, ["alpha", "bravo", "charlie"])
+    await nap(1000) // sleep for one second.
     ```
-- **deletes(set, values)** — delete many values at once
+- **cycle** — repeatedly call the fn back-to-back.
     ```ts
-    deletes(map, ["alpha", "bravo", "charlie"])
+    const stop = cycle(async() => {
+      console.log("hello!", Date.now())
+      await nap(1000) // once per second.
+    })
     ```
-
-### 🍏 `pub` and `sub`
-> ergonomic event emitters
-
-```ts
-import {pub, sub} from "@e280/stz"
-```
-
-#### `pub`
-- make a publisher fn
-  ```ts
-  // create a pub fn
-  const sendMessage = pub<[string]>()
-
-  // subscribe to it
-  sendMessage.subscribe(m => console.log(m))
-
-  // publish to it
-  sendMessage("hello")
-  ```
-
-#### `sub`
-- make a subscriber fn — *it's just like pub, except it's flipsy-reversey!*
-  ```ts
-  // create a sub fn
-  const onMessage = sub<[string]>()
-
-  // subscribe to it
-  onMessage(m => console.log(m))
-
-  // publish to it
-  onMessage.publish("hello")
-  ```
-
-#### pub vs sub
-- pub and sub both have the same facilities
-  - `.publish`
-  - `.subscribe`
-  - `.on`
-  - `.next`
-  - `.clear`
-- i seem to use `sub` more often
-
-#### the more you know, about pubsub
-- publish actually returns a promise, to wait for all async subscribers
-  ```ts
-  await onMessage.publish("hello")
-  ```
-- subscribe returns a fn to unsubscribe
-  ```ts
-  const unsubscribe = onMessage(() => {})
-  unsubscribe()
-  ```
-- `.clear()` to wipe all subscribed listeners
-  ```ts
-  onMessage.clear()
-  ```
-- `.next(fn?)` is a better way to do .once..  
-  - you can use it like a .once:
     ```ts
-    onMessage.next(message => {})
+    stop() // cancel the cycle.
     ```
-  - but it also gives you a promise like this:
+- **concurrent** — await a group of named promises.
     ```ts
-    const [message] = await onMessage.next()
+    const {user, settings} = await concurrent({
+      user: myFetchUser(),
+      settings: myFetchSettings(),
+    })
     ```
-  - of course the promise can be used like this:
+- **defer** — a promise you can resolve/reject from outside.
     ```ts
-    onMessage.next().then(([message]) => {})
+    const ready = defer<string>()
+
+    ready.resolve("hello")
+    ready.reject(new Error("rejected"))
+
+    await ready
+      // "hello"
     ```
-
-### 🍏 defer
-> defer the resolve/reject of a promise to the outside
-
-```ts
-import {defer} from "@e280/stz"
-
-const deferred = defer()
-```
-
-- resolve the deferred promise
+- **collect** — async iterable to array.
     ```ts
-    deferred.resolve()
+    const entries = await collect(kv.entries())
     ```
-- reject the deferred promise
+- **once** — only execute the fn one time.
     ```ts
-    deferred.reject(new Error("fail"))
+    const init = once(() => connect())
+    init()
+    init() // doesn't initialize twice.
     ```
-- await the promise
+- **queue** — make async fn calls work one-at-a-time.
     ```ts
-    await deferred.promise
+    const save = queue(async(myData: string) => myWriteData(myData))
+
+    await Promise.all([save("a"), save("b"), save("c")])
+      // actually executes sequentially.
+    ```
+- **deadline** — add an expiry timeout.
+    ```ts
+    const connection = await deadline(10_000, connect)
+      // throw DeadlineError after 10s unless connect resolves.
+      // connect can be a promise or an async fn.
+    ```
+- **debounce** — dedupe calls over timeframe.
+    ```ts
+    const search = debounce(250, async(s: string) => query(s))
+
+    search("l")
+    search("lo")
+    await search("lol") // last one actually runs.
+    ```
+- **microbounce** — dedupe calls in this microtask.
+    ```ts
+    let count = 0
+    const run = microbounce(() => count++)
+
+    run()
+    run()
+    run()
+
+    count // 1
     ```
 
-### 🍏 nap
-> sleep for some milliseconds
 
-```ts
-import {nap} from "@e280/stz"
 
-await nap(900)
-  // wait for 900 milliseconds
-```
+<br/><a id="subby"></a>
 
-### 🍏 all
-> it's just sugar for `Promise.all`
+## 📣 subby
 
-```ts
-import {all} from "@e280/stz"
+- **subby** — create a subscriber fn.
+    ```ts
+    const on = subby<[number]>()
+    ```
+    ```ts
+    const off = on(x => console.log(x))
+    ```
+    ```ts
+    on.publish(123)
+      // 123
+    ```
+    ```ts
+    off() // stop listening.
+    ```
+- **pubby** — create a publisher fn.
+    ```ts
+    const publish = pubby<[number]>()
+    ```
+    ```ts
+    const off = publish.on(x => console.log(x))
+    ```
+    ```ts
+    publish(123)
+      // 123
+    ```
+    ```ts
+    off() // stop listening.
+    ```
+- 🧙‍♂️ 'on' and 'publish' both have these goodies.
+    ```ts
+    await on.next // wait for the next publish.
+      // 123
+    ```
+    ```ts
+    on.set.size // direct access to the set of listeners.
+    ```
+    ```ts
+    // limited 'on' and 'publish' fns without whole toolkit.
+    const {on, publish} = subby()
+    ```
 
-await all(
-  nap(500),
-  Promise.resolve("hello"),
-  fetch("whatever.json"),
-)
-```
 
-### 🍏 concurrent
-> sugar for `Promise.all`, but returns named things as an object
 
-```ts
-import {concurrent} from "@e280/stz"
+<br/><a id="housekeeping"></a>
 
-const {slept, hello, whatever} = await concurrent({
-  slept: nap(500),
-  hello: Promise.resolve("hello"),
-  whatever: fetch("whatever.json"),
-})
-```
+## 🧹 housekeeping
 
-### 🍏 disposer
-> easy trash management
+- **ev** — event listeners
+    ```ts
+    import {ev} from "@e280/stz"
 
-```ts
-import {disposer} from "@e280/stz"
-```
+    const off = ev(window, {
+	    keydown: event => console.log(event),
+	    keyup: event => console.log(event),
+    })
 
-- create a disposer
+    off() // removes both listeners
+    ```
+- **disposer** — garbage collector
     ```ts
     const dispose = disposer()
+
+    dispose.schedule(() => console.log("dispose 1"))
+    dispose.schedule(() => console.log("dispose 2"))
+    dispose.schedule(cycle(myGameloop))
+    dispose.schedule(ev(window, {keydown: myKeydown}))
+
+    dispose() // dispose everything backwards
+      // *dispose ev*
+      // *dispose cycle*
+      // "dispose 2"
+      // "dispose 1"
     ```
-- schedule something for cleanup
+    - more disposer tricks
+        ```ts
+        const myThing = dispose.own(new MyThing(), t => t.dispose())
+          // create a thing and schedule its dispose
+        ```
+        ```ts
+        const myThing = dispose.disposable(new MyThing())
+          // return and schedule a Disposable thing
+        ```
+        ```ts
+        const {dispose, schedule, own, disposable} = disposer()
+
+        schedule(cycle(myGameloop))
+        const myThing = disposable(new MyThing)
+
+        dispose()
+        ```
+
+
+
+<br/><a id="rand"></a>
+
+## 🎲 rand
+
+- **Rand** — random utility
     ```ts
-    dispose.schedule(() => console.log("disposed!"))
+    const rand = new Rand(Math.random)
     ```
-- schedule multiple things at once
     ```ts
-    dispose.schedule(
-      () => console.log("disposed thing 1"),
-      () => console.log("disposed thing 2"),
-      () => ev(window, {keydown: () => console.log("keydown")}),
-    )
+    const rand = new Rand(mulberry(123))
+      // seeded pseudo-random number generator
     ```
-- schedule is chainable if you prefer that vibe
     ```ts
-    dispose
-      .schedule(() => console.log("disposed thing 1"))
-      .schedule(() => console.log("disposed thing 2"))
-      .schedule(() => ev(window, {keydown: () => console.log("keydown")}))
+    rand.u32() // get a random unsigned 32-bit integer.
+      // 3286174905
+
+    rand.roll(0.25) // 25% chance of true.
+      // false
+
+    rand.range(10, 20) // random float between two numbers.
+      // 14.8591238
+
+    rand.integerRange(1, 6) // inclusive integer range.
+      // 4
+
+    rand.index(7) // given array length, pick an array index.
+      // 5
+
+    rand.pick(["a", "b", "c"]) // pick your poison.
+      // "c"
+
+    rand.select(2, ["a", "b", "c"]) // pick multiple.
+      // ["a", "c"]
+
+    rand.yoink(["a", "b", "c"]) // remove and return one array element.
+      // "a"
+
+    rand.extract(2, ["a", "b", "c"]) // yoink multiple.
+      // ["b", "c"]
+
+    rand.shuffle(["a", "b", "c"]) // random-sort array in-place.
+      // ["c", "a", "b"]
     ```
-- **dispose** of all that garbage
+- **mulberry** — seeded pseudo-random number generator.
     ```ts
-    dispose()
+    const random = mulberry(123)
+
+    random()
+      // 0.7872516233474016
+
+    random()
+      // 0.1785435655619949
     ```
-
-
-
-<br/>
-
-## 🥨 stz fn tools
-
-### 🍏 `queue(fn)`
-> execute calls in sequence (not concurrent)
-
-```ts
-import {queue, nap} from "@e280/stz"
-
-const fn = queue(async() => nap(100))
-
-fn()
-fn()
-await fn() // waits for the previous calls (sequentially)
-```
-
-### 🍏 `once(fn)`
-> ensure a fn is only executed one time
-
-```ts
-import {once} from "@e280/stz"
-
-let count = 0
-const fn = once(() => count++)
-console.log(count) // 0
-
-fn()
-console.log(count) // 1
-
-fn()
-console.log(count) // 1
-```
-
-### 🍏 `deadline(100, fn)`
-> throws an error if the async function takes too long
-
-```ts
-import {deadline} from "@e280/stz"
-
-const fn = deadline(100, async() => {
-
-  // example deliberately takes too long
-  await nap(200)
-})
-
-await fn()
-  // DeadlineError: deadline exceeded (0.1 seconds)
-```
-
-### 🍏 `debounce(100, fn)`
-> wait some time before actually executing the fn (absorbing redundant calls)
-
-we use `debounce` a lot in ui code, like on a user's keyboard input in a form field, but rendering the form input can actually be slow enough that it causes problems when they type fast — to eliminate the jank, we `debounce` with like 400 ms, so we wait for the user to finish typing for a moment before actually running the validation.
-
-```ts
-import {debounce} from "@e280/stz"
-
-const fn = debounce(100, async() => {
-  await coolAction()
-})
-
-// each fn() call resets the timer
-fn()
-fn()
-fn()
-
-// coolAction is only called once here, other calls are redundant
-```
-
-### 🍏 `microbounce(fn)`
-> collapse multiple calls into a single call (uses queueMicrotask under the hood)
-
-it's like `debounce(0, fn)` but more efficient by using queueMicrotask instead of setTimeout
-
-```ts
-import {microbounce} from "@e280/stz"
-
-const fn = microbounce(async() => coolAction())
-fn()
-fn()
-fn() // previous calls are redundant
-```
-
-### 🍏 `cycle(fn)`
-> execute a function over and over again, back to back
-
-```ts
-import {cycle} from "@e280/stz"
-
-let ticks = 0
-
-const stop = cycle(async() => {
-
-  // use a nap to add a delay between each execution
-  await nap(200)
-
-  ticks++
-})
-
-// stop repeating whenever you want
-stop()
-```
-
-<a id="ok"></a>
-
-### 🍏 ok
-> tiny result toolkit for saying "this worked" or "this did not work"
-
-rust-inspired pattern for explicit error handling instead of the usual js yolo vibes
-
-#### result shapes
-- `Ok<Value>` — `{ok: true, value}`
-- `Err<E>` — `{ok: false, error}`
-- `Result<Value, E>` — either of the above
-
-#### constructors
-- `ok(value)` — make a successful result
-  ```ts
-  const result = ok("fusion stable")
-    // {ok: true, value: "fusion stable"}
-  ```
-- `err(error)` — make a failed result
-  ```ts
-  const result = err("containment lost")
-    // {ok: false, error: "containment lost"}
-  ```
-
-#### helpers
-- `getOk(result)` — get the value, or `undefined`
-  ```ts
-  getOk(ok(123))
-    // 123
-
-  getOk(err("nope"))
-    // undefined
-  ```
-  - there is also `getErr(result)`
-- `gotOk(result)` — get the value, or throw
-  ```ts
-  gotOk(ok(123))
-    // 123
-
-  gotOk(err("containment lost"))
-    // throws Error("containment lost")
-  ```
-  - there is also `gotErr(result)`
-
-
-
-<br/>
-
-## 🥨 stz data utilities
-
-### 🍏 txt
-> convert to/from utf8 string format
-- `txt.fromBytes(bytes)` — bytes to string
-- `txt.toBytes(string)` — string to bytes
-
-### 🍏 bytes
-> utilities for dealing with Uint8Array
-- `bytes.eq(bytesA, bytesB)` — check if two byte arrays are equal
-- `bytes.random(32)` — generate crypto-random bytes
-
-### 🍏 BaseX utilities
-> convert binary data to/from various encodings
-
-```ts
-import {hex, base58, base64} from "@e280/stz"
-```
-
-#### hex
-> all BaseX utilities have these methods
-- `hex(u8array)` — encode bytes to string *(alias for hex.FromBytes)*
-- `hex.fromBytes(u8array)` — encode bytes to string
-- `hex.toBytes(str)` — decode string to bytes
-- `hex.toInteger(string)` — decode string as js integer
-- `hex.fromInteger(n)` — encode js integer as a string
-- `hex.random(32)` — generate random encoded string (32 bytes)
-
-#### all BaseX utilities
-- `hex`
-- `base2`
-- `base36`
-- `base58`
-- `base62`
-- `base64`
-- `base64url`
-
-#### make a custom BaseX utility
-- you can provide a `lexicon` to produce your own BaseX codec
+- **rand32** — crypto-random unsigned 32-bit integer.
     ```ts
-    const myHex = new BaseX({characters: "0123456789abcdef"})
+    rand32()
+      // 3948271056
     ```
-
-#### tiny timestamps
-- fun fact: you can make insanely compact timestamp strings like this:
-  ```ts
-  base62.fromInteger(Date.now() / 1000)
-    // "1uK3au"
-  ```
-  - `1748388028` base10 epoch seconds (10 chars)
-  - `1uK3au` base62 epoch seconds (6 chars)
-  - *nice*
-
-### 🍏 bytename
-> friendly string encoding for binary data
-
-a bytename looks like `"midsen.picmyn.widrep.baclut dotreg.filtyp.nosnus.siptev"`. that's 16 bytes. each byte maps to a three-letter triplet
-
-the bytename parser (`bytename.toBytes`) ignores all non-alphabetic characters. thus `midsen.picmyn`, `midsenpicmyn`, and `mid@sen$pic@myn` are all equal.
-
-```ts
-import {bytename} from "@e280/stz"
-```
-- ```ts
-  bytename.fromBytes(new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
-    // "ribmug.hilmun"
-  ```
-- ```ts
-  bytename.toBytes("ribmug.hilmun")
-    // Uint8Array, 4 bytes
-  ```
-- ```ts
-  const data = new Uint8Array([
-    0xDE, 0xAD, 0xBE, 0xEF,
-    0xDE, 0xAD, 0xBE, 0xEF,
-  ])
-
-  bytename.fromBytes(data, {
-    groupSize: 2, // default is 4
-    groupSeparator: " ",
-    wordSeparator: ".",
-  })
-    // "ribmug.hilmun ribmug.hilmun"
-  ```
-
-### 🍏 thumbprint
-> hybrid of bytename and base58 to make binary data more human-friendly
-- looks like `nodlyn.fasrep.habbud.ralwel.Avo7gFmdWMRHkwsD149mcaBoZdS69iXuJ`
-- the idea is that the first parts are in bytename format, so it's easy for humans to recognize
-- and the remaining data is shown in base58
-- `thumbprint.fromBytes(u8array)` — encode bytes to thumbprint string
-- `thumbprint.toBytes(thumbstring)` — decode thumbprint string to bytes
-- `thumbprint.fromHex(hexstring)` — convert a hex string into a thumbprint
-- `thumbprint.toHex(thumbstring)` — convert a thumbprint into a hex string
-
-### 🍏 toq
-> tar-like binary file format for efficiently packing multiple files together
-
-```ts
-import {toq, txt} from "@e280/stz"
-```
-
-#### data layout
-- 4 magic bytes `"TOQ\x01"`
-- for each file (little endian)
-  - `name length` 1 byte (u8)
-  - `name` x bytes (max 255 B)
-  - `data length` 4 bytes (u32)
-  - `data` x bytes (max 4 GB)
-
-#### toq pack/unpack
-- **toq.pack** — accepts any iterable of file entries
+- **hash32** — mix entropy into a 32-bit integer.
     ```ts
-    const pack: Uint8Array = toq.pack([
-      ["hello.txt", txt.toBytes("hello world")],
-      ["deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF])],
-    ])
-    ```
-- **toq.is** — check if a file is a toq pack or not
-    ```ts
-    toq.is(pack) // true
-    ```
-- **toq.unpack** — generator fn yields file entries
-    ```ts
-    for (const [name, data] of toq.unpack(pack))
-      console.log(name, data.length)
+    hash32(123, "hello", 234, "world")
+      // 1012994381
     ```
 
-#### toq works nice with maps
-- **pack a map of files**
-    ```ts
-    const files = new Map<string, Uint8Array>()
-    files.set("hello.txt", txt.toBytes("hello world"))
-    files.set("deadbeef.data", new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]))
 
-    const pack = toq.pack(files)
-    ```
-- **unpack into a new map**
+
+<br/><a id="ok"></a>
+
+### ✅ ok, err, result
+- **ok** — `Ok<Value>` — indicate success.
     ```ts
-    const files = new Map(toq.unpack(pack))
+    ok(123)
+      // {ok: true, value: 123}
     ```
+- **err** — `Err<E>` — indicate failure.
+    ```ts
+    err("fail")
+      // {ok: false, error: "fail"}
+    ```
+- `Result<Value, E>` — indicate something might succeed or fail.
+    ```ts
+    let result: Result<number, "fail"> = ok(123)
+
+    result = err("fail")
+    ```
+- **getOk/getErr** — get the value, or `undefined`
+    ```ts
+    getOk(ok(123)) // 123
+    getOk(err("fail")) // undefined
+
+    getErr(ok(123)) // undefined
+    getErr(err("fail")) // "fail"
+    ```
+- **gotOk/gotErr** — get the value, or throw
+    ```ts
+    gotOk(ok(123)) // 123
+    gotOk(err("fail")) // throws Error("fail")
+
+    gotErr(ok(123)) // throws error
+    gotErr(err("fail")) // "fail"
+    ```
+
+
+
+<br/><a id="hex"></a>
+
+### 🧬 hex encoding
+- **hex** — encode/decode hexidecimal data.
+    ```ts
+    hex(bytes) // encode Uint8Array bytes to string.
+    hex.toBytes(string) // decode string to bytes.
+    hex.toInteger(string) // decode string as integer.
+    hex.fromInteger(n) // encode integer as a string.
+    hex.random(32) // generate random encoded string, 32 bytes.
+    ```
+    ```ts
+    // we have more than just hex.
+    hex(bytes) // string
+    base2(bytes) // string
+    base36(bytes) // string
+    base58(bytes) // string
+    base62(bytes) // string
+    base64(bytes) // string
+    base64url(bytes) // string
+    ```
+- **txt** — text data.
+    ```ts
+    txt(bytes) // convert utf8 bytes to string
+    txt.toBytes("hello") // convert utf8 bytes to string
+    ```
+- **bytes** — uint8array utilities.
+    ```ts
+    bytes.eq(bytesA, bytesB) // true if they're equal.
+    bytes.random(32) // get 32 crypto-random bytes.
+    ```
+
 
 
 <br/><br/>
 
-## 💖 stz is by e280
-reward us with github stars  
-build with us at https://e280.org/ but only if you're cool  
+*https://e280.org/*
 
