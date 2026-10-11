@@ -1,9 +1,13 @@
 
 import {defer} from "./defer.js"
 
+/** @deprecated look into `subby` */
 export type Listener<A extends any[]> = (...a: A) => (void | Promise<void>)
+
+/** @deprecated look into `subby` */
 export type Subscriber<A extends any[]> = (fn: Listener<A>) => () => void
 
+/** @deprecated look into `subby` */
 export interface Xub<A extends any[] = []> {
 
 	/** publish to all subscribed listeners. */
@@ -31,17 +35,17 @@ export interface Xub<A extends any[] = []> {
 	clear(): void
 }
 
-/** subscriber fn that can be published to. */
+/** @deprecated look into `subby` */
 export interface Sub<A extends any[] = []> extends Xub<A> {
 	(fn: Listener<A>): () => void
 }
 
-/** publisher fn that can be published to. */
+/** @deprecated look into `subby` */
 export interface Pub<A extends any[] = []> extends Xub<A> {
 	(...a: A): Promise<void>
 }
 
-/** make pubsub facilities */
+/** @deprecated look into `subby` */
 export function xub<A extends any[] = []>() {
 	const set = new Set<Listener<A>>()
 
@@ -91,14 +95,14 @@ export function xub<A extends any[] = []>() {
 	return x
 }
 
-/** create a subscriber fn that also has pubsub facilities */
+/** @deprecated replaced by `subby` */
 export function sub<A extends any[] = []>(listener?: Listener<A>): Sub<A> {
 	const x = xub<A>()
 	if (listener) x.sub(listener)
 	return x.sub
 }
 
-/** create a publisher fn that also has pubsub facilities */
+/** @deprecated replaced by `pubby` */
 export function pub<A extends any[] = []>(listener?: Listener<A>): Pub<A> {
 	const x = xub<A>()
 	if (listener) x.sub(listener)
