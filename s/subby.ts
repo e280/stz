@@ -1,13 +1,13 @@
 
 import {defer, Deferred} from "./defer.js"
 
-export type On<P extends any[]> = (fn: Fn<P>) => () => void
-export type Publish<P extends any[]> = (...p: P) => void
+export type On<P extends any[] = []> = (fn: Fn<P>) => () => void
+export type Publish<P extends any[] = []> = (...p: P) => void
 
-export type Subby<P extends any[]> = On<P> & ReturnType<typeof mk<P>>
-export type Pubby<P extends any[]> = Publish<P> & ReturnType<typeof mk<P>>
+export type Subby<P extends any[] = []> = On<P> & ReturnType<typeof mk<P>>
+export type Pubby<P extends any[] = []> = Publish<P> & ReturnType<typeof mk<P>>
 
-export function subby<P extends any[]>(fn?: Fn<P>) {
+export function subby<P extends any[] = []>(fn?: Fn<P>) {
 	const tools = mk<P>()
 	const subby = (fn: Fn<P>) => tools.on(fn)
 	Object.assign(subby, tools)
@@ -15,7 +15,7 @@ export function subby<P extends any[]>(fn?: Fn<P>) {
 	return subby as Subby<P>
 }
 
-export function pubby<P extends any[]>(fn?: Fn<P>) {
+export function pubby<P extends any[] = []>(fn?: Fn<P>) {
 	const tools = mk<P>()
 	const pubby = (...p: P) => tools.publish(...p)
 	Object.assign(pubby, tools)
