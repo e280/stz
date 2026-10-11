@@ -11,6 +11,9 @@
 ## v0.4
 
 ### v0.4.8
+- 🔶 fix `disposer().disposables` name to correct `disposer().disposable`.
+
+### v0.4.8
 - 🍏 rewrite readme.
 - 🍏 add `disposable` to `disposer`.
 - 🔶 replace `count2d` with `grid`, not using array as param anymore.
