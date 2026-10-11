@@ -459,5 +459,5 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
 <br/><br/>
 
-*https://e280.org/*
+🧑‍💻 *https://e280.org/*
 
