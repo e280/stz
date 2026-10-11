@@ -10,7 +10,7 @@ environment-agnostic zero-dependency tools and utilities. by https://e280.org/
 🧹 [**housekeeping**](#housekeeping)  
 🎲 [**rand**](#rand)  
 ✅ [**ok, err, result**](#ok)  
-🧬 [**hex encoding**](#hex)  
+🧬 [**hex and more**](#hex)  
 
 
 
@@ -160,10 +160,12 @@ import {got, subby, Rand, hex} from "@e280/stz"
     const ready = defer<string>()
 
     ready.resolve("hello")
-    ready.reject(new Error("rejected"))
 
     await ready
       // "hello"
+    ```
+    ```ts
+    ready.reject(new Error("rejected"))
     ```
 - **collect** — async iterable to array.
     ```ts
@@ -201,10 +203,11 @@ import {got, subby, Rand, hex} from "@e280/stz"
     let count = 0
     const run = microbounce(() => count++)
 
-    run()
+    const done = run()
     run()
     run()
 
+    await done
     count // 1
     ```
 
@@ -244,7 +247,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     ```
 - 🧙‍♂️ 'on' and 'publish' both have these goodies.
     ```ts
-    await on.next // wait for the next publish.
+    await on.next() // wait for the next publish.
       // 123
     ```
     ```ts
@@ -413,7 +416,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
 <br/><a id="hex"></a>
 
-### 🧬 hex encoding
+### 🧬 hex and more
 - **hex** — encode/decode hexidecimal data.
     ```ts
     hex(bytes) // encode Uint8Array bytes to string.
