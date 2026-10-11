@@ -46,15 +46,15 @@ import {got, subby, Rand, hex} from "@e280/stz"
     ```ts
     setEntries(map, [["my_key1", 123], ["my_key2", 234]])
     ```
-- **count** — iterate numbers
+- **count** — iterate numbers.
     ```ts
     for (const i of count(4))
       console.log(i)
     ```
-- **grid** — iterate columns and rows
+- **grid** — iterate columns and rows.
     ```ts
     for (const [x, y] of grid(2, 4))
-      console.log(i)
+      console.log(x, y)
     ```
 - **arraylimit** — limit array length by dropping oldest.
     ```ts
@@ -82,7 +82,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 - **obfilter** — filter object entries.
     ```ts
     obfilter(alpha, n => n > 1)
-      // {bravo: 20, charlie: 30}
+      // {bravo: 2, charlie: 3}
     ```
 - **deepFreeze** — recursively Object.freeze an object tree.
     ```ts
@@ -95,7 +95,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     deepEqual({alpha: 123}, {alpha: 123})
       // true
     ```
-- **is** — check the identity of things with proper type guards.
+- **'is' type guards** — check the identity of things with proper type guards.
     ```ts
     isHappy(0) // true if not null nor undefined.
     isSad(undefined) // true if null nor undefined.
@@ -108,7 +108,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     isFn(() => {}) // true
     isSymbol(Symbol()) // true
     ```
-- **time** — convert time to milliseconds
+- **time** — convert time to milliseconds.
     ```ts
     seconds(1) // 1000
     minutes(2)
@@ -245,17 +245,23 @@ import {got, subby, Rand, hex} from "@e280/stz"
     ```ts
     off() // stop listening.
     ```
-- 🧙‍♂️ 'on' and 'publish' both have these goodies.
-    ```ts
-    await on.next() // wait for the next publish.
-      // 123
-    ```
-    ```ts
-    on.set.size // direct access to the set of listeners.
-    ```
+- 🧙‍♂️ 'subby' and 'pubby' give you the same goody-bag.
     ```ts
     // limited 'on' and 'publish' fns without whole toolkit.
     const {on, publish} = subby()
+    ```
+    ```ts
+    const {publishAsync} = subby()
+
+    await publishAsync(123)
+      // awaits every listener (they can be async).
+    ```
+    ```ts
+    const [value] = await on.next() // wait for the next publish.
+      // value is 123
+    ```
+    ```ts
+    on.set.size // direct access to the set of listeners.
     ```
 
 
@@ -264,7 +270,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
 ## 🧹 housekeeping
 
-- **ev** — event listeners
+- **ev** — event listeners.
     ```ts
     import {ev} from "@e280/stz"
 
@@ -275,7 +281,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
     off() // removes both listeners
     ```
-- **disposer** — garbage collector
+- **disposer** — cleanup resources.
     ```ts
     const dispose = disposer()
 
@@ -290,23 +296,23 @@ import {got, subby, Rand, hex} from "@e280/stz"
       // "dispose 2"
       // "dispose 1"
     ```
-    - more disposer tricks
-        ```ts
-        const myThing = dispose.own(new MyThing(), t => t.dispose())
-          // create a thing and schedule its dispose
-        ```
-        ```ts
-        const myThing = dispose.disposable(new MyThing())
-          // return and schedule a Disposable thing
-        ```
-        ```ts
-        const {dispose, schedule, own, disposable} = disposer()
+    more disposer tricks.
+    ```ts
+    const myThing = dispose.own(new MyThing(), t => t.dispose())
+      // create a thing and schedule its dispose
+    ```
+    ```ts
+    const myThing = dispose.disposable(new MyThing())
+      // return and schedule a Disposable thing
+    ```
+    ```ts
+    const {dispose, schedule, own, disposable} = disposer()
 
-        schedule(cycle(myGameloop))
-        const myThing = disposable(new MyThing)
+    schedule(cycle(myGameloop))
+    const myThing = disposable(new MyThing)
 
-        dispose()
-        ```
+    dispose()
+    ```
 
 
 
@@ -314,7 +320,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
 ## 🎲 rand
 
-- **Rand** — random utility
+- **Rand** — random utility.
     ```ts
     const rand = new Rand(Math.random)
     ```
@@ -378,7 +384,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
 <br/><a id="ok"></a>
 
-### ✅ ok, err, result
+## ✅ ok, err, result
 - **ok** — `Ok<Value>` — indicate success.
     ```ts
     ok(123)
@@ -395,7 +401,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
     result = err("fail")
     ```
-- **getOk/getErr** — get the value, or `undefined`
+- **getOk/getErr** — get the value, or `undefined`.
     ```ts
     getOk(ok(123)) // 123
     getOk(err("fail")) // undefined
@@ -403,7 +409,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     getErr(ok(123)) // undefined
     getErr(err("fail")) // "fail"
     ```
-- **gotOk/gotErr** — get the value, or throw
+- **gotOk/gotErr** — get the value, or throw.
     ```ts
     gotOk(ok(123)) // 123
     gotOk(err("fail")) // throws Error("fail")
@@ -416,7 +422,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
 
 <br/><a id="hex"></a>
 
-### 🧬 hex and more
+## 🧬 hex and more
 - **hex** — encode/decode hexidecimal data.
     ```ts
     hex(bytes) // encode Uint8Array bytes to string.
@@ -437,8 +443,8 @@ import {got, subby, Rand, hex} from "@e280/stz"
     ```
 - **txt** — text data.
     ```ts
-    txt(bytes) // convert utf8 bytes to string
-    txt.toBytes("hello") // convert utf8 bytes to string
+    txt(bytes) // convert utf8 bytes to string.
+    txt.toBytes("hello") // convert string to utf8 bytes.
     ```
 - **bytes** — uint8array utilities.
     ```ts
