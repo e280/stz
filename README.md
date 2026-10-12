@@ -21,7 +21,7 @@ npm install @e280/stz
 ```
 
 ```ts
-import {got, subby, Rand, hex} from "@e280/stz"
+import {got} from "@e280/stz"
 ```
 
 
@@ -95,7 +95,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     deepEqual({alpha: 123}, {alpha: 123})
       // true
     ```
-- **'is' type guards** — check the identity of things with proper type guards.
+- **isHappy** — check the identity of things with proper type guards.
     ```ts
     isHappy(0) // true if not null nor undefined.
     isSad(undefined) // true if null or undefined.
@@ -108,7 +108,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
     isFn(() => {}) // true
     isSymbol(Symbol()) // true
     ```
-- **time** — durations and timestamps.  
+- **seconds** — durations and timestamps.  
     durations:
     ```ts
     seconds(1) // 1000
@@ -193,7 +193,7 @@ import {got, subby, Rand, hex} from "@e280/stz"
       // throw DeadlineError after 10s unless connect resolves.
       // connect can be a promise or an async fn.
     ```
-- **debounce** — dedupe calls over timeframe.
+- **debounce** — dedupe calls over time.
     ```ts
     const search = debounce(250, async(s: string) => query(s))
 
