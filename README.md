@@ -46,9 +46,13 @@ import {got} from "@e280/stz"
     ```ts
     setEntries(map, [["my_key1", 123], ["my_key2", 234]])
     ```
-- **when** — run a fn when an item is truthy.
+- **when** — do something when a thing is truthy.
     ```ts
-    when(map.get(id), item => console.log(item))
+    when(map.size > 10, () => console.log(map))
+    ```
+- **given** — do something when a thing is not null nor undefined.
+    ```ts
+    given(map.get(id), item => console.log(item))
     ```
 - **count** — iterate numbers.
     ```ts

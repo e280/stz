@@ -10,6 +10,10 @@
 
 ## v0.4
 
+### v0.4.13
+- 🔶 hotfix `when` behavior to match readme.
+- 🍏 add fn `given`.
+
 ### v0.4.12
 - 🍏 add fn `when`.
 
