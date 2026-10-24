@@ -10,6 +10,9 @@
 
 ## v0.4
 
+### v0.4.12
+- 🍏 add fn `when`.
+
 ### v0.4.11
 - 🍏 update deps and readme.
 

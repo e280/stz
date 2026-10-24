@@ -46,6 +46,10 @@ import {got} from "@e280/stz"
     ```ts
     setEntries(map, [["my_key1", 123], ["my_key2", 234]])
     ```
+- **when** — run a fn when an item is truthy.
+    ```ts
+    when(map.get(id), item => console.log(item))
+    ```
 - **count** — iterate numbers.
     ```ts
     for (const i of count(4))

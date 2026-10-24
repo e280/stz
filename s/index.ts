@@ -63,4 +63,5 @@ export * from "./time.js"
 export * from "./trash.js"
 export * from "./types.js"
 export * from "./untab.js"
+export * from "./when.js"
 
