@@ -10,6 +10,13 @@
 
 ## v0.4
 
+### v0.4.15
+- 🍏 fix `Bimap`.
+- 🍏 add readme docs for `Bimap`.
+
+### v0.4.14
+- 🍏 add `Bimap`.
+
 ### v0.4.13
 - 🔶 hotfix `when` behavior to match readme.
 - 🍏 add fn `given`.
