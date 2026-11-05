@@ -46,6 +46,18 @@ import {got} from "@e280/stz"
     ```ts
     setEntries(map, [["my_key1", 123], ["my_key2", 234]])
     ```
+- **Bimap** — like a normal map, but `keyOf` makes it double-sided.
+    ```ts
+    const labels = new Bimap<number, string>()
+    labels.set(1, "alpha")
+    labels.set(2, "bravo")
+
+    // it's a normal map.
+    labels.get(1) // "alpha"
+
+    // but it also has this 'keyOf' method.
+    labels.keyOf("alpha") // 1
+    ```
 - **when** — do something when a thing is truthy.
     ```ts
     when(map.size > 10, () => console.log(map))
