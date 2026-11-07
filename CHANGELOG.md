@@ -12,6 +12,7 @@
 
 ### v0.4.16
 - 🍏 add type `Lane`.
+- 🍏 add readme docs for `lane`.
 
 ### v0.4.15
 - 🍏 fix `Bimap`.
