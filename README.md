@@ -207,6 +207,16 @@ import {got} from "@e280/stz"
     await Promise.all([save("a"), save("b"), save("c")])
       // actually executes sequentially.
     ```
+- **lane** — make a one-at-a-time machine that can execute any async fn.
+    ```ts
+    const mutex = lane()
+
+    await Promise.all([
+      mutex(async() => writeMyData("a")),
+      mutex(async() => writeMyData("b")),
+      mutex(async() => writeMyData("c")),
+    ]) // executes jobs sequentially.
+    ```
 - **deadline** — add an expiry timeout.
     ```ts
     const connection = await deadline(10_000, connect)
