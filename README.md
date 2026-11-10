@@ -484,6 +484,10 @@ import {got} from "@e280/stz"
     bytes.eq(bytesA, bytesB) // true if they're equal.
     bytes.random(32) // get 32 crypto-random bytes.
     ```
+- **dataView** — make a DataView that matches the offset of a typed array.
+    ```ts
+    dataView(new Uint8Array([0, 1, 2, 3, 4]))
+    ```
 
 
 

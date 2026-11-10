@@ -10,6 +10,10 @@
 
 ## v0.4
 
+### v0.4.17
+- 🔶 rename `dataViewFrom` to just `dataView`.
+- 🍏 document `dataView` in the readme.
+
 ### v0.4.16
 - 🍏 add type `Lane`.
 - 🍏 add readme docs for `lane`.
