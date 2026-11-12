@@ -10,6 +10,9 @@
 
 ## v0.4
 
+### v0.4.18
+- 🍏 add subby .dispose.
+
 ### v0.4.17
 - 🔶 rename `dataViewFrom` to just `dataView`.
 - 🍏 document `dataView` in the readme.
