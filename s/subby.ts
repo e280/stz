@@ -52,6 +52,10 @@ function mk<P extends any[]>() {
 		await Promise.all([...set].map(async fn => fn(...p)))
 	}
 
-	return {set, on, publish, publishAsync, next}
+	const dispose = () => {
+		set.clear()
+	}
+
+	return {set, on, publish, publishAsync, next, dispose}
 }
 
