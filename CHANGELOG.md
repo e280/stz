@@ -12,6 +12,7 @@
 
 ### v0.4.19
 - 🍏 add subby `once`.
+- 🍏 add subby `clear` (and now `dispose` is an alias).
 
 ### v0.4.18
 - 🍏 add subby `dispose`.
