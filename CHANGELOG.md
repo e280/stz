@@ -10,8 +10,11 @@
 
 ## v0.4
 
+### v0.4.19
+- 🍏 add subby `once`.
+
 ### v0.4.18
-- 🍏 add subby .dispose.
+- 🍏 add subby `dispose`.
 
 ### v0.4.17
 - 🔶 rename `dataViewFrom` to just `dataView`.

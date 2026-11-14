@@ -41,6 +41,14 @@ function mk<P extends any[]>() {
 		return () => { set.delete(fn) }
 	}
 
+	const once = (fn: Fn<P>) => {
+		const stop = on((...p) => {
+			stop()
+			fn(...p)
+		})
+		return stop
+	}
+
 	const publish = (...p: P) => {
 		resolveWaiter(p)
 		for (const fn of [...set])
@@ -56,6 +64,6 @@ function mk<P extends any[]>() {
 		set.clear()
 	}
 
-	return {set, on, publish, publishAsync, next, dispose}
+	return {set, on, once, publish, publishAsync, next, dispose}
 }
 
